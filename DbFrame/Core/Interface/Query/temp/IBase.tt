@@ -1,0 +1,81 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#
+	if(1==2){
+#>
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DbFrame.Core.Interface.Query1
+{
+  //
+    using DbFrame.BaseClass;
+    using System.Linq.Expressions;
+
+    //
+	<#
+	var Str="";
+    for (int i = 1; i < 17; i++)
+    {
+		Str+="T"+i+",";
+		var NewStr=Str.Substring(0,Str.Length-1);
+	#>
+    public interface IBase<<#=NewStr#>>
+    {
+
+			IMappingData<TReturn> Select<TReturn>(Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> Select);
+
+			IMappingData<TReturn> Select<TReturn>(string Select="*");
+
+			<# if(i==1) { #>
+
+			IQuery<<#=NewStr#>> Where(Expression<Func<HzyTuple<<#=NewStr#>>, bool>> Where);
+
+			IQuery<<#=NewStr#>> WhereIF(bool IF, Expression<Func<HzyTuple<<#=NewStr#>>, bool>> Where);
+
+			IQuery<<#=NewStr#>> OrderBy<TReturn>(Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> OrderBy);
+
+			IQuery<<#=NewStr#>> OrderByIF<TReturn>(bool IF,Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> OrderBy);
+
+			IQuery<<#=NewStr#>> OrderByDesc<TReturn>(Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> OrderBy);
+
+			IQuery<<#=NewStr#>> OrderByDescIF<TReturn>(bool IF,Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> OrderBy);
+
+			IQuery<<#=NewStr#>> Having(Expression<Func<HzyTuple<<#=NewStr#>>, bool>> Where);
+
+			IQuery<<#=NewStr#>> GroupBy<TReturn>(Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> GroupBy);
+
+			IQuery<<#=NewStr#>> SqlString(Action<SQL> _Action);
+
+			<# }else{ #>
+
+			IJoin<<#=NewStr#>> Where(Expression<Func<HzyTuple<<#=NewStr#>>, bool>> Where);
+
+			IJoin<<#=NewStr#>> WhereIF(bool IF, Expression<Func<HzyTuple<<#=NewStr#>>, bool>> Where);
+
+			IJoin<<#=NewStr#>> OrderBy<TReturn>(Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> OrderBy);
+
+			IJoin<<#=NewStr#>> OrderByIF<TReturn>(bool IF,Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> OrderBy);
+
+			IJoin<<#=NewStr#>> OrderByDesc<TReturn>(Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> OrderBy);
+
+			IJoin<<#=NewStr#>> OrderByDescIF<TReturn>(bool IF,Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> OrderBy);
+
+			IJoin<<#=NewStr#>> Having(Expression<Func<HzyTuple<<#=NewStr#>>, bool>> Where);
+
+			IJoin<<#=NewStr#>> GroupBy<TReturn>(Expression<Func<HzyTuple<<#=NewStr#>>, TReturn>> GroupBy);
+
+			IJoin<<#=NewStr#>> SqlString(Action<SQL> _Action);
+
+			<# } #>
+
+    }
+	<#} #>
+}
+
+
+<#}#>

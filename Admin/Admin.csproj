@@ -1,0 +1,167 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp3.0\App.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="5.0.0-rc8" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc3" />
+    <PackageReference Include="VueCliMiddleware" Version="3.0.0-preview7-1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="%2a%2a\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <Content Remove="%2a%2a\**" />
+    <Content Remove="ClientApp\hzyAdminVue\**" />
+    <EmbeddedResource Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="ClientApp\hzyAdminVue\**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Remove="%2a%2a\**" />
+    <None Remove="ClientApp\hzyAdminVue\**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="%2a%2a/%2a.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="%2a%2a/%2a.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\%2a%2a" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="AppService\AdminStartupConfigure.cs" />
+    <Compile Include="AppService\ApiVersionsEnum.cs" />
+    <Compile Include="AppService\AppExceptionFilter.cs" />
+    <Compile Include="AppService\SwaggerParameterFilter.cs" />
+    <Compile Include="Controllers\Admin\AdminBaseController.cs" />
+    <Compile Include="Controllers\Admin\AuthorizationController.cs" />
+    <Compile Include="Controllers\Admin\Sys\AppLogController.cs" />
+    <Compile Include="Controllers\Admin\Sys\FunctionController.cs" />
+    <Compile Include="Controllers\Admin\Sys\MenusController.cs" />
+    <Compile Include="Controllers\Admin\Sys\RoleController.cs" />
+    <Compile Include="Controllers\Admin\Sys\RoleFunctionController.cs" />
+    <Compile Include="Controllers\Admin\Sys\UserController.cs" />
+    <Compile Include="Controllers\ApiBaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ClientApp\hzyAdminVue\babel.config.js" />
+    <None Include="ClientApp\hzyAdminVue\package.json" />
+    <None Include="ClientApp\hzyAdminVue\public\favicon.ico" />
+    <None Include="ClientApp\hzyAdminVue\public\index.html" />
+    <None Include="ClientApp\hzyAdminVue\src\App.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\demo.css" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\demo_index.html" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.css" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.eot" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.js" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.svg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.ttf" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.woff" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.woff2" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\images\login.jpg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\images\login1.jpg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\images\login2.jpg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\images\login3.jpg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\logo.png" />
+    <None Include="ClientApp\hzyAdminVue\src\components\Charts.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\Charts1.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\CRUD.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\HelloWorld.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\layout\Menu.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\layout\MenuItem.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\css\element-variables.scss" />
+    <None Include="ClientApp\hzyAdminVue\src\css\main.scss" />
+    <None Include="ClientApp\hzyAdminVue\src\js\request.js" />
+    <None Include="ClientApp\hzyAdminVue\src\js\router\index.js" />
+    <None Include="ClientApp\hzyAdminVue\src\js\tabs.js" />
+    <None Include="ClientApp\hzyAdminVue\src\js\tools.js" />
+    <None Include="ClientApp\hzyAdminVue\src\main.js" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Home.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Login.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Main.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\AppLog.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\ChangePassword.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\Function.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\Menus.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\Role.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\RoleFunction.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\User.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\module\app.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\store.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\AppLog.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\Function.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\Menus.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\Role.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\RoleFunction.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\User.js" />
+    <None Include="ClientApp\hzyAdminVue\yarn.lock" />
+    <None Include="ClientApp\package-lock.json" />
+    <None Include="NLog\nlog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DbFrame\DbFrame.csproj" />
+    <ProjectReference Include="..\Entitys\Entitys.csproj" />
+    <ProjectReference Include="..\Logic\Logic.csproj" />
+    <ProjectReference Include="..\Toolkit\Toolkit.csproj" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)build\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

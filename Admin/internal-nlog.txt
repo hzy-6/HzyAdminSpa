@@ -1,0 +1,4 @@
+2019-09-26 16:34:30.6370 Warn Attempt #0 to open E:\0-HZYFrame\4-HzyAdmin-Core3.0\HzyAdminSpa\Admin\bin\Debug\netcoreapp3.0\NLog_Error/nlog-all-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 16:34:30.6444 Warn Attempt #1 to open E:\0-HZYFrame\4-HzyAdmin-Core3.0\HzyAdminSpa\Admin\bin\Debug\netcoreapp3.0\NLog_Error/nlog-all-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 16:34:30.6444 Warn Attempt #2 to open E:\0-HZYFrame\4-HzyAdmin-Core3.0\HzyAdminSpa\Admin\bin\Debug\netcoreapp3.0\NLog_Error/nlog-all-2019-09-26.log failed. Sleeping for 1ms
+2019-09-26 16:34:30.6444 Warn Attempt #3 to open E:\0-HZYFrame\4-HzyAdmin-Core3.0\HzyAdminSpa\Admin\bin\Debug\netcoreapp3.0\NLog_Error/nlog-all-2019-09-26.log failed. Sleeping for 4ms
