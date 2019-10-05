@@ -3,6 +3,13 @@
 #### 介绍
 后台管理系统、通用权限、单页面（VUE）
 
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1005/133918_a31389bb_1242080.jpeg "1570253835777777777777.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1005/133511_39d1a2a7_1242080.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1005/133542_d4030a7c_1242080.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1005/133619_9bd9f4a3_1242080.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1005/133636_3260075e_1242080.png "屏幕截图.png")
+
 #### 软件架构
 软件架构说明
 
