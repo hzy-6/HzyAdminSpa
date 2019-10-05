@@ -1,15 +1,17 @@
 # HzyAdminSpa
 
 #### 介绍
- **后台管理系统、通用权限、单页面（VUE）** 
 
- **交流群: 534584927** 
+ 后台管理系统、通用权限、单页面（VUE）
 
- **脚本地址：HzyAdminSpa / AppService / HzyAdminDb.sql** 
+ 交流群: 534584927
+
+ 脚本地址：HzyAdminSpa / AppService / HzyAdminDb.sql
 
 
 #### 软件架构
- **前后端分离框架** 
+
+前后端分离框架
 
 后端：.AspNet Core 3.0 、Swagger
 
