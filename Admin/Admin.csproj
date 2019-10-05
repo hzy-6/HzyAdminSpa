@@ -24,9 +24,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="5.0.0-rc8" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc4" />
     <PackageReference Include="VueCliMiddleware" Version="3.0.0-preview7-1" />
   </ItemGroup>
 
