@@ -20,7 +20,7 @@
 #### 安装教程
 
 1. 找到目录 HzyAdminSpa/ Admin / ClientApp / hzyAdminVue 使用 VS Code 打开
-2. VS Code 执行 cnpm install 拉包 （这些不懂得自行百度查询资料！）
+2. VS Code 执行 cnpm install 拉包 （node 环境 这些不懂得自行百度查询资料！）
 3. 然后使用 Vs 2019 ctrl+f5 运行即可
 4. /swagger 地址栏键入此地址可以进入 前端接口文档页面
 
