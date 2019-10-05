@@ -13,7 +13,7 @@
 
 前后端分离框架
 
-后端：.AspNet Core 3.0 、Swagger
+后端：.Net Core 3.0 、Swagger
 
 前端：Vue 全家桶 、Element UI 、CKEditor5 Vue
 
