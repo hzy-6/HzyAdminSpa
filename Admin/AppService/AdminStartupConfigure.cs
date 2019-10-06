@@ -79,8 +79,8 @@ namespace Admin.AppService
                     option.SwaggerDoc(item, _SwaggerInfo);
                 }
                 // 为 Swagger JSON and UI设置xml文档注释路径
-                var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
-                var xmlPath = Path.Combine(basePath, "App.xml");
+                //var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
+                var xmlPath = Path.Combine(System.AppContext.BaseDirectory, "App.xml");
                 option.IncludeXmlComments(xmlPath, true);
 
                 #region Jwt token 配置
@@ -99,6 +99,7 @@ namespace Admin.AppService
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey
                 });
+
                 #endregion
 
             });

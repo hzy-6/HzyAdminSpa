@@ -13,7 +13,7 @@
           :currentChange="findList"
         >
           <!-- 检索 -->
-          <div slot="formSearch">
+          <template slot="formSearch">
             <h4>检索</h4>
             <el-row :gutter="20">
               <el-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6" class="mb-20">
@@ -25,9 +25,9 @@
               <el-button type="primary" plain @click="resetSearch();findList()">重置</el-button>
               <el-button type="danger" plain @click="formSearch.state=false">关闭</el-button>
             </div>
-          </div>
+          </template>
           <!-- 工具栏 -->
-          <div slot="tools">
+          <template slot="tools">
             <el-row :gutter="20">
               <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18" class="pb-5">
                 <el-button
@@ -38,9 +38,9 @@
                 >检索(收/展)</el-button>
               </el-col>
             </el-row>
-          </div>
+          </template>
           <!-- 表单 -->
-          <!-- <div slot="form">
+          <!-- <template slot="form">
             <el-dialog
               :close-on-click-modal="false"
               :title.sync="form.vm.Id?'编辑/查看':'添加'"
@@ -78,7 +78,7 @@
                 <el-button @click="form.state=false">取消</el-button>
               </span>
             </el-dialog>
-          </div>-->
+          </template>-->
         </CRUDCom>
       </el-col>
       <el-col :xs="24" :sm="24" :md="14" :lg="14" :xl="14">

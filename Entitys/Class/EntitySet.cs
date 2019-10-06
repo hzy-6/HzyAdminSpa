@@ -24,6 +24,8 @@ namespace Entitys.Class
             tabs.Register(typeof(Sys_RoleMenuFunction));
             tabs.Register(typeof(Sys_User));
             tabs.Register(typeof(Sys_UserRole));
+            //
+            tabs.Register(typeof(Member));
         }
 
     }

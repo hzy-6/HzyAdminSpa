@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Admin.Controllers.Admin.Sys
+namespace Admin.Controllers.Admin.Base
 {
     using System.Collections;
     using Entitys.SysClass;
@@ -13,11 +13,38 @@ namespace Admin.Controllers.Admin.Sys
     using Microsoft.AspNetCore.Http;
     using DbFrame;
     using Toolkit;
+    using Entitys;
+    using Microsoft.AspNetCore.Hosting;
 
-    public class AppLogController : AdminBaseController
+    public class MemberController : AdminBaseController
     {
+        //        <template>
+        //  <div>
+        //    <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+        //  </div>
+        //</template>
 
-        protected Sys_AppLogLogic _Logic = new Sys_AppLogLogic();
+        //<script>
+        //import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+        //export default {
+        //  name: "Member",
+        //  data()
+        //        {
+        //            return {
+        //            editor: ClassicEditor,
+        //      editorData: "<p>Content of the editor.</p>",
+        //      editorConfig:
+        //                {
+        //                    // The configuration of the editor.
+        //                }
+        //            };
+        //        },
+        //  mounted() { },
+        //  methods: {}
+        //};
+        //</script>
+        protected MemberLogic _Logic = new MemberLogic();
 
         #region 增、删、改、查
 
@@ -37,30 +64,30 @@ namespace Admin.Controllers.Admin.Sys
         /// <param name="Page">页码</param>
         /// <param name="Rows">每页显示多少条</param>
         /// <param name="_IFormCollection">参数</param>
-        /// <param name="AppLog_CreateTime">创建时间</param>
         /// <returns></returns>
         [HttpPost(nameof(FindList)), AppService.ApiCheckTokenFilter]
-        public async Task<TableViewModel> FindList(int Page, int Rows, IFormCollection _IFormCollection, List<DateTime> AppLog_CreateTime)
+        public async Task<TableViewModel> FindList(int Page, int Rows, IFormCollection _IFormCollection)
         {
             _Logic._Account = this._Account;//将当前用户信息传入 Logic层
             var _HashtableQuery = this.FormCollectionToHashtable(_IFormCollection);
-            if (AppLog_CreateTime.Count > 0) _HashtableQuery["AppLog_CreateTime"] = $"{AppLog_CreateTime[0]} ~ {AppLog_CreateTime[1]}";
             var _DataViewModel = await this.DataSourceAsync(Page, Rows, _HashtableQuery);
             return _DataViewModel;
         }
 
-        ///// <summary>
-        ///// 保存
-        ///// </summary>
-        ///// <param name="model"></param>
-        ///// <returns></returns>
-        //[HttpPost(nameof(Save)), AppService.ApiCheckTokenFilter]
-        //public IActionResult Save(Sys_Function model)
-        //{
-        //    this.FormKey = _Logic.Save(model);
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="Member_Photo_Files"></param>
+        /// <param name="Member_FilePath_Files"></param>
+        /// <returns></returns>
+        [HttpPost(nameof(Save)), AppService.ApiCheckTokenFilter]
+        public async Task<IActionResult> Save(Member model, IFormFile Member_Photo_Files, List<IFormFile> Member_FilePath_Files)
+        {
+            this.FormKey = await _Logic.Save(model);
 
-        //    return Json();
-        //}
+            return Json();
+        }
 
         /// <summary>
         /// 移除数据
@@ -93,15 +120,6 @@ namespace Admin.Controllers.Admin.Sys
 
         #region 其他
 
-
-
         #endregion
-
-
-
-
-
-
-
     }
 }

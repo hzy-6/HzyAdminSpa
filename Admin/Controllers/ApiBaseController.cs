@@ -8,6 +8,9 @@ namespace Admin.Controllers
 {
     using DbFrame.DbContext.SqlServer;
     using Microsoft.AspNetCore.Cors;
+    using Microsoft.AspNetCore.Http;
+    using System.IO;
+    using Toolkit;
 
     //[ApiController]
     [EnableCors("ApiAny")]
@@ -39,6 +42,42 @@ namespace Admin.Controllers
         {
             return new JsonResult(Data);
         }
+
+
+        /// <summary>
+        /// 处理上传文件
+        /// </summary>
+        /// <param name="_IFormFile"></param>
+        /// <param name="_WebRootPath"></param>
+        /// <param name="Format">文件格式</param>
+        /// <param name="Check">执行前 验证回调</param>
+        /// <returns></returns>
+        [NonAction]
+        public async Task<string> HandleUpFile(IFormFile _IFormFile, string _WebRootPath, string[] Format = null, Action<IFormFile> Check = null)
+        {
+            Check?.Invoke(_IFormFile);
+
+            string ExtensionName = Path.GetExtension(_IFormFile.FileName).ToLower().Trim();//获取后缀名
+
+            if (Format != null && !Format.Contains(ExtensionName.ToLower()))
+            {
+                throw new MessageBox("请上传后缀名为：" + string.Join("、", Format) + " 格式的文件");
+            }
+
+            if (!Directory.Exists(_WebRootPath + "\\Content\\UpFile\\")) Directory.CreateDirectory(_WebRootPath + "\\Content\\UpFile\\");
+            string filePath = $"/Content/UpFile/{Guid.NewGuid()}_{_IFormFile.FileName}";
+            // 创建新文件
+            using (FileStream fs = System.IO.File.Create(_WebRootPath + filePath))
+            {
+                await _IFormFile.CopyToAsync(fs);
+                // 清空缓冲区数据
+                await fs.FlushAsync();
+            }
+
+            return filePath;
+        }
+
+
 
 
     }

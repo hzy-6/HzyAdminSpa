@@ -10,6 +10,8 @@ import Function_Vuex from './Sys/Function';
 import Menus_Vuex from './Sys/Menus';
 import RoleFunction_Vuex from './Sys/RoleFunction';
 import AppLog_Vuex from './Sys/AppLog';
+//基础信息
+import Member_Vuex from './Base/Member';
 //
 Vue.use(Vuex); //使用 vuex
 export default new Vuex.Store({
@@ -21,6 +23,7 @@ export default new Vuex.Store({
         Function_Vuex,
         Menus_Vuex,
         RoleFunction_Vuex,
-        AppLog_Vuex
+        AppLog_Vuex,
+        Member_Vuex
     }
 })

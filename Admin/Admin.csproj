@@ -63,12 +63,14 @@
     <Compile Include="AppService\SwaggerParameterFilter.cs" />
     <Compile Include="Controllers\Admin\AdminBaseController.cs" />
     <Compile Include="Controllers\Admin\AuthorizationController.cs" />
+    <Compile Include="Controllers\Admin\Base\MemberController.cs" />
     <Compile Include="Controllers\Admin\Sys\AppLogController.cs" />
     <Compile Include="Controllers\Admin\Sys\FunctionController.cs" />
     <Compile Include="Controllers\Admin\Sys\MenusController.cs" />
     <Compile Include="Controllers\Admin\Sys\RoleController.cs" />
     <Compile Include="Controllers\Admin\Sys\RoleFunctionController.cs" />
     <Compile Include="Controllers\Admin\Sys\UserController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Program.cs" />
@@ -103,11 +105,13 @@
     <None Include="ClientApp\hzyAdminVue\src\components\layout\MenuItem.vue" />
     <None Include="ClientApp\hzyAdminVue\src\css\element-variables.scss" />
     <None Include="ClientApp\hzyAdminVue\src\css\main.scss" />
+    <None Include="ClientApp\hzyAdminVue\src\js\ckeditor.js" />
     <None Include="ClientApp\hzyAdminVue\src\js\request.js" />
     <None Include="ClientApp\hzyAdminVue\src\js\router\index.js" />
     <None Include="ClientApp\hzyAdminVue\src\js\tabs.js" />
     <None Include="ClientApp\hzyAdminVue\src\js\tools.js" />
     <None Include="ClientApp\hzyAdminVue\src\main.js" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Base\Member.vue" />
     <None Include="ClientApp\hzyAdminVue\src\views\Home.vue" />
     <None Include="ClientApp\hzyAdminVue\src\views\Login.vue" />
     <None Include="ClientApp\hzyAdminVue\src\views\Main.vue" />
@@ -118,6 +122,7 @@
     <None Include="ClientApp\hzyAdminVue\src\views\Sys\Role.vue" />
     <None Include="ClientApp\hzyAdminVue\src\views\Sys\RoleFunction.vue" />
     <None Include="ClientApp\hzyAdminVue\src\views\Sys\User.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Base\Member.js" />
     <None Include="ClientApp\hzyAdminVue\src\vuex\module\app.js" />
     <None Include="ClientApp\hzyAdminVue\src\vuex\store.js" />
     <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\AppLog.js" />
