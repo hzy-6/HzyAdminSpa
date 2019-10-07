@@ -61,17 +61,19 @@ namespace Logic
         /// <param name="model"></param>
         /// <param name="RoleIds"></param>
         /// <returns></returns>
-        public async Task<string> Save(Member model)
+        public async Task<string> Save(Member model, Func<Member, Task<Member>> Call)
         {
             await db.CommitAsync(async () =>
             {
                 if (model.Member_ID.ToGuid() == Guid.Empty)
                 {
+                    model = await Call?.Invoke(model);
                     model.Member_ID = (await db.InsertAsync(model)).ToGuid();
                     if (model.Member_ID.ToGuid() == Guid.Empty) throw new MessageBox(this.ErrorMessage);
                 }
                 else
                 {
+                    model = await Call?.Invoke(model);
                     if ((await db.UpdateByIdAsync(model)) == 0) throw new MessageBox(this.ErrorMessage);
                 }
             });

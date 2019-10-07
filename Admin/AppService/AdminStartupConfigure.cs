@@ -67,42 +67,63 @@ namespace Admin.AppService
             #endregion
 
             #region Swagger 注册Swagger生成器，定义一个和多个Swagger 文档
-            services.AddSwaggerGen(option =>
+            services.AddSwaggerGen(options =>
             {
-                foreach (var item in _VersionList)
-                {
-                    var _SwaggerInfo = new OpenApiInfo();
-                    _SwaggerInfo.Version = item;
-                    //_SwaggerInfo.Title = "v_" + item;
-                    //_SwaggerInfo.Description = "author：hzy";
-                    //_SwaggerInfo.TermsOfService = "None";
-                    option.SwaggerDoc(item, _SwaggerInfo);
-                }
-                // 为 Swagger JSON and UI设置xml文档注释路径
-                //var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
+                foreach (var item in _VersionList) options.SwaggerDoc(item, new OpenApiInfo { Version = item });
+                //为 Swagger JSON and UI设置xml文档注释路径
                 var xmlPath = Path.Combine(System.AppContext.BaseDirectory, "App.xml");
-                option.IncludeXmlComments(xmlPath, true);
+                options.IncludeXmlComments(xmlPath, true);
 
                 #region Jwt token 配置
                 //option.OperationFilter<AppService.SwaggerParameterFilter>(); // 给每个接口配置授权码传入参数文本框
                 //
-                option.OperationFilter<AddResponseHeadersFilter>();
-                option.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
-                // 很重要！这里配置安全校验，和之前的版本不一样
-                option.OperationFilter<SecurityRequirementsOperationFilter>();
-
-                // 开启 oauth2 安全描述
-                option.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                options.OperationFilter<AddResponseHeadersFilter>();
+                options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+                //很重要！这里配置安全校验，和之前的版本不一样
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
+                //开启 oauth2 安全描述
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
-                    Name = "Authorization",
                     In = ParameterLocation.Header,
+                    Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
 
                 #endregion
 
             });
+
+            //services.AddSwaggerGen(options =>
+            //{
+            //    foreach (var item in _VersionList) options.SwaggerDoc(item, new OpenApiInfo { Title = item });
+
+            //    options.ExampleFilters();
+
+            //    options.OperationFilter<AddHeaderOperationFilter>("correlationId", "Correlation Id for the request");
+
+            //    options.OperationFilter<AddResponseHeadersFilter>();
+
+            //    //options.DescribeAllEnumsAsStrings();
+            //    options.DescribeAllParametersInCamelCase();
+
+            //    var filePath = Path.Combine(AppContext.BaseDirectory, "App.xml");
+            //    options.IncludeXmlComments(filePath);
+            //    //
+            //    options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+
+            //    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+            //    {
+            //        Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
+            //        In = ParameterLocation.Header,
+            //        Name = "Authorization",
+            //        Type = SecuritySchemeType.ApiKey
+            //    });
+
+            //    options.OperationFilter<SecurityRequirementsOperationFilter>();
+
+            //    options.IgnoreObsoleteProperties();
+            //});
 
             #endregion
         }

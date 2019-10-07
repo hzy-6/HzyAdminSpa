@@ -88,7 +88,7 @@
           :title.sync="form.vm.Id?'编辑/查看':'添加'"
           :visible.sync="form.state"
           top="5vh"
-          width="1000px"
+          width="1300px"
           center
           custom-class="hzy-w90"
         >
@@ -107,6 +107,10 @@
                 <el-input v-model="form.vm.Member_Phone" type="number"></el-input>
               </el-col>
               <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                <h4>生日</h4>
+                <el-date-picker v-model="form.vm.Member_Birthday" type="date" style="width:100%"></el-date-picker>
+              </el-col>
+              <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
                 <h4>性别</h4>
                 <el-radio-group v-model="form.vm.Member_Sex" class="mt-10 mb-10">
                   <el-radio label="男">男</el-radio>
@@ -114,21 +118,14 @@
                 </el-radio-group>
               </el-col>
               <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                <h4>生日</h4>
-                <el-date-picker v-model="form.vm.Member_Birthday" type="date" style="width:100%"></el-date-picker>
+                <h4>文件</h4>
+                <UploadFilesCom ref="ref_Member_FilePath" :imageUrl.sync="form.vm.Member_FilePath" />
               </el-col>
-              <!-- <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+              <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
                 <h4>头像</h4>
-                <el-upload
-                  class="avatar-uploader"
-                  :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload"
-                >
-                  <img v-if="form.vm.Member_Photo" :src="form.vm.Member_Photo" class="avatar" />
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
-              </el-col> -->
+                <UploadImageCom ref="ref_Member_Photo" :imageUrl="form.vm.Member_Photo" />
+              </el-col>
+
               <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                 <h4>介绍</h4>
                 <ckeditor
@@ -140,7 +137,7 @@
             </el-row>
           </div>
           <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="save" v-if="power.Save">提交</el-button>
+            <el-button type="primary" @click="_save" v-if="power.Save">提交</el-button>
             <el-button @click="form.state=false">取消</el-button>
           </span>
         </el-dialog>
@@ -155,6 +152,8 @@ import { mapState, mapMutations, mapActions } from "vuex";
 var _controllerName = "Member";
 //components
 import CRUDCom from "../../components/CRUD";
+import UploadImageCom from "../../components/upload/Image";
+import UploadFilesCom from "../../components/upload/Files";
 //
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //业务
@@ -162,7 +161,7 @@ export default {
   name: _controllerName,
   data() {
     return {
-      grid: 12,
+      grid: 6,
       power: global.$power,
       ckeditor: {
         editor: ClassicEditor,
@@ -174,7 +173,9 @@ export default {
     };
   },
   components: {
-    CRUDCom
+    CRUDCom,
+    UploadImageCom,
+    UploadFilesCom
   },
   //计算属性
   computed: {
@@ -250,6 +251,22 @@ export default {
       var _table = this.$refs.refCRUDCom.$refs.table;
       this.remove(function() {
         _table.clearSelection();
+      });
+    },
+    _save() {
+      //对文件处理
+      var file = this.$refs.ref_Member_Photo.upfile;
+      var files = this.$refs.ref_Member_FilePath.upfile;
+      // console.log(files,this.form.vm);
+      this.save(_FormData => {
+        if (file) _FormData.append("Member_Photo_Files", file.raw);
+        if (files.length > 0) {
+          for (var i = 0; i < files.length; i++) {
+            var item = files[i];
+            console.log(item);
+            _FormData.append("Member_FilePath_Files", item.raw);
+          }
+        }
       });
     }
   }

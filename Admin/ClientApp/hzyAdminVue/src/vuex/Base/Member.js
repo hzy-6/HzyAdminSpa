@@ -127,11 +127,18 @@ export default {
             //收集表单数据，并组装参数
             var _form = _state.form;
             var _vm = _form.vm;
+            //上传文件 组装 FormData
+            var _FormData = new FormData();
+            console.log(_vm);
+            for (var item in _vm) {
+                _FormData.append(item, _vm[item]);
+            }
+            if (par) par(_FormData);
             //验证数据
-            if (!_vm.User_Name) return global.tools.msg('用户名不能为空!', '错误');
+            //if (!_vm.User_Name) return global.tools.msg('用户名不能为空!', '错误');
             //发送请求给接口
             global
-                .post('/Admin/' + _state.controllerName + '/Save', _vm, true)
+                .postUpload('/Admin/' + _state.controllerName + '/Save', _FormData, true)
                 .then(data => {
                     //刷新列表
                     context.dispatch("findList");

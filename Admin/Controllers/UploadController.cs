@@ -37,28 +37,45 @@ namespace Admin.Controllers
         }
 
         /// <summary>
-        /// 上传文件
+        /// 上传单个文件
         /// </summary>
         /// <param name="files"></param>
+        /// <param name="GroupName"></param>
         /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> Files(IFormFileCollection files)//IFormFile files
+        [HttpPost("Single")]
+        public async Task<string> Post(IFormFile files, string GroupName)
+        {
+            if (files == null) throw new MessageBox("找不到任何文件!");
+            //var _Path = new List<object>();
+            //_Path.Add(new
+            //{
+            //    name = files.FileName,
+            //    url = await this.HandleUpFile(files, _WebRootPath, null, GroupName)
+            //});
+            return await this.HandleUpFile(files, _WebRootPath, null, GroupName);
+        }
+
+        /// <summary>
+        /// 上传多个文件
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="GroupName"></param>
+        /// <returns></returns>
+        [HttpPost("Multiple")]
+        public async Task<IActionResult> Post(IFormFileCollection files, string GroupName)
         {
             if (files?.Count == 0) throw new MessageBox("找不到任何文件!");
             var _Path = new List<object>();
-            foreach (var item in files.GetFiles("files"))
+            foreach (var item in files)
             {
                 _Path.Add(new
                 {
                     name = item.FileName,
-                    url = await this.HandleUpFile(item, _WebRootPath)
+                    url = await this.HandleUpFile(item, _WebRootPath, null, GroupName)
                 });
             }
             return Json(_Path);
         }
-
-
-
 
 
 

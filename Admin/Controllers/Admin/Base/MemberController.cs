@@ -15,6 +15,7 @@ namespace Admin.Controllers.Admin.Base
     using Toolkit;
     using Entitys;
     using Microsoft.AspNetCore.Hosting;
+    using System.Text.Json;
 
     public class MemberController : AdminBaseController
     {
@@ -44,6 +45,16 @@ namespace Admin.Controllers.Admin.Base
         //  methods: {}
         //};
         //</script>
+
+
+        private IWebHostEnvironment _IWebHostEnvironment = null;
+        private string _WebRootPath = string.Empty;
+        public MemberController(IWebHostEnvironment IWebHostEnvironment)
+        {
+            this._IWebHostEnvironment = IWebHostEnvironment;
+            _WebRootPath = this._IWebHostEnvironment.WebRootPath;
+        }
+
         protected MemberLogic _Logic = new MemberLogic();
 
         #region 增、删、改、查
@@ -84,7 +95,24 @@ namespace Admin.Controllers.Admin.Base
         [HttpPost(nameof(Save)), AppService.ApiCheckTokenFilter]
         public async Task<IActionResult> Save(Member model, IFormFile Member_Photo_Files, List<IFormFile> Member_FilePath_Files)
         {
-            this.FormKey = await _Logic.Save(model);
+            this.FormKey = await _Logic.Save(model, async member =>
+              {
+                  if (Member_Photo_Files != null)
+                  {
+                      member.Member_Photo = await this.HandleUpFile(Member_Photo_Files, _WebRootPath);
+                  }
+                  if (Member_FilePath_Files.Count > 0)
+                  {
+                      var _Path = JsonSerializer.Deserialize<List<object>>(model.Member_FilePath);
+                      if (_Path == null) _Path = new List<object>();
+                      foreach (var item in Member_FilePath_Files)
+                      {
+                          _Path.Add(new { name = item.FileName, url = await this.HandleUpFile(item, _WebRootPath) });
+                      }
+                      if (_Path.Count > 0) member.Member_FilePath = _Path.Serialize();
+                  }
+                  return member;
+              });
 
             return Json();
         }
