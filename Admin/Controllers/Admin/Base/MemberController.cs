@@ -17,6 +17,9 @@ namespace Admin.Controllers.Admin.Base
     using Microsoft.AspNetCore.Hosting;
     using System.Text.Json;
 
+    /// <summary>
+    /// 富文本编辑器：tinymce
+    /// </summary>
     public class MemberController : AdminBaseController
     {
         //        <template>
