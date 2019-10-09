@@ -59,7 +59,7 @@ namespace DbFrame.Core.Achieve
                 _ResKeyId = this.ExecuteScalarAsync(Sql.Code.ToString(), Sql.GetDynamicParameters()).Result;
 
             if (_ResKeyId == null)
-                return (this._KeyFieldDescribe == null) ? null : Task.FromResult(_KeyId);
+                return (this._KeyFieldDescribe == null) ? null : (_KeyId == null ? null : Task.FromResult(_KeyId));
             return Task.FromResult(_ResKeyId);
         }
 
