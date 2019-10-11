@@ -23,6 +23,8 @@ bin/
 Bin/
 obj/
 Obj/
+ClientApp/hzyAdminVue/node_modules
+ClientApp/hzyAdminVue/dist
 
 # Visual Studio 2015 cache/options directory
 .vs/
