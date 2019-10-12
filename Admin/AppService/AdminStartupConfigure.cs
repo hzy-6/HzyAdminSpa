@@ -93,47 +93,12 @@ namespace Admin.AppService
                 #endregion
 
             });
-
-            //services.AddSwaggerGen(options =>
-            //{
-            //    foreach (var item in _VersionList) options.SwaggerDoc(item, new OpenApiInfo { Title = item });
-
-            //    options.ExampleFilters();
-
-            //    options.OperationFilter<AddHeaderOperationFilter>("correlationId", "Correlation Id for the request");
-
-            //    options.OperationFilter<AddResponseHeadersFilter>();
-
-            //    //options.DescribeAllEnumsAsStrings();
-            //    options.DescribeAllParametersInCamelCase();
-
-            //    var filePath = Path.Combine(AppContext.BaseDirectory, "App.xml");
-            //    options.IncludeXmlComments(filePath);
-            //    //
-            //    options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
-
-            //    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-            //    {
-            //        Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
-            //        In = ParameterLocation.Header,
-            //        Name = "Authorization",
-            //        Type = SecuritySchemeType.ApiKey
-            //    });
-
-            //    options.OperationFilter<SecurityRequirementsOperationFilter>();
-
-            //    options.IgnoreObsoleteProperties();
-            //});
-
             #endregion
         }
 
-        public static void AdminConfigure(this IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IHostApplicationLifetime applicationLifetime)
+        public static void AdminConfigure(this IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
-            #region nlog 日志
-            //初始化NLog
-            LogHelper.Init(app, $"{env.ContentRootPath}/NLog/nlog.config", loggerFactory);
-
+            #region App 生命周期
             //程序启动
             applicationLifetime.ApplicationStarted.Register(() =>
             {

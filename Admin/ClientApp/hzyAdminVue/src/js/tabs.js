@@ -20,10 +20,8 @@ var tabs = {
         this.mouseWheel(_ul, function(e, wheelDelta) {
             //console.log(wheelDelta);
             if (wheelDelta > 0) {
-                console.log(1);
                 tabs.leftMove();
             } else {
-                console.log(0);
                 tabs.rigthMove();
             }
         });

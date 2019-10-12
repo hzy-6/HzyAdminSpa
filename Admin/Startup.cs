@@ -11,6 +11,7 @@ namespace Admin
 {
     using System.Text.Json;
     using Admin.AppService;
+    using Microsoft.AspNetCore.SpaServices;
     using VueCliMiddleware;
 
     public class Startup
@@ -57,17 +58,13 @@ namespace Admin
             #endregion
 
             #region 使用 单页面
-            //In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/hzyAdminVue/dist";
-            });
+            services.AddSpaStaticFiles(opt => opt.RootPath = "ClientApp/hzyAdminVue/dist");
             #endregion
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IHostApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
             //if (env.IsDevelopment())
             //{
@@ -83,7 +80,7 @@ namespace Admin
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             #region 使用 单页面
-            //app.UseSpaStaticFiles();
+            app.UseSpaStaticFiles();
             #endregion
 
             app.UseRouting();
@@ -93,30 +90,51 @@ namespace Admin
             #endregion
 
             #region AdminConfig
-            app.AdminConfigure(env, loggerFactory, applicationLifetime);
+            app.AdminConfigure(env, applicationLifetime);
             #endregion
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-            });
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
 
-            #region 使用 单页面
+                #region 使用 单页面
+                //                    // note: output of vue cli or quasar cli should be wwwroot
+                //                    endpoints.MapFallbackToFile("ClientApp/hzyAdminVue/public/index.html");
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp/hzyAdminVue/";
+                // Note: only use vuecliproxy in development. 
+                // Production should use "UseSpaStaticFiles()" and the webpack dist
                 if (env.IsDevelopment())
                 {
-                    //vue-cli-service serve
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");//使用这个需要自己启动 vue 项目
-                    spa.UseVueCli(npmScript: "serve", port: 6666); //自动启动服务
+                    endpoints.MapToVueCliProxy(
+                    "{*path}",
+                    new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" },
+                    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    npmScript: "serve",
+                    port: 6666
+                    );
                 }
+
+                #endregion
+
             });
 
-            #endregion
+            //#region 使用 单页面 .net core 2.2 
+
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "ClientApp/hzyAdminVue/";
+            //    if (env.IsDevelopment())
+            //    {
+            //        //vue-cli-service serve
+            //        //spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");//使用这个需要自己启动 vue 项目
+            //        spa.UseVueCli(npmScript: "serve", port: 6666); //自动启动服务
+            //    }
+            //});
+
+            //#endregion
 
 
         }

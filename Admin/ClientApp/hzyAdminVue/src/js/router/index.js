@@ -56,12 +56,13 @@ function loadViews(path) {
         import (`@/views${path}.vue`);
 }
 
-const vueRouter = new VueRouter({
-    //mode: 'history',
-    routes: [
-        { path: '/Login', name: '/Login', component: Login }
-    ]
-});
+// const vueRouter = new VueRouter({
+//     //mode: 'history',
+//     routes: [
+//         { path: '/Login', name: '/Login', component: Login }
+//     ]
+// });
+const vueRouter = new VueRouter();
 
 let _loading = null;
 //路由拦截器
@@ -79,8 +80,8 @@ vueRouter.beforeEach((to, from, next) => {
     if (global.$menu.length == 0) {
         global.$store.dispatch('app/getMenus', (data) => {
             var _allList = data.allList;
-            var _list = data.list;
-            var _powerAll = data.powerState;
+            // var _list = data.list;
+            // var _powerAll = data.powerState;
             //路由组装
             var _children = [];
             for (var i = 0; i < _allList.length; i++) {
@@ -101,22 +102,29 @@ vueRouter.beforeEach((to, from, next) => {
                     component: Main,
                     children: _children
                 },
-                { path: '*', redirect: "/" }
+                { path: '*', redirect: "/" },
+                { path: '/Login', name: '/Login', component: Login }
             ];
             vueRouter.addRoutes(_router);
+            console.log(_router);
             global.$store.commit('app/setRouterConfig', vueRouter.options.routes);
-            //
-            if (to.meta.hasOwnProperty('title'))
-                return checkRouter(to, next);
-            return next();
+            setTimeout(() => {
+                console.log(vueRouter);
+                //
+                if (to.meta.hasOwnProperty('title'))
+                    return checkRouter(to, next);
+                return next();
+            }, 100);
+
         });
+        return;
     }
     //
     if (to.meta.hasOwnProperty('title'))
         return checkRouter(to, next);
     return next();
 });
-vueRouter.afterEach(to => {
+vueRouter.afterEach(() => {
     if (_loading) _loading.close();
 });
 

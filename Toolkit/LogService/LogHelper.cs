@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Toolkit.LogService
 {
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Logging;
     using NLog;
-    using NLog.Extensions.Logging;
-    using NLog.Web;
-    using System.IO;
+
     /// <summary>
     /// 参考地址：  
     ///             https://www.cnblogs.com/muyeh/p/9788311.html 
@@ -22,21 +17,9 @@ namespace Toolkit.LogService
     {
         public static Logger _Logger { get; set; }
 
-        public LogHelper() { }
-
-        public static void Init(IApplicationBuilder app, string configPath, ILoggerFactory loggerFactory)
+        public static void Set(Logger logger)
         {
-            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//这是为了防止中文乱码
-            loggerFactory.AddNLog();//添加NLog
-            loggerFactory.ConfigureNLog(configPath);//读取Nlog配置文件
-
-            _Logger = LogManager.GetCurrentClassLogger();
-        }
-
-        public static void Init(string ConfigFile)
-        {
-            LogManager.LoadConfiguration(ConfigFile);
-            _Logger = LogManager.GetCurrentClassLogger();
+            _Logger = logger;
         }
 
         /// <summary>
