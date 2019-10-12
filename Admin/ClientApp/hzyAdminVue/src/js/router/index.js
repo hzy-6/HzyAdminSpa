@@ -5,6 +5,7 @@ import { Loading } from 'element-ui';
 //
 import Main from '../../views/Main';
 import Login from '../../views/Login';
+
 //
 Vue.use(VueRouter);
 //检查权限
@@ -50,19 +51,12 @@ var checkRouter = function(to, next) {
 //     { path: '*', redirect: "/Home" }
 // ];
 
-//动态获取 组件
-function loadViews(path) {
-    return () =>
-        import (`@/views${path}.vue`);
-}
-
-// const vueRouter = new VueRouter({
-//     //mode: 'history',
-//     routes: [
-//         { path: '/Login', name: '/Login', component: Login }
-//     ]
-// });
-const vueRouter = new VueRouter();
+const vueRouter = new VueRouter({
+    //mode: 'history',
+    routes: [
+        { path: '/Login', name: '/Login', component: Login }
+    ]
+});
 
 let _loading = null;
 //路由拦截器
@@ -100,22 +94,23 @@ vueRouter.beforeEach((to, from, next) => {
             var _router = [{
                     path: '/',
                     component: Main,
-                    children: _children
+                    children: _children,
+                    redirect: "/Home"
                 },
-                { path: '*', redirect: "/" },
-                { path: '/Login', name: '/Login', component: Login }
+                { path: '*', redirect: "/Login" }
             ];
-            vueRouter.addRoutes(_router);
-            console.log(_router);
-            global.$store.commit('app/setRouterConfig', vueRouter.options.routes);
-            setTimeout(() => {
-                console.log(vueRouter);
-                //
-                if (to.meta.hasOwnProperty('title'))
-                    return checkRouter(to, next);
-                return next();
-            }, 100);
 
+            // console.log(vueRouter);
+            vueRouter.addRoutes(_router);
+            console.log('vueRouter.options.routes', vueRouter.options.routes);
+            global.$store.commit('app/setRouterConfig', vueRouter.options.routes);
+            //
+            if (to.meta.hasOwnProperty('title')) {
+                return checkRouter(to, next);
+            }
+
+            //刚 add 完路由 需要手动告诉 next 跳转哪里 所以需要 将 to 传递过去不然容易出现bug
+            return next(to);
         });
         return;
     }
@@ -127,5 +122,11 @@ vueRouter.beforeEach((to, from, next) => {
 vueRouter.afterEach(() => {
     if (_loading) _loading.close();
 });
+
+//动态获取 组件
+function loadViews(path) {
+    return () =>
+        import (`@/views${path}.vue`);
+}
 
 export default vueRouter;

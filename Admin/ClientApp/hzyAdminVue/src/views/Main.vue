@@ -220,9 +220,7 @@ export default {
     adminTabs.start();
     //页面加载 设置菜单选中状态
     var _hash = window.location.hash;
-    if (_hash === "#/") {
-      this.$router.push({ name: "/Home" });
-    } else if (_hash != "#" + this.$route.name) {
+    if (_hash !== "#/Home") {
       this.$router.push({ name: this.$route.name });
     }
     //

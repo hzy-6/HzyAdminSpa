@@ -24,7 +24,7 @@ namespace Admin.AppService
     {
         private static readonly IEnumerable<string> _VersionList = typeof(ApiVersionsEnum).GetEnumNames().ToList().OrderBy(w => w);
 
-        public static void AdminConfigureServices(this IServiceCollection services, IConfiguration Configuration, IWebHostEnvironment _IWebHostEnvironment)
+        public static void AdminConfigureServices(this IServiceCollection services, IConfiguration Configuration)
         {
 
             #region HttpContext

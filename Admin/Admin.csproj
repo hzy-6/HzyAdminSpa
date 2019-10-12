@@ -17,6 +17,126 @@
     <DocumentationFile>bin\Release\netcoreapp3.0\App.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="%2a%2a\**" />
+    <Content Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="%2a%2a\**" />
+    <None Remove="%2a%2a\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="%2a%2a/%2a.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="%2a%2a\%2a.config" />
+    <Content Remove="%2a%2a\%2a.cshtml" />
+    <Content Remove="%2a%2a\%2a.json" />
+    <Content Remove="%2a%2a\%2a.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="%2a%2a/%2a.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="%2a%2a/%2a" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="AppService\AdminStartupConfigure.cs" />
+    <Compile Include="AppService\ApiVersionsEnum.cs" />
+    <Compile Include="AppService\AppExceptionFilter.cs" />
+    <Compile Include="AppService\SwaggerParameterFilter.cs" />
+    <Compile Include="Controllers\Admin\AdminBaseController.cs" />
+    <Compile Include="Controllers\Admin\AuthorizationController.cs" />
+    <Compile Include="Controllers\Admin\Base\MemberController.cs" />
+    <Compile Include="Controllers\Admin\Sys\AppLogController.cs" />
+    <Compile Include="Controllers\Admin\Sys\FunctionController.cs" />
+    <Compile Include="Controllers\Admin\Sys\MenusController.cs" />
+    <Compile Include="Controllers\Admin\Sys\RoleController.cs" />
+    <Compile Include="Controllers\Admin\Sys\RoleFunctionController.cs" />
+    <Compile Include="Controllers\Admin\Sys\UserController.cs" />
+    <Compile Include="Controllers\ApiBaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json" />
+    <Content Include="appsettings.json" />
+    <Content Include="ClientApp\hzyAdminVue\package-lock.json" />
+    <Content Include="ClientApp\hzyAdminVue\package.json" />
+    <Content Include="NLog\nlog.config" />
+    <Content Include="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="AppService\HzyAdminDB.sql" />
+    <None Include="ClientApp\hzyAdminVue\babel.config.js" />
+    <None Include="ClientApp\hzyAdminVue\public\favicon.ico" />
+    <None Include="ClientApp\hzyAdminVue\public\index.html" />
+    <None Include="ClientApp\hzyAdminVue\src\App.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\demo.css" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\demo_index.html" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.css" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.eot" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.js" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.svg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.ttf" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.woff" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\font\iconfont.woff2" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\images\login.jpg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\images\login1.jpg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\images\login2.jpg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\images\login3.jpg" />
+    <None Include="ClientApp\hzyAdminVue\src\assets\logo.png" />
+    <None Include="ClientApp\hzyAdminVue\src\components\Charts.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\Charts1.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\CkEditor.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\CRUD.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\HelloWorld.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\layout\Menu.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\layout\MenuItem.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\upload\File.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\upload\Files.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\upload\Image.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\upload\Images.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\css\element-variables.scss" />
+    <None Include="ClientApp\hzyAdminVue\src\css\main.scss" />
+    <None Include="ClientApp\hzyAdminVue\src\js\ckeditor.js" />
+    <None Include="ClientApp\hzyAdminVue\src\js\request.js" />
+    <None Include="ClientApp\hzyAdminVue\src\js\router\index.js" />
+    <None Include="ClientApp\hzyAdminVue\src\js\tabs.js" />
+    <None Include="ClientApp\hzyAdminVue\src\js\tools.js" />
+    <None Include="ClientApp\hzyAdminVue\src\main.js" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Base\Member.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Home.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Login.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Main.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\AppLog.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\ChangePassword.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\Function.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\Menus.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\Role.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\RoleFunction.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\Sys\User.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Base\Member.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\module\app.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\store.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\AppLog.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\Function.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\Menus.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\Role.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\RoleFunction.js" />
+    <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\User.js" />
+    <None Include="ClientApp\hzyAdminVue\yarn.lock" />
+    <None Include="internal-nlog.txt" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />

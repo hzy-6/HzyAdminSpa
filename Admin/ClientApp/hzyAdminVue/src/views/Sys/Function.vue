@@ -148,11 +148,6 @@ export default {
       form: state => state.form
     })
   },
-  activated() {
-    //缓存页面被激活后此函数会被调用
-    //加载数据列表
-    this.findList();
-  },
   mounted() {
     //元素创建完成
     this.init();

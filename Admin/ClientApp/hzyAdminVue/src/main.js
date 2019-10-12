@@ -35,7 +35,7 @@ global.$power = {};
 Vue.config.productionTip = false;
 //
 new Vue({
-    router, //加入我自己的路由
     store,
+    router, //加入我自己的路由
     render: h => h(App)
 }).$mount('#app')
