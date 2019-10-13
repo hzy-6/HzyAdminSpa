@@ -5,7 +5,7 @@
       <el-header class="main-header">
         <div
           class="main-header-color"
-          :class="headerSkinColor?headerSkinColor:'main-header-color-1'"
+          :class="headerSkinColor?headerSkinColor:'main-header-color-3'"
         >
           <div class="main-header-left">
             <ul>

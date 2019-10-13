@@ -8,10 +8,10 @@ const app = {
         headerSkinColor: (window.localStorage.getItem("headerSkinColor")), //头部颜色 字段
         menuSkin: {
             //菜单颜色 字段
-            backgroundColor: (window.localStorage.getItem("menuSkinColor") ? JSON.parse(window.localStorage.getItem("menuSkinColor")).backgroundColor : ''),
-            textColor: (window.localStorage.getItem("menuSkinColor") ? JSON.parse(window.localStorage.getItem("menuSkinColor")).textColor : ''),
-            activeTextColor: (window.localStorage.getItem("menuSkinColor") ? JSON.parse(window.localStorage.getItem("menuSkinColor")).activeTextColor : ''),
-            parentBGColor: (window.localStorage.getItem("menuSkinColor") ? JSON.parse(window.localStorage.getItem("menuSkinColor")).parentBGColor : 'main-aside-color-1'),
+            backgroundColor: (window.localStorage.getItem("menuSkinColor") ? JSON.parse(window.localStorage.getItem("menuSkinColor")).backgroundColor : '#545c64'),
+            textColor: (window.localStorage.getItem("menuSkinColor") ? JSON.parse(window.localStorage.getItem("menuSkinColor")).textColor : '#fff'),
+            activeTextColor: (window.localStorage.getItem("menuSkinColor") ? JSON.parse(window.localStorage.getItem("menuSkinColor")).activeTextColor : '#ffd04b'),
+            parentBGColor: (window.localStorage.getItem("menuSkinColor") ? JSON.parse(window.localStorage.getItem("menuSkinColor")).parentBGColor : 'main-aside-color-2'),
         },
         tabs: {
             list: (localStorage.getItem('tabsList') ? JSON.parse(localStorage.getItem('tabsList')) : [{

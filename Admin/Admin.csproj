@@ -68,6 +68,8 @@
   <ItemGroup>
     <Content Include="appsettings.Development.json" />
     <Content Include="appsettings.json" />
+    <Content Include="ClientApp\hzyAdminAntd\package-lock.json" />
+    <Content Include="ClientApp\hzyAdminAntd\package.json" />
     <Content Include="ClientApp\hzyAdminVue\package-lock.json" />
     <Content Include="ClientApp\hzyAdminVue\package.json" />
     <Content Include="NLog\nlog.config" />
@@ -77,6 +79,37 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="AppService\HzyAdminDB.sql" />
+    <None Include="ClientApp\hzyAdminAntd\.gitignore" />
+    <None Include="ClientApp\hzyAdminAntd\babel.config.js" />
+    <None Include="ClientApp\hzyAdminAntd\public\favicon.ico" />
+    <None Include="ClientApp\hzyAdminAntd\public\index.html" />
+    <None Include="ClientApp\hzyAdminAntd\README.en.md" />
+    <None Include="ClientApp\hzyAdminAntd\README.md" />
+    <None Include="ClientApp\hzyAdminAntd\src\App.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\assets\images\login.jpg" />
+    <None Include="ClientApp\hzyAdminAntd\src\assets\images\login1.jpg" />
+    <None Include="ClientApp\hzyAdminAntd\src\assets\images\login2.jpg" />
+    <None Include="ClientApp\hzyAdminAntd\src\assets\images\login3.jpg" />
+    <None Include="ClientApp\hzyAdminAntd\src\assets\logo.png" />
+    <None Include="ClientApp\hzyAdminAntd\src\components\charts\Chart1.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\components\charts\Chart2.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\components\charts\Chart3.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\components\HelloWorld.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\css\layout.less" />
+    <None Include="ClientApp\hzyAdminAntd\src\css\theme-ext.less" />
+    <None Include="ClientApp\hzyAdminAntd\src\js\http.js" />
+    <None Include="ClientApp\hzyAdminAntd\src\js\router\index.js" />
+    <None Include="ClientApp\hzyAdminAntd\src\js\tabs.js" />
+    <None Include="ClientApp\hzyAdminAntd\src\js\tools.js" />
+    <None Include="ClientApp\hzyAdminAntd\src\main.js" />
+    <None Include="ClientApp\hzyAdminAntd\src\views\Home.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\views\Layout.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\views\Login.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\views\Sys\User.vue" />
+    <None Include="ClientApp\hzyAdminAntd\src\vuex\module\app.js" />
+    <None Include="ClientApp\hzyAdminAntd\src\vuex\module\layout.js" />
+    <None Include="ClientApp\hzyAdminAntd\src\vuex\store.js" />
+    <None Include="ClientApp\hzyAdminAntd\vue.config.js" />
     <None Include="ClientApp\hzyAdminVue\babel.config.js" />
     <None Include="ClientApp\hzyAdminVue\public\favicon.ico" />
     <None Include="ClientApp\hzyAdminVue\public\index.html" />
