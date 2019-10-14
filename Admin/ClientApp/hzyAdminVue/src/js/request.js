@@ -12,13 +12,10 @@ let isloading = true;
 axios.interceptors.request.use(
     config => {
         if (isloading) {
-            loading = Loading.service();
-            // {
-            //     lock: true,
-            //     text: '请稍候...',
-            //     spinner: 'el-icon-loading',
-            //     background: 'rgba(0, 0, 0, 0.7)'
-            // }
+            loading = Loading.service({
+                lock: true,
+                background: 'rgba(0, 0, 0, 0.1)'
+            });
         }
         config.headers = {
             'Content-Type': (config.data.isUpload ? 'multipart/form-data' : 'application/x-www-form-urlencoded; charset=UTF-8'),

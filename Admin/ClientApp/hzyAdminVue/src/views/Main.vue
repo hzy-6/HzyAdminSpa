@@ -5,59 +5,75 @@
       <el-header class="main-header">
         <div
           class="main-header-color"
-          :class="headerSkinColor?headerSkinColor:'main-header-color-3'"
+          :class="headerSkinColor?headerSkinColor:'main-header-color-1'"
         >
           <div class="main-header-left">
             <ul>
-              <li @click="changeSiderCollapsed">
-                <i :class="siderCollapsed?'el-icon-s-unfold':'el-icon-s-fold'"></i>
-              </li>
-              <li class="logo">HzyAdminUI Vue ElementUI</li>
+              <el-tooltip class="item" effect="dark" content="菜单 收起/展开" placement="left">
+                <li @click="changeSiderCollapsed">
+                  <i :class="siderCollapsed?'el-icon-s-unfold':'el-icon-s-fold'"></i>
+                </li>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="Logo" placement="left">
+                <li class="logo">HzyAdminElement</li>
+              </el-tooltip>
             </ul>
           </div>
           <div class="main-header-right">
             <ul>
-              <li>
-                <el-dropdown @command="logout">
-                  <span class="el-dropdown-link">
-                    <i class="el-icon-s-custom el-icon--left"></i>
-                    管理员
-                    <i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="logout" class="text-danger">
-                      <i class="el-icon-switch-button"></i>退出登录
-                    </el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
-              </li>
-              <li @click="dialogVisibleSkin=!dialogVisibleSkin;" title="美化">
-                <i class="el-icon-magic-stick"></i>
-              </li>
-              <li @click="handleFullScreen" title="放大/缩小">
-                <!-- <i class="el-icon-full-screen"></i> -->
-                <i class="iconfont" :class="fullscreen?'icon-suoxiao':'icon-quanping'"></i>
-              </li>
-              <li @click="tabsMove(1)" title="选项卡右移动">
-                <i class="el-icon-arrow-right"></i>
-              </li>
-              <li>
-                <el-dropdown @command="handleTabsCommand">
-                  <span class="el-dropdown-link">选项卡</span>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="Other" class="text-danger">
-                      <i class="el-icon-circle-close"></i>关闭其他
-                    </el-dropdown-item>
-                    <el-dropdown-item command="All" class="text-danger">
-                      <i class="el-icon-circle-close"></i>关闭所有
-                    </el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
-              </li>
-              <li @click="tabsMove(0)" title="选项卡左移动">
-                <i class="el-icon-arrow-left"></i>
-              </li>
+              <el-tooltip class="item" effect="dark" content="退出登录" placement="left">
+                <li>
+                  <el-dropdown @command="logout">
+                    <span class="el-dropdown-link">
+                      <i class="el-icon-s-custom el-icon--left"></i>
+                      管理员
+                      <i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item command="logout" class="text-danger">
+                        <i class="el-icon-switch-button"></i>退出登录
+                      </el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+                </li>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="美化" placement="left">
+                <li @click="dialogVisibleSkin=!dialogVisibleSkin;">
+                  <i class="el-icon-magic-stick"></i>
+                </li>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="放大/缩小" placement="left">
+                <li @click="handleFullScreen">
+                  <i class="iconfont" :class="fullscreen?'icon-suoxiao':'icon-quanping'"></i>
+                </li>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="选项卡右移动" placement="left">
+                <li @click="tabsMove(1)">
+                  <i class="el-icon-arrow-right"></i>
+                </li>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="选项卡操作" placement="left">
+                <li>
+                  <el-dropdown @command="handleTabsCommand">
+                    <span class="el-dropdown-link">选项卡</span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item command="Other" class="text-danger">
+                        <i class="el-icon-circle-close"></i>关闭其他
+                      </el-dropdown-item>
+                      <el-dropdown-item command="All" class="text-danger">
+                        <i class="el-icon-circle-close"></i>关闭所有
+                      </el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+                </li>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="选项卡左移动" placement="left">
+                <li @click="tabsMove(0)" title="选项卡左移动">
+                  <i class="el-icon-arrow-left"></i>
+                </li>
+              </el-tooltip>
             </ul>
+            <!-- 移动端头部退出 -->
             <ul class="main-login">
               <li @click="logout">
                 <i class="el-icon-arrow-right"></i>
@@ -86,7 +102,7 @@
           >
             
           </el-menu>-->
-          <Menu
+           <Menu
             :default-active="$route.name"
             :collapse="siderCollapsed"
             :background-color="menuSkin.backgroundColor"
@@ -121,7 +137,7 @@
           </div>
           <!--body 内容-->
           <div class="main-body">
-            <!-- 选择性缓存 -->
+              <!-- 选择性缓存 -->
             <transition name="page-toggle">
               <!-- <keep-alive :include="tabNameList" >
                 <router-view />

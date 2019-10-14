@@ -1,17 +1,10 @@
 <template>
-<!-- 本组件用于 常用的 增删改查组件 -->
+  <!-- 本组件用于 常用的 增删改查组件 -->
   <div>
-    <!--检索表单区域 插槽-->
-    <el-collapse-transition>
-      <el-card class="box-card mb-20" v-show="formSearch.state">
-        <slot name="formSearch"></slot>
-      </el-card>
-    </el-collapse-transition>
-    <!--表格区域-->
-    <el-card class="box-card" body-style="padding:15px;">
+    <el-card class="box-card">
       <slot name="tools"></slot>
-      <!--表格控件-->
-      <div style="height:calc(100vh - 250px)">
+      <!--表格控件  style="height:calc(100vh - 340px)"  height="100%" -->
+      <div>
         <el-table
           v-loading="dataTable.loading"
           height="100%"
@@ -21,11 +14,12 @@
           :row-key="rowKey"
           @selection-change="selectionChange"
           @row-click="rowClick"
+          border
         >
           <!--表格列头 插槽-->
           <slot name="tableCols">
-            <el-table-column type="index" width="50"></el-table-column>
-            <el-table-column type="selection" width="50" :reserve-selection="true"></el-table-column>
+            <el-table-column type="index" width="50px" fixed></el-table-column>
+            <el-table-column type="selection" width="50px" fixed :reserve-selection="true"></el-table-column>
             <template v-for="(item,index) in dataTable.cols">
               <el-table-column
                 v-if="item.Show"
@@ -35,10 +29,12 @@
               ></el-table-column>
             </template>
           </slot>
+          <!-- 操作列 插槽 -->
+          <slot name="tableColsAdd"></slot>
         </el-table>
       </div>
       <!--分页控件-->
-      <div class="pt-5">
+      <div class="pt-20 text-center">
         <el-pagination
           background
           layout="prev, pager, next, total, sizes"
@@ -61,8 +57,6 @@
 export default {
   name: "CRUDCom",
   props: {
-    //formSearch 检索表单状态和模型
-    formSearch: Object,
     //dataTable 表格信息
     dataTable: Object,
     //返回行key

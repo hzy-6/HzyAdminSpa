@@ -68,7 +68,10 @@ vueRouter.beforeEach((to, from, next) => {
     //检查是否登录授权
     if (!global.tools.getCookie('Authorization')) return next({ path: "/Login" });
 
-    _loading = Loading.service({ fullscreen: true });
+    _loading = Loading.service({
+        lock: true,
+        background: 'rgba(0, 0, 0, 0.1)'
+    });
 
     //获取后台菜单数据 然后动态添加路由
     if (global.$menu.length == 0) {

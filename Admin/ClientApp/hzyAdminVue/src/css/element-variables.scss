@@ -17,15 +17,15 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 }
 
 .text-left {
-    text-align: left;
+    text-align: left !important;
 }
 
 .text-right {
-    text-align: right;
+    text-align: right !important;
 }
 
 .text-center {
-    text-align: center;
+    text-align: center !important;
 }
 
 // ======================================================height / width

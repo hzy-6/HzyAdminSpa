@@ -1,4 +1,4 @@
-import { Message, MessageBox } from 'element-ui';
+import { Message, MessageBox, Notification } from 'element-ui';
 
 var tools = {
     //消息提醒
@@ -22,8 +22,8 @@ var tools = {
         });
     },
     //询问
-    confirm(text, successCallBack, cancelCallBack, title = '提示') {
-        MessageBox.confirm(text, title, {
+    confirm(text, successCallBack, cancelCallBack) {
+        MessageBox.confirm(text, '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
@@ -31,6 +31,18 @@ var tools = {
             if (successCallBack) successCallBack();
         }).catch(() => {
             if (cancelCallBack) cancelCallBack();
+        });
+    },
+    //通知
+    notice(text, type, title = "通知") {
+        if (type == '成功') type = 'success';
+        if (type == '警告') type = 'warning';
+        if (type == '错误') type = 'error';
+        //Notice
+        Notification({
+            title: title,
+            message: text,
+            type: type
         });
     },
     //建立一個可存取到該file的url  用于上传图片，，可通过该地址浏览图片
@@ -101,12 +113,6 @@ var tools = {
         }
     },
     guidEmpty: '00000000-0000-0000-0000-000000000000',
-    //获取按钮权限
-    getPowerState(Id, callBack) {
-        global
-            .post('/Admin/User/GetPowerState', { MenuId: Id }, true)
-            .then(data => { if (callBack) callBack(data.PowerState); });
-    }
 
 };
 

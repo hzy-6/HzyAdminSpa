@@ -4,12 +4,6 @@ export default {
     state: {
         //Controllers 控制器名称
         controllerName: 'User',
-        //按钮状态
-        buttonState: {
-            insert: true,
-            update: false,
-            delete: false
-        },
         //表格列表
         dataTable: {
             //表格转圈状态
@@ -92,17 +86,14 @@ export default {
         //加载表单
         loadForm(context, par) {
             var _state = context.state;
-            var _multipleSelection = _state.dataTable.multipleSelection;
-            var _ukid = _multipleSelection.length == 1 ? _multipleSelection[0]._ukid : null;
-            if (par == 'add') _ukid = null;
-            if (par == 'update' & !_ukid) return global.tools.msg('请选择要编辑的数据!', '错误');
             global
-                .post('/Admin/' + _state.controllerName + '/LoadForm', { Id: _ukid }, true)
+                .post('/Admin/' + _state.controllerName + '/LoadForm', { Id: par }, true)
                 .then(data => {
                     var item = data.Form;
                     _state.form.vm = item;
                     if (item.Id == global.tools.guidEmpty) _state.form.vm.Id = null;
-                    if (par) _state.form.state = true;
+                    // if (par) _state.form.state = true;
+                    _state.form.state = true;
                 });
         },
         //删除数据
