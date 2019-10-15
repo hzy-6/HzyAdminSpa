@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Admin
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text.Json;
     using Admin.AppService;
     using Microsoft.AspNetCore.SpaServices;
@@ -16,6 +18,8 @@ namespace Admin
 
     public class Startup
     {
+        private static readonly IEnumerable<string> _VersionList = typeof(ApiVersionsEnum).GetEnumNames().ToList().OrderBy(w => w);
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -93,31 +97,56 @@ namespace Admin
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+
+                //endpoints.MapControllers();
 
                 #region 使用 单页面
-                //                    // note: output of vue cli or quasar cli should be wwwroot
-                //                    endpoints.MapFallbackToFile("ClientApp/hzyAdminVue/public/index.html");
-
                 // Note: only use vuecliproxy in development. 
                 // Production should use "UseSpaStaticFiles()" and the webpack dist
                 if (env.IsDevelopment())
                 {
-                    endpoints.MapToVueCliProxy(
-                    "{*path}",
-                    new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" },
-                    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    npmScript: "serve",
-                    port: 6666
-                    );
+#if DEBUG
+                    //if (System.Diagnostics.Debugger.IsAttached)
+                        endpoints.MapToVueCliProxy(
+                                        "{*path}",
+                                        new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" },
+                                        //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                                        npmScript: "serve",
+                                        port: 6666
+                                        );
+                    //else
+#endif
+                    // note: output of vue cli or quasar cli should be wwwroot
+                    //                    endpoints.MapFallbackToFile("index.html");
+
                 }
+
+                //#if DEBUG
+                //                if (System.Diagnostics.Debugger.IsAttached)
+                //                    //endpoints.MapToVueCliProxy("{*path}", new SpaOptions { SourcePath = "ClientApp" }, "dev", regex: "Compiled successfully");
+                //                    endpoints.MapToVueCliProxy("{*path}", new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" }, "dev", port: 6666, regex: "编译成功!");
+                //                else
+                //#endif
+                //                    // note: output of vue cli or quasar cli should be wwwroot
+                //                    endpoints.MapFallbackToFile("index.html");
 
                 #endregion
 
             });
+
+            #region Swagger
+            //启用中间件服务生成Swagger作为JSON终结点
+            app.UseSwagger();
+            //启用中间件服务对swagger-ui，指定Swagger JSON终结点
+            app.UseSwaggerUI(option =>
+            {
+                foreach (var item in _VersionList) option.SwaggerEndpoint($"{item}/swagger.json", item);
+                option.RoutePrefix = "swagger";
+            });
+            #endregion
 
             //#region 使用 单页面 .net core 2.2 
 

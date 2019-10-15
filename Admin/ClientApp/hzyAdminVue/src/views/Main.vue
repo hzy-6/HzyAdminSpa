@@ -102,7 +102,7 @@
           >
             
           </el-menu>-->
-           <Menu
+          <Menu
             :default-active="$route.name"
             :collapse="siderCollapsed"
             :background-color="menuSkin.backgroundColor"
@@ -137,7 +137,7 @@
           </div>
           <!--body 内容-->
           <div class="main-body">
-              <!-- 选择性缓存 -->
+            <!-- 选择性缓存 -->
             <transition name="page-toggle">
               <!-- <keep-alive :include="tabNameList" >
                 <router-view />
@@ -234,11 +234,6 @@ export default {
   mounted() {
     this.setMenus();
     adminTabs.start();
-    //页面加载 设置菜单选中状态
-    var _hash = window.location.hash;
-    if (_hash !== "#/Home") {
-      this.$router.push({ name: this.$route.name });
-    }
     //
     if (this.$store.state.app.isMobile && !this.siderCollapsed) {
       this.changeSiderCollapsed(true);
@@ -287,6 +282,8 @@ export default {
     triggerTab(item) {
       var _hash = window.location.hash;
       if (_hash === "#" + item.name) return; //判断路由不能重复加载
+      // var _pathname = window.location.pathname;
+      // if (_pathname === item.name) return;//判断路由不能重复加载
       this.$router.push({ name: item.name });
     },
     // 全屏事件

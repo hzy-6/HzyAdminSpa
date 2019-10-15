@@ -1,67 +1,59 @@
-
 <template>
   <div>
     <CRUDCom
       ref="refCRUDCom"
-      :formSearch="formSearch"
       :dataTable="dataTable"
-      :rowKey="_getRowKey"
-      :rowClick="_rowClick"
       :selectionChange="selectionChange"
-      :sizeChange="_sizeChange"
+      :sizeChange="sizeChange"
       :currentChange="findList"
     >
-      <!-- 检索 -->
-      <template slot="formSearch">
-        <h4>检索</h4>
+      <!-- 检索、 工具栏 -->
+      <template slot="tools">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6" class="mb-20">
             <el-input v-model="formSearch.vm.Role_Name" placeholder="请输入 角色名称"></el-input>
           </el-col>
-        </el-row>
-        <div>
-          <el-button type="primary" plain @click="findList">检索</el-button>
-          <el-button type="primary" plain @click="resetSearch();findList()">重置</el-button>
-          <el-button type="danger" plain @click="formSearch.state=false">关闭</el-button>
-        </div>
-      </template>
-      <!-- 工具栏 -->
-      <template slot="tools">
-        <el-row :gutter="20">
-          <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18" class="pb-5">
-            <el-button
-              type="primary"
+          <el-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6" class="mb-20">
+            <el-button type="primary" @click="findList">检 索</el-button>
+            <el-button @click="resetSearch();findList()">重 置</el-button>
+            <!-- <el-link
+              class="ml-10"
               icon="el-icon-plus"
-              v-if="power.Insert"
-              @click="loadForm('add');"
-            >添加</el-button>
-            <el-button
-              type="primary"
-              icon="el-icon-edit"
-              v-if="power.Update"
-              @click="loadForm('update');"
-              :disabled="!buttonState.update"
-            >查看/编辑</el-button>
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              v-if="power.Delete"
-              @click="_remove"
-              :disabled="!buttonState.delete"
-            >删除</el-button>
-            <el-button
-              type="primary"
-              icon="el-icon-search"
-              v-if="power.Search"
-              @click="formSearch.state=!formSearch.state"
-            >检索(收/展)</el-button>
+              v-show="!formSearch.state"
+              @click="formSearch.state=true"
+            >展开</el-link>
+            <el-link
+              class="ml-10"
+              icon="el-icon-minus"
+              v-show="formSearch.state"
+              @click="formSearch.state=false"
+            >收起</el-link>-->
           </el-col>
-          <!-- <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" class="pb-5 text-right">
-            <el-button type="primary" icon="el-icon-document">&nbsp;导出 Excel</el-button>
-            <el-button type="primary" icon="el-icon-printer">&nbsp;打印</el-button>
-          </el-col>-->
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18" class="pb-20">
+            <el-button type="primary" @click="loadForm();" v-if="power.Insert">新 建</el-button>
+            <el-button type="danger" plain @click="remove()" v-if="power.Delete">批量删除</el-button>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" class="pb-20 text-right">
+            <el-button icon="el-icon-document">导 出 Excel</el-button>
+            <el-button icon="el-icon-printer">打 印</el-button>
+          </el-col>
         </el-row>
       </template>
+      <!-- 表格 表头插槽 -->
+      <!-- <div slot="tableCols"></div> -->
+      <div slot="tableColsAdd">
+        <!-- 添加操作列插槽 -->
+        <el-table-column label="操作" fixed="right" width="160px">
+          <template slot-scope="prop">
+            <div>
+              <el-button type="primary" @click="loadForm(prop.row._ukid);" v-if="power.Update">编 辑</el-button>
+              <el-button type="danger" plain @click="remove(prop.row._ukid)" v-if="power.Delete">删 除</el-button>
+            </div>
+          </template>
+        </el-table-column>
+      </div>
       <!-- 表单 -->
       <template slot="form">
         <el-dialog
@@ -74,27 +66,33 @@
           custom-class="hzy-w90"
         >
           <div>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                <h4>编号</h4>
-                <el-input v-model="form.vm.Role_Num" type="number"></el-input>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                <h4>角色名称</h4>
-                <el-input v-model="form.vm.Role_Name"></el-input>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                <h4>是否可删除</h4>
-                <el-radio-group v-model="form.vm.Role_IsDelete">
-                  <el-radio :label="1">是</el-radio>
-                  <el-radio :label="2">否</el-radio>
-                </el-radio-group>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                <h4>备注</h4>
-                <el-input type="textarea" v-model="form.vm.Role_Remark"></el-input>
-              </el-col>
-            </el-row>
+            <el-form label-position="top" :model="form.vm">
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                  <el-form-item label="编号">
+                    <el-input v-model="form.vm.Role_Num" type="number"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                  <el-form-item label="角色名称">
+                    <el-input v-model="form.vm.Role_Name"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                  <el-form-item label="能否删除">
+                    <el-radio-group v-model="form.vm.Role_IsDelete">
+                      <el-radio :label="1">是</el-radio>
+                      <el-radio :label="2">否</el-radio>
+                    </el-radio-group>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                  <el-form-item label="备注">
+                    <el-input type="textarea" v-model="form.vm.Role_Remark"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
           </div>
           <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="save" v-if="power.Save">提交</el-button>
@@ -105,6 +103,7 @@
     </CRUDCom>
   </div>
 </template>
+
 <!--脚本-->
 <script>
 //vuex
@@ -118,7 +117,7 @@ export default {
   data() {
     return {
       grid: 24,
-      power: global.$power,
+      power: global.$power
     };
   },
   components: {
@@ -137,9 +136,13 @@ export default {
       form: state => state.form
     })
   },
+  created() {
+    //加载数据列表
+    this.findList();
+  },
   mounted() {
     //元素创建完成
-    this.init();
+    // this.init();
   },
   methods: {
     //获取数据
@@ -158,42 +161,15 @@ export default {
       //勾选复选框改变事件
       selectionChange: "selectionChange",
       //重置检索文本框
-      resetSearch: "resetSearch"
+      resetSearch: "resetSearch",
+      //分页下拉框行数改变
+      sizeChange: "sizeChange"
     }),
     init() {
-      //初始化表单
-      this.loadForm();
       //加载数据列表
-      this.findList();
+      // this.findList();
       //这里是解决页面切换 导致 按钮状态无法变更
-      var _table = this.$refs.refCRUDCom.$refs.table;
-      this.$nextTick(() => {
-        _table.clearSelection();
-        this.selectionChange([]);
-      });
-    },
-    //获取每行Key
-    _getRowKey(row) {
-      return row._ukid;
-    },
-    //点击表格行数据
-    _rowClick(row, column, event) {
-      var _table = this.$refs.refCRUDCom.$refs.table;
-      _table.clearSelection();
-      _table.toggleRowSelection(row);
-    },
-    //分页 每页显示条数 改变事件
-    _sizeChange(size) {
-      this.dataTable.rows = size;
-      this.findList();
-    },
-    //删除数据
-    _remove() {
-      var _this = this;
-      var _table = this.$refs.refCRUDCom.$refs.table;
-      this.remove(function() {
-        _table.clearSelection();
-      });
+      // var _table = this.$refs.refCRUDCom.$refs.table;
     }
   }
 };

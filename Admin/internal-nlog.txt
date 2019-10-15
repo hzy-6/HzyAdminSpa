@@ -25,3 +25,4 @@
 2019-10-06 20:02:23.7291 Warn Attempt #2 to open E:\AspNetCore\HzyAdminSpa\Admin\bin\Debug\netcoreapp3.0\NLog_Error/nlog-all-2019-10-06.log failed. Sleeping for 2ms
 2019-10-06 20:02:23.7393 Warn Attempt #3 to open E:\AspNetCore\HzyAdminSpa\Admin\bin\Debug\netcoreapp3.0\NLog_Error/nlog-all-2019-10-06.log failed. Sleeping for 4ms
 2019-10-06 20:02:23.7393 Warn Attempt #4 to open E:\AspNetCore\HzyAdminSpa\Admin\bin\Debug\netcoreapp3.0\NLog_Error/nlog-all-2019-10-06.log failed. Sleeping for 2ms
+2019-10-15 16:25:46.4192 Warn Attempt #0 to open E:\AspNetCore\HzyAdminSpa\Admin\bin\Debug\netcoreapp3.0\NLog_Error/nlog-all-2019-10-15.log failed. Sleeping for 0ms

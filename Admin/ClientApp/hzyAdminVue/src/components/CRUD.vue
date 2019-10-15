@@ -7,13 +7,11 @@
       <div>
         <el-table
           v-loading="dataTable.loading"
-          height="100%"
           ref="table"
           tooltip-effect="dark"
           :data="dataTable.list"
           :row-key="rowKey"
           @selection-change="selectionChange"
-          @row-click="rowClick"
           border
         >
           <!--表格列头 插槽-->
@@ -59,8 +57,6 @@ export default {
   props: {
     //dataTable 表格信息
     dataTable: Object,
-    //返回行key
-    rowKey: Function,
     //点击行事件
     rowClick: Function,
     //复选框改变事件
@@ -76,6 +72,11 @@ export default {
   //计算属性
   computed: {},
   mounted() {},
-  methods: {}
+  methods: {
+    //获取每行Key
+    rowKey(row) {
+      return row._ukid;
+    },
+  }
 };
 </script>

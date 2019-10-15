@@ -68,8 +68,11 @@ axios.interceptors.response.use(
         return response;
     },
     error => {
-        console.log(error);
-        return Promise.reject(error)
+        if (error.response.status === 401) {
+            global.tools.notice("无权访问!", "错误");
+            return global.$router.push('/Login');
+        } else
+            return Promise.reject(error)
     }
 )
 

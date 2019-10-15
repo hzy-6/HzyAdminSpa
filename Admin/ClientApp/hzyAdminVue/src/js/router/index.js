@@ -52,7 +52,7 @@ var checkRouter = function(to, next) {
 // ];
 
 const vueRouter = new VueRouter({
-    //mode: 'history',
+    mode: 'history',
     routes: [
         { path: '/Login', name: '/Login', component: Login }
     ]
@@ -105,7 +105,7 @@ vueRouter.beforeEach((to, from, next) => {
 
             // console.log(vueRouter);
             vueRouter.addRoutes(_router);
-            console.log('vueRouter.options.routes', vueRouter.options.routes);
+            // console.log('vueRouter.options.routes', vueRouter.options.routes);
             global.$store.commit('app/setRouterConfig', vueRouter.options.routes);
             //
             if (to.meta.hasOwnProperty('title')) {

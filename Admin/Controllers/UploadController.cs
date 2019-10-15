@@ -62,7 +62,7 @@ namespace Admin.Controllers
         /// <param name="GroupName"></param>
         /// <returns></returns>
         [HttpPost("Multiple")]
-        public async Task<IActionResult> Post(IFormFileCollection files, string GroupName)
+        public async Task<IActionResult> Post1(IFormFileCollection files, string GroupName)
         {
             if (files?.Count == 0) throw new MessageBox("找不到任何文件!");
             var _Path = new List<object>();

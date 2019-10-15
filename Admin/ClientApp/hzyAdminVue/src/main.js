@@ -17,8 +17,6 @@ import './assets/font/iconfont.css'
 import {get, post, postUpload } from './js/request'
 //tools 工具
 import tools from './js/tools'
-//ckeditor
-import CkEditor from './js/ckeditor';
 //global 配置
 global.$store = store;
 global.$router = router;

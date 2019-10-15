@@ -87,7 +87,8 @@ namespace Admin.AppService
                     Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
                     In = ParameterLocation.Header,
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
+                    Type = SecuritySchemeType.ApiKey,
+                    //Scheme = "basic",
                 });
 
                 #endregion
@@ -126,17 +127,6 @@ namespace Admin.AppService
             //注意添加这一句，启用jwt验证
             app.UseAuthentication();
             app.UseAuthorization();
-            #endregion
-
-            #region Swagger
-            //启用中间件服务生成Swagger作为JSON终结点
-            app.UseSwagger();
-            //启用中间件服务对swagger-ui，指定Swagger JSON终结点
-            app.UseSwaggerUI(option =>
-            {
-                foreach (var item in _VersionList) option.SwaggerEndpoint($"/swagger/{item}/swagger.json", item);
-                option.RoutePrefix = "swagger";
-            });
             #endregion
 
             #region WebSocket

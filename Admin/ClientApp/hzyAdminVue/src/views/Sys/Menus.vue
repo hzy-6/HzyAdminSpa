@@ -25,65 +25,67 @@
       <el-col :xs="24" :sm="24" :md="19" :lg="19" :xl="19">
         <CRUDCom
           ref="refCRUDCom"
-          :formSearch="formSearch"
           :dataTable="dataTable"
-          :rowKey="_getRowKey"
-          :rowClick="_rowClick"
           :selectionChange="selectionChange"
-          :sizeChange="_sizeChange"
+          :sizeChange="sizeChange"
           :currentChange="findList"
         >
-          <!-- 检索 -->
-          <template slot="formSearch">
-            <h4>检索</h4>
+          <!-- 检索、 工具栏 -->
+          <template slot="tools">
             <el-row :gutter="20">
               <el-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6" class="mb-20">
                 <el-input v-model="formSearch.vm.Menu_Name" placeholder="请输入 菜单名称"></el-input>
               </el-col>
-            </el-row>
-            <div>
-              <el-button type="primary" plain @click="findList">检索</el-button>
-              <el-button type="primary" plain @click="resetSearch();findList()">重置</el-button>
-              <el-button type="danger" plain @click="formSearch.state=false">关闭</el-button>
-            </div>
-          </template>
-          <!-- 工具栏 -->
-          <template slot="tools">
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18" class="pb-5">
-                <el-button
-                  type="primary"
-                  icon="el-icon-plus"
-                  v-if="power.Insert"
-                  @click="loadForm('add');"
-                >添加</el-button>
-                <el-button
-                  type="primary"
-                  icon="el-icon-edit"
-                  v-if="power.Update"
-                  @click="loadForm('update');"
-                  :disabled="!buttonState.update"
-                >查看/编辑</el-button>
-                <el-button
-                  type="danger"
-                  icon="el-icon-delete"
-                  v-if="power.Delete"
-                  @click="_remove"
-                  :disabled="!buttonState.delete"
-                >删除</el-button>
-                <el-button
-                  type="primary"
-                  icon="el-icon-search"
-                  v-if="power.Search"
-                  @click="formSearch.state=!formSearch.state"
-                >检索(收/展)</el-button>
+              <el-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6" class="mb-20">
+                <el-button type="primary" @click="findList">检 索</el-button>
+                <el-button @click="resetSearch();findList()">重 置</el-button>
+                <!-- <el-link
+              class="ml-10"
+              icon="el-icon-plus"
+              v-show="!formSearch.state"
+              @click="formSearch.state=true"
+            >展开</el-link>
+            <el-link
+              class="ml-10"
+              icon="el-icon-minus"
+              v-show="formSearch.state"
+              @click="formSearch.state=false"
+                >收起</el-link>-->
               </el-col>
-              <!-- <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" class="pb-5 text-right">
-            <el-button type="primary" icon="el-icon-document">&nbsp;导出 Excel</el-button>
-            <el-button type="primary" icon="el-icon-printer">&nbsp;打印</el-button>
-              </el-col>-->
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18" class="pb-20">
+                <el-button type="primary" @click="loadForm();" v-if="power.Insert">新 建</el-button>
+                <el-button type="danger" plain @click="remove()" v-if="power.Delete">批量删除</el-button>
+              </el-col>
+              <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" class="pb-20 text-right">
+                <el-button icon="el-icon-document">导 出 Excel</el-button>
+                <el-button icon="el-icon-printer">打 印</el-button>
+              </el-col>
             </el-row>
           </template>
+          <!-- 表格 表头插槽 -->
+          <!-- <div slot="tableCols"></div> -->
+          <div slot="tableColsAdd">
+            <!-- 添加操作列插槽 -->
+            <el-table-column label="操作" fixed="right" width="160px">
+              <template slot-scope="prop">
+                <div>
+                  <el-button
+                    type="primary"
+                    @click="loadForm(prop.row._ukid);"
+                    v-if="power.Update"
+                  >编 辑</el-button>
+                  <el-button
+                    type="danger"
+                    plain
+                    @click="remove(prop.row._ukid)"
+                    v-if="power.Delete"
+                  >删 除</el-button>
+                </div>
+              </template>
+            </el-table-column>
+          </div>
           <!-- 表单 -->
           <template slot="form">
             <el-dialog
@@ -96,44 +98,52 @@
               custom-class="hzy-w90"
             >
               <div>
-                <el-row :gutter="20">
-                  <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                    <h4>编号</h4>
-                    <el-input v-model="form.vm.Menu_Num"></el-input>
-                  </el-col>
-                  <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                    <h4>名称</h4>
-                    <el-input v-model="form.vm.Menu_Name"></el-input>
-                  </el-col>
-                  <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                    <h4>地址</h4>
-                    <el-input v-model="form.vm.Menu_Url"></el-input>
-                  </el-col>
-                  <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                    <h4>图标</h4>
-                    <el-input v-model="form.vm.Menu_Icon"></el-input>
-                  </el-col>
-                  <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
-                    <h4>是否显示</h4>
-                    <el-switch
-                      v-model="form.vm.Menu_IsShow"
-                      active-text="是"
-                      inactive-text="否"
-                      :active-value="1"
-                      :inactive-value="2"
-                    ></el-switch>
-                  </el-col>
-                  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                    <h4>功能</h4>
-                    <el-checkbox-group v-model="form.vm.FunctionIds">
-                      <el-checkbox
-                        v-for="(item,index) in form.vm.AllFunctionList"
-                        :label="item.Function_ID"
-                        :key="index"
-                      >{{item.Function_Name}}</el-checkbox>
-                    </el-checkbox-group>
-                  </el-col>
-                </el-row>
+                <el-form label-position="top" :model="form.vm">
+                  <el-row :gutter="20">
+                    <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                      <el-form-item label="编号">
+                        <el-input v-model="form.vm.Menu_Num"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                      <el-form-item label="名称">
+                        <el-input v-model="form.vm.Menu_Name"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                      <el-form-item label="地址">
+                        <el-input v-model="form.vm.Menu_Url"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                      <el-form-item label="图标">
+                        <el-input v-model="form.vm.Menu_Icon"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                      <el-form-item label="是否显示">
+                        <el-switch
+                          v-model="form.vm.Menu_IsShow"
+                          active-text="是"
+                          inactive-text="否"
+                          :active-value="1"
+                          :inactive-value="2"
+                        ></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                      <el-form-item label="图标">
+                        <el-checkbox-group v-model="form.vm.FunctionIds">
+                          <el-checkbox
+                            v-for="(item,index) in form.vm.AllFunctionList"
+                            :label="item.Function_ID"
+                            :key="index"
+                          >{{item.Function_Name}}</el-checkbox>
+                        </el-checkbox-group>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-form>
               </div>
               <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="save" v-if="power.Save">提交</el-button>
@@ -180,9 +190,15 @@ export default {
       tree: state => state.tree
     })
   },
+  created() {
+    //加载数据列表
+    this.findList();
+    //
+    this.getTree();
+  },
   mounted() {
     //元素创建完成
-    this.init();
+    // this.init();
   },
   methods: {
     //获取数据
@@ -203,44 +219,15 @@ export default {
       //勾选复选框改变事件
       selectionChange: "selectionChange",
       //重置检索文本框
-      resetSearch: "resetSearch"
+      resetSearch: "resetSearch",
+      //分页下拉框行数改变
+      sizeChange: "sizeChange"
     }),
     init() {
-      //初始化表单
-      this.loadForm();
       //加载数据列表
-      this.findList();
+      // this.findList();
       //这里是解决页面切换 导致 按钮状态无法变更
-      var _table = this.$refs.refCRUDCom.$refs.table;
-      this.$nextTick(() => {
-        _table.clearSelection();
-        this.selectionChange([]);
-      });
-      //
-      this.getTree();
-    },
-    //获取每行Key
-    _getRowKey(row) {
-      return row._ukid;
-    },
-    //点击表格行数据
-    _rowClick(row, column, event) {
-      var _table = this.$refs.refCRUDCom.$refs.table;
-      _table.clearSelection();
-      _table.toggleRowSelection(row);
-    },
-    //分页 每页显示条数 改变事件
-    _sizeChange(size) {
-      this.dataTable.rows = size;
-      this.findList();
-    },
-    //删除数据
-    _remove() {
-      var _this = this;
-      var _table = this.$refs.refCRUDCom.$refs.table;
-      this.remove(function() {
-        _table.clearSelection();
-      });
+      // var _table = this.$refs.refCRUDCom.$refs.table;
     },
     //
     _nodeClick(p1, p2, p3) {

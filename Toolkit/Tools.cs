@@ -25,11 +25,6 @@ namespace Toolkit
         /// </summary>
         public static LogHelper Log => new LogHelper();
 
-        /// <summary>
-        /// 是否为 Ajax 请求
-        /// </summary>
-        public static bool IsAjaxRequest => (HttpHelper.Request.Headers.ContainsKey("X-Requested-With") ? HttpHelper.Request.Headers["X-Requested-With"] == "XMLHttpRequest" : false);
-
         #region 加密和解密
         /// <summary>
         /// MD5加密

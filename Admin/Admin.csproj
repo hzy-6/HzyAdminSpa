@@ -19,62 +19,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="%2a%2a\**" />
-    <Content Remove="%2a%2a\**" />
-    <EmbeddedResource Remove="%2a%2a\**" />
-    <None Remove="%2a%2a\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="%2a%2a/%2a.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="%2a%2a\%2a.config" />
-    <Content Remove="%2a%2a\%2a.cshtml" />
-    <Content Remove="%2a%2a\%2a.json" />
-    <Content Remove="%2a%2a\%2a.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="%2a%2a/%2a.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="%2a%2a/%2a" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="AppService\AdminStartupConfigure.cs" />
-    <Compile Include="AppService\ApiVersionsEnum.cs" />
-    <Compile Include="AppService\AppExceptionFilter.cs" />
-    <Compile Include="AppService\SwaggerParameterFilter.cs" />
-    <Compile Include="Controllers\Admin\AdminBaseController.cs" />
-    <Compile Include="Controllers\Admin\AuthorizationController.cs" />
-    <Compile Include="Controllers\Admin\Base\MemberController.cs" />
-    <Compile Include="Controllers\Admin\Sys\AppLogController.cs" />
-    <Compile Include="Controllers\Admin\Sys\FunctionController.cs" />
-    <Compile Include="Controllers\Admin\Sys\MenusController.cs" />
-    <Compile Include="Controllers\Admin\Sys\RoleController.cs" />
-    <Compile Include="Controllers\Admin\Sys\RoleFunctionController.cs" />
-    <Compile Include="Controllers\Admin\Sys\UserController.cs" />
-    <Compile Include="Controllers\ApiBaseController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Startup.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="appsettings.Development.json" />
-    <Content Include="appsettings.json" />
-    <Content Include="ClientApp\hzyAdminVue\package-lock.json" />
-    <Content Include="ClientApp\hzyAdminVue\package.json" />
-    <Content Include="NLog\nlog.config" />
-    <Content Include="Properties\launchSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include=".gitignore" />
     <None Include="AppService\HzyAdminDB.sql" />
     <None Include="ClientApp\hzyAdminVue\babel.config.js" />
@@ -137,7 +81,7 @@
     <None Include="ClientApp\hzyAdminVue\yarn.lock" />
     <None Include="internal-nlog.txt" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
@@ -156,6 +100,47 @@
     <ProjectReference Include="..\Logic\Logic.csproj" />
     <ProjectReference Include="..\Toolkit\Toolkit.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build">
+    <!-- Build Target:  Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+  </Target>
+
+  <Target Name="DebugEnsureNpm" AfterTargets="DebugEnsureNodeEnv">
+    <!-- Build Target:  Ensure Node.js is installed -->
+    <Exec Command="npm --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+  </Target>
+
+  <Target Name="EnsureNodeModulesInstalled" BeforeTargets="Build" Inputs="package.json" Outputs="packages-lock.json">
+    <!-- Build Target: Restore NPM packages using npm -->
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- Build Target: Run webpack dist build -->
+    <Message Importance="high" Text="Running npm build..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
 
 
 </Project>
