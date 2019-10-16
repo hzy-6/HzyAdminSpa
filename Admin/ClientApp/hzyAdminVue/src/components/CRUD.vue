@@ -10,8 +10,9 @@
           ref="table"
           tooltip-effect="dark"
           :data="dataTable.list"
-          :row-key="rowKey"
+          :row-key="handleRowKey"
           @selection-change="selectionChange"
+          @row-click="handleRowClick"
           border
         >
           <!--表格列头 插槽-->
@@ -64,7 +65,9 @@ export default {
     //分页下拉框改变事件
     sizeChange: Function,
     //页码改变事件
-    currentChange: Function
+    currentChange: Function,
+    //每行的 key 值
+    rowKey: Function
   },
   data() {
     return {};
@@ -74,9 +77,13 @@ export default {
   mounted() {},
   methods: {
     //获取每行Key
-    rowKey(row) {
+    handleRowKey(row) {
+      if (this.rowKey) return this.rowKey();
       return row._ukid;
     },
+    handleRowClick(row, column, event) {
+      if (this.rowClick) this.rowClick(row, column, event);
+    }
   }
 };
 </script>

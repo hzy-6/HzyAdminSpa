@@ -108,19 +108,33 @@ namespace Admin
                 // Production should use "UseSpaStaticFiles()" and the webpack dist
                 if (env.IsDevelopment())
                 {
+                    //endpoints.MapToVueCliProxy(
+                    //                    "{*path}",
+                    //                    new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" },
+                    //                    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    //                    npmScript: "serve",
+                    //                    port: 6666
+                    //                    );
 #if DEBUG
                     //if (System.Diagnostics.Debugger.IsAttached)
-                        endpoints.MapToVueCliProxy(
-                                        "{*path}",
-                                        new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" },
-                                        //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                                        npmScript: "serve",
-                                        port: 6666
-                                        );
+                    //    endpoints.MapToVueCliProxy("{*path}", new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" }, "dev", port: 6666, regex: "编译成功!");
+
+
+
+                    //if (System.Diagnostics.Debugger.IsAttached)
+                    //endpoints.MapToVueCliProxy(
+                    //                    "{*path}",
+                    //                    new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" },
+                    //                    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    //                    npmScript: "serve",
+                    //                    port: 6666
+                    //                    );
+
+
                     //else
 #endif
                     // note: output of vue cli or quasar cli should be wwwroot
-                    //                    endpoints.MapFallbackToFile("index.html");
+                    //endpoints.MapFallbackToFile("ClientApp/hzyAdminVue/public/index.html");
 
                 }
 
@@ -135,33 +149,25 @@ namespace Admin
 
                 #endregion
 
+
             });
 
-            #region Swagger
-            //启用中间件服务生成Swagger作为JSON终结点
-            app.UseSwagger();
-            //启用中间件服务对swagger-ui，指定Swagger JSON终结点
-            app.UseSwaggerUI(option =>
+
+
+            #region 使用 单页面 .net core 2.2 
+
+            app.UseSpa(spa =>
             {
-                foreach (var item in _VersionList) option.SwaggerEndpoint($"{item}/swagger.json", item);
-                option.RoutePrefix = "swagger";
+                spa.Options.SourcePath = "ClientApp/hzyAdminVue/";
+                if (env.IsDevelopment())
+                {
+                    //vue-cli-service serve
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");//使用这个需要自己启动 vue 项目
+                    spa.UseVueCli(npmScript: "serve", port: 6666); //自动启动服务
+                }
             });
+
             #endregion
-
-            //#region 使用 单页面 .net core 2.2 
-
-            //app.UseSpa(spa =>
-            //{
-            //    spa.Options.SourcePath = "ClientApp/hzyAdminVue/";
-            //    if (env.IsDevelopment())
-            //    {
-            //        //vue-cli-service serve
-            //        //spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");//使用这个需要自己启动 vue 项目
-            //        spa.UseVueCli(npmScript: "serve", port: 6666); //自动启动服务
-            //    }
-            //});
-
-            //#endregion
 
 
         }

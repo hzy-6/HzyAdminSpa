@@ -19,6 +19,41 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="%2a%2a\**" />
+    <Content Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="%2a%2a\**" />
+    <None Remove="%2a%2a\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="%2a%2a/%2a.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="%2a%2a\%2a.config" />
+    <Content Remove="%2a%2a\%2a.cshtml" />
+    <Content Remove="%2a%2a\%2a.json" />
+    <Content Remove="%2a%2a\%2a.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="%2a%2a/%2a.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="%2a%2a/%2a" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json" />
+    <Content Include="appsettings.json" />
+    <Content Include="ClientApp\hzyAdminVue\package-lock.json" />
+    <Content Include="ClientApp\hzyAdminVue\package.json" />
+    <Content Include="NLog\nlog.config" />
+    <Content Include="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include=".gitignore" />
     <None Include="AppService\HzyAdminDB.sql" />
     <None Include="ClientApp\hzyAdminVue\babel.config.js" />
@@ -80,6 +115,8 @@
     <None Include="ClientApp\hzyAdminVue\src\vuex\Sys\User.js" />
     <None Include="ClientApp\hzyAdminVue\yarn.lock" />
     <None Include="internal-nlog.txt" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml.user" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +141,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
+
+
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build">
     <!-- Build Target:  Ensure Node.js is installed -->
@@ -141,6 +180,5 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-
 
 </Project>

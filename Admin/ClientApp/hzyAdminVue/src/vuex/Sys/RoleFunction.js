@@ -43,7 +43,7 @@ export default {
         },
         tree: {
             _ukid: null,
-            vm: {}
+            vm: []
         }
     },
     mutations: {
@@ -146,8 +146,9 @@ export default {
             var _state = context.state;
             //发送请求给接口
             global
-                .post('/Admin/' + _state.controllerName + '/Tree', { RoleId: par }, false)
+                .post('/Admin/' + _state.controllerName + '/Tree', { RoleId: _state.tree._ukid }, false)
                 .then(data => {
+                    console.log('data.tree', data);
                     _state.tree.vm = data.tree;
                 });
         },

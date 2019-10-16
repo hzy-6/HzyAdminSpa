@@ -129,6 +129,17 @@ namespace Admin.AppService
             app.UseAuthorization();
             #endregion
 
+            #region Swagger
+            //启用中间件服务生成Swagger作为JSON终结点
+            app.UseSwagger();
+            //启用中间件服务对swagger-ui，指定Swagger JSON终结点
+            app.UseSwaggerUI(option =>
+            {
+                foreach (var item in _VersionList) option.SwaggerEndpoint($"{item}/swagger.json", item);
+                option.RoutePrefix = "swagger";
+            });
+            #endregion
+
             #region WebSocket
 
             //WebSocket
