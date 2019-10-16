@@ -18,8 +18,6 @@ namespace Admin
 
     public class Startup
     {
-        private static readonly IEnumerable<string> _VersionList = typeof(ApiVersionsEnum).GetEnumNames().ToList().OrderBy(w => w);
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
