@@ -85,7 +85,7 @@
               <el-row :gutter="20">
                 <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
                   <el-form-item label="头像">
-                    <UploadImageCom ref="ref_Member_Photo" :imageUrl="form.vm.Member_Photo" />
+                    <UploadImageCom ref="ref_Member_Photo" :imageUrl.sync="form.vm.Member_Photo" />
                   </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
@@ -128,21 +128,16 @@
                     />
                   </el-form-item>
                 </el-col>
-                
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                   <el-form-item label="介绍">
-                    <!-- <ckeditor
-                      :editor="ckeditor.editor"
-                      v-model="form.vm.Member_Introduce"
-                      :config="ckeditor.editorConfig"
-                    ></ckeditor> -->
+                    <EditorCom :text.sync="form.vm.Member_Introduce" />
                   </el-form-item>
                 </el-col>
               </el-row>
             </el-form>
           </div>
           <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="save" v-if="power.Save">提交</el-button>
+            <el-button type="primary" @click="_save" v-if="power.Save">提交</el-button>
             <el-button @click="form.state=false">取消</el-button>
           </span>
         </el-dialog>
@@ -159,28 +154,21 @@ var _controllerName = "Member";
 import CRUDCom from "../../components/CRUD";
 import UploadImageCom from "../../components/upload/Image";
 import UploadFilesCom from "../../components/upload/Files";
-//
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import EditorCom from "../../components/Editor";
 //业务
 export default {
   name: _controllerName,
   data() {
     return {
       grid: 8,
-      power: global.$power,
-      ckeditor: {
-        editor: ClassicEditor,
-        editorData: "<p>Content of the editor.</p>",
-        editorConfig: {
-          // The configuration of the editor.
-        }
-      }
+      power: global.$power
     };
   },
   components: {
     CRUDCom,
     UploadImageCom,
-    UploadFilesCom
+    UploadFilesCom,
+    EditorCom
   },
   //计算属性
   computed: {
@@ -195,7 +183,7 @@ export default {
       form: state => state.form
     })
   },
-  created(){
+  created() {
     //加载数据列表
     this.findList();
   },

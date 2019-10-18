@@ -18,38 +18,10 @@ namespace Admin.Controllers.Admin.Base
     using System.Text.Json;
 
     /// <summary>
-    /// 富文本编辑器：tinymce
+    /// 会员管理
     /// </summary>
     public class MemberController : AdminBaseController
     {
-        //        <template>
-        //  <div>
-        //    <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
-        //  </div>
-        //</template>
-
-        //<script>
-        //import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-        //export default {
-        //  name: "Member",
-        //  data()
-        //        {
-        //            return {
-        //            editor: ClassicEditor,
-        //      editorData: "<p>Content of the editor.</p>",
-        //      editorConfig:
-        //                {
-        //                    // The configuration of the editor.
-        //                }
-        //            };
-        //        },
-        //  mounted() { },
-        //  methods: {}
-        //};
-        //</script>
-
-
         private IWebHostEnvironment _IWebHostEnvironment = null;
         private string _WebRootPath = string.Empty;
         public MemberController(IWebHostEnvironment IWebHostEnvironment)
@@ -106,7 +78,9 @@ namespace Admin.Controllers.Admin.Base
                   }
                   if (Member_FilePath_Files.Count > 0)
                   {
-                      var _Path = JsonSerializer.Deserialize<List<object>>(model.Member_FilePath);
+                      var _Path = new List<object>();
+                      if (!string.IsNullOrWhiteSpace(model.Member_FilePath))
+                          _Path = JsonSerializer.Deserialize<List<object>>(model.Member_FilePath);
                       if (_Path == null) _Path = new List<object>();
                       foreach (var item in Member_FilePath_Files)
                       {

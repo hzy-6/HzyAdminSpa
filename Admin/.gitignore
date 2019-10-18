@@ -27,6 +27,7 @@ ClientApp/hzyAdminVue/node_modules
 ClientApp/hzyAdminVue/dist
 ClientApp/hzyAdminAntd/node_modules
 ClientApp/hzyAdminAntd/dist
+wwwroot/Content
 
 # Visual Studio 2015 cache/options directory
 .vs/

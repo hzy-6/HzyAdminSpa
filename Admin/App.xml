@@ -71,7 +71,7 @@
         </member>
         <member name="T:Admin.Controllers.Admin.Base.MemberController">
             <summary>
-            富文本编辑器：tinymce
+            会员管理
             </summary>
         </member>
         <member name="M:Admin.Controllers.Admin.Base.MemberController.DataSourceAsync(System.Int32,System.Int32,System.Collections.Hashtable)">

@@ -28,6 +28,11 @@ export default {
       fileUrl: this.imageUrl
     };
   },
+  watch: {
+    imageUrl(newV) {
+      this.fileUrl = newV;
+    }
+  },
   //计算属性
   computed: {},
   mounted() {},

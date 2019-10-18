@@ -5,7 +5,7 @@
       action="/Upload/Multiple"
       :on-preview="handlePreview"
       :on-remove="handleRemove"
-      :file-list="fileList?JSON.parse(fileList):[]"
+      :file-list="fileList"
       :auto-upload="false"
       :on-change="onChange"
     >
@@ -23,13 +23,13 @@ export default {
   },
   data() {
     return {
-      fileList: this.imageUrl,
+      fileList: JSON.parse(this.imageUrl),
       upfile: []
     };
   },
   watch: {
     imageUrl(newV) {
-      this.fileList = newV;
+      this.fileList = JSON.parse(newV);
     }
   },
   methods: {
