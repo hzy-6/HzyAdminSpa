@@ -128,6 +128,7 @@ export function post(url, data = {}, loading = true) {
  */
 export function postUpload(url, data = {}, loading = true) {
     isloading = loading;
+    if (!data) data = {};
     data.isUpload = true;
     return new Promise((resolve, reject) => {
         axios.post(url, data)
