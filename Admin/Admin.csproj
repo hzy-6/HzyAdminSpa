@@ -44,6 +44,35 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="AppService\AdminStartupConfigure.cs" />
+    <Compile Include="AppService\ApiVersionsEnum.cs" />
+    <Compile Include="AppService\AppExceptionFilter.cs" />
+    <Compile Include="AppService\SwaggerParameterFilter.cs" />
+    <Compile Include="Controllers\Admin\AdminBaseController.cs" />
+    <Compile Include="Controllers\Admin\AuthorizationController.cs" />
+    <Compile Include="Controllers\Admin\Base\MemberController.cs" />
+    <Compile Include="Controllers\Admin\Sys\AppLogController.cs" />
+    <Compile Include="Controllers\Admin\Sys\FunctionController.cs" />
+    <Compile Include="Controllers\Admin\Sys\MenusController.cs" />
+    <Compile Include="Controllers\Admin\Sys\RoleController.cs" />
+    <Compile Include="Controllers\Admin\Sys\RoleFunctionController.cs" />
+    <Compile Include="Controllers\Admin\Sys\UserController.cs" />
+    <Compile Include="Controllers\ApiBaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json" />
+    <Content Include="appsettings.json" />
+    <Content Include="ClientApp\hzyAdminVue\package-lock.json" />
+    <Content Include="ClientApp\hzyAdminVue\package.json" />
+    <Content Include="NLog\nlog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include=".gitignore" />
     <None Include="AppService\HzyAdminDB.sql" />
     <None Include="ClientApp\hzyAdminVue\babel.config.js" />
