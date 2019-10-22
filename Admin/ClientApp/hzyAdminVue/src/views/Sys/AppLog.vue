@@ -87,7 +87,7 @@
               <el-row :gutter="20">
                 <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
                   <el-form-item label="Api">
-                    <el-input v-model="formSearch.vm.AppLog_Api" placeholder="请输入 Api"></el-input>
+                    <el-input v-model="form.vm.AppLog_Api" placeholder="请输入 Api"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
