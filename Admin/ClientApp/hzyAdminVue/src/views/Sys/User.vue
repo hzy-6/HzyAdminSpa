@@ -39,7 +39,7 @@
             <el-button type="danger" plain @click="remove()" v-if="power.Delete">批量删除</el-button>
           </el-col>
           <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" class="pb-20 text-right">
-            <el-button icon="el-icon-document">导 出 Excel</el-button>
+            <el-button icon="el-icon-document" @click="exportExcel">导 出 Excel</el-button>
             <el-button icon="el-icon-printer">打 印</el-button>
           </el-col>
         </el-row>
@@ -63,7 +63,7 @@
           :close-on-click-modal="false"
           :title.sync="form.vm.Id?'编辑/查看':'添加'"
           :visible.sync="form.state"
-          top="5vh"
+          top="20px"
           width="800px"
           center
           custom-class="hzy-w90"
@@ -166,7 +166,9 @@ export default {
       //保存表单数据
       save: "save",
       //移除数据
-      remove: "remove"
+      remove: "remove",
+      //导出excel
+      exportExcel:"exportExcel"
     }),
     //状态管理事件
     ...mapMutations(_controllerName + "_Vuex", {

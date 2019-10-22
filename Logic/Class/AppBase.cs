@@ -9,26 +9,21 @@ namespace Logic.Class
     using System.Linq;
     using System.Reflection;
     using System.Collections;
+    using Entitys.SysClass;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using System.Data;
+    using System.IO;
+    using System.Threading.Tasks;
 
     public class AppBase
     {
         public string ErrorMessage = "操作失败！";
 
-        private static DbContextSqlServer _db;
         /// <summary>
         /// 数据访问对象
         /// </summary>
-        public static DbContextSqlServer db
-        {
-            get
-            {
-                return _db;
-            }
-            set
-            {
-                if (_db == null) _db = value;
-            }
-        }
+        public static DbContextSqlServer db { get; set; }
 
         protected void SetErrorMessage(string _ErrorMessage) => this.ErrorMessage = _ErrorMessage;
 
@@ -114,7 +109,48 @@ namespace Logic.Class
             return _Dictionary;
         }
 
+        /// <summary>
+        /// 表数据转换为EXCEL
+        /// </summary>
+        /// <param name="_TableViewModel"></param>
+        /// <returns></returns>
+        public static byte[] HandleExportExcel(TableViewModel _TableViewModel)
+        {
+            var dt = _TableViewModel.DataTable;
+            var list = _TableViewModel.Cols;
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            ISheet sheet = workbook.CreateSheet();
 
+            //填充表头
+            IRow dataRow = sheet.CreateRow(0);
+            foreach (DataColumn column in dt.Columns)
+            {
+                if (column.ColumnName.Equals("_ukid"))
+                    continue;
+
+                var col = list.Find(w => w.ColName == column.ColumnName);
+                dataRow.CreateCell(column.Ordinal).SetCellValue(col.Title);
+            }
+
+            //填充内容
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                dataRow = sheet.CreateRow(i + 1);
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    if (dt.Columns[j].ColumnName.Equals("_ukid"))
+                        continue;
+                    dataRow.CreateCell(j).SetCellValue(dt.Rows[i][j].ToString());
+                }
+            }
+
+            //保存
+            using (MemoryStream ms = new MemoryStream())
+            {
+                workbook.Write(ms);
+                return ms.ToArray();
+            }
+        }
 
 
 

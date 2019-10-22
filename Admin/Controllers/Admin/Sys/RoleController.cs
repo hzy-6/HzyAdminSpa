@@ -9,8 +9,10 @@ namespace Admin.Controllers.Admin.Sys
     using System.Collections;
     using Entitys.SysClass;
     using Logic;
+    using Logic.Class;
     using Logic.SysClass;
     using Microsoft.AspNetCore.Http;
+    using Toolkit;
 
     /// <summary>
     /// 角色管理
@@ -45,6 +47,20 @@ namespace Admin.Controllers.Admin.Sys
             var _HashtableQuery = this.FormCollectionToHashtable(_IFormCollection);
             var _DataViewModel = await this.DataSourceAsync(Page, Rows, _HashtableQuery);
             return _DataViewModel;
+        }
+
+        /// <summary>
+        /// 导出Excel
+        /// </summary>
+        /// <param name="_IFormCollection"></param>
+        /// <returns></returns>
+        [HttpGet(nameof(ExportExcel)), AppService.ApiCheckTokenFilter]
+        public async Task<IActionResult> ExportExcel(IFormCollection _IFormCollection)
+        {
+            _Logic._Account = this._Account;//将当前用户信息传入 Logic层
+            var _HashtableQuery = this.FormCollectionToHashtable(_IFormCollection);
+            var _DataViewModel = await this.DataSourceAsync(1, 999999, _HashtableQuery);
+            return File(AppBase.HandleExportExcel(_DataViewModel), Tools.GetFileContentType[".xls"].ToStr(), Guid.NewGuid().ToString() + ".xls");
         }
 
         /// <summary>
