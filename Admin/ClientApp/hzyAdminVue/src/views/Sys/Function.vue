@@ -83,7 +83,7 @@
       :close-on-click-modal="false"
       :title.sync="form.vm.Id?'编辑/查看':'添加'"
       :visible.sync="form.state"
-      top="5vh"
+      top="20px"
       width="400px"
       center
       custom-class="hzy-w90"
@@ -130,9 +130,6 @@ var _controllerName = "Function";
 //业务
 export default {
   name: _controllerName,
-  props: {
-    findBackCall: Function
-  },
   data() {
     return {
       grid: 24,

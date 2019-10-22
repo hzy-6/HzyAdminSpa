@@ -1,4 +1,5 @@
 import { Message, MessageBox, Notification } from 'element-ui';
+import qs from 'qs';
 
 var tools = {
     //消息提醒
@@ -113,6 +114,10 @@ var tools = {
         }
     },
     guidEmpty: '00000000-0000-0000-0000-000000000000',
+    //获取stringify 将json对象 转换为 key=value&key1=value1 格式数据
+    getStringify(data) {
+        return qs.stringify(data);
+    }
 
 };
 

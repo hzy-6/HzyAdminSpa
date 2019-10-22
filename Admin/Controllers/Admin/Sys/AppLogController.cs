@@ -13,6 +13,7 @@ namespace Admin.Controllers.Admin.Sys
     using Microsoft.AspNetCore.Http;
     using DbFrame;
     using Toolkit;
+    using Logic.Class;
 
     public class AppLogController : AdminBaseController
     {
@@ -47,6 +48,20 @@ namespace Admin.Controllers.Admin.Sys
             if (AppLog_CreateTime.Count > 0) _HashtableQuery["AppLog_CreateTime"] = $"{AppLog_CreateTime[0]} ~ {AppLog_CreateTime[1]}";
             var _DataViewModel = await this.DataSourceAsync(Page, Rows, _HashtableQuery);
             return _DataViewModel;
+        }
+
+        /// <summary>
+        /// 导出Excel
+        /// </summary>
+        /// <param name="_IFormCollection"></param>
+        /// <returns></returns>
+        [HttpGet(nameof(ExportExcel)), AppService.ApiCheckTokenFilter]
+        public async Task<IActionResult> ExportExcel(IFormCollection _IFormCollection)
+        {
+            _Logic._Account = this._Account;//将当前用户信息传入 Logic层
+            var _HashtableQuery = this.FormCollectionToHashtable(_IFormCollection);
+            var _DataViewModel = await this.DataSourceAsync(1, 999999, _HashtableQuery);
+            return File(AppBase.HandleExportExcel(_DataViewModel), Tools.GetFileContentType[".xls"].ToStr(), Guid.NewGuid().ToString() + ".xls");
         }
 
         ///// <summary>

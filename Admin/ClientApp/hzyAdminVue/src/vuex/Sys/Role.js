@@ -72,7 +72,7 @@ export default {
             _vm['Rows'] = _state.dataTable.rows;
             //发送请求给接口
             global
-                .post('/Admin/' + _state.controllerName + '/FindList', _vm, false)
+                .post(`/Admin/${_state.controllerName}/FindList`, _vm, false)
                 .then(data => {
                     var item = data;
                     // _state.dataTable.loading = false;
@@ -86,7 +86,7 @@ export default {
         loadForm(context, par) {
             var _state = context.state;
             global
-                .post('/Admin/' + _state.controllerName + '/LoadForm', { Id: par }, true)
+                .post(`/Admin/${_state.controllerName}/LoadForm`, { Id: par }, true)
                 .then(data => {
                     var item = data.Form;
                     _state.form.vm = item;
@@ -110,7 +110,7 @@ export default {
 
             global.tools.confirm('确定要删除吗？', function() {
                 global
-                    .post('/Admin/' + _state.controllerName + '/Delete', { Id: _ukids }, true)
+                    .post(`/Admin/${_state.controllerName}/Delete`, { Id: _ukids }, true)
                     .then(data => {
                         //刷新列表
                         context.dispatch("findList");
@@ -128,7 +128,7 @@ export default {
             //if (!_vm.User_Name) return global.tools.msg('用户名不能为空!', '错误');
             //发送请求给接口
             global
-                .post('/Admin/' + _state.controllerName + '/Save', _vm, true)
+                .post(`/Admin/${_state.controllerName}/Save`, _vm, true)
                 .then(data => {
                     //刷新列表
                     context.dispatch("findList");

@@ -59,7 +59,5 @@ namespace Admin.Controllers.Admin
         protected virtual Task<TableViewModel> DataSourceAsync(int Page, int Rows, Hashtable Search) => throw new Exception("未实现!");
 
 
-
-
     }
 }

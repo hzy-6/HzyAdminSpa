@@ -23,34 +23,27 @@ export default {
   },
   data() {
     return {
-      fileList: JSON.parse(this.imageUrl),
+      fileList: this.imageUrl ? JSON.parse(this.imageUrl) : [],
       upfile: []
     };
   },
   watch: {
     imageUrl(newV) {
-      this.fileList = JSON.parse(newV);
+      // console.log(newV);
+      this.fileList = newV ? JSON.parse(newV) : [];
     }
+  },
+  //计算属性
+  computed: {},
+  mounted() {
+    // console.log(this.imageUrl);
   },
   methods: {
     submitUpload() {
       //   this.$refs.upload.submit();
     },
-    handleRemove(file, fileList) {
-      //   console.log(file, fileList);
-      var _fileList = JSON.parse(this.fileList);
-      //
-      for (var i = 0; i < _fileList.length; i++) {
-        var item = _fileList[i];
-        var _file = fileList.find(w => w.name == item.name);
-        if (!_file) {
-          _fileList.splice(i, 1);
-        }
-      }
-      console.log("this.fileList.remove", _fileList);
-      //this.imageUrl = JSON.stringify(this.findList);
+    handleRemove(file, _fileList) {
       this.$emit("update:imageUrl", JSON.stringify(_fileList));
-      //this.fileList = fileList;
     },
     handlePreview(file) {
       //   console.log(file);

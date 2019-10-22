@@ -18,8 +18,8 @@ import {get, post, postUpload } from './js/request'
 //tools 工具
 import tools from './js/tools'
 //编辑器
-import CKEditor from '@ckeditor/ckeditor5-vue';
-Vue.use(CKEditor);
+// import CKEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+// Vue.use(CKEditor);
 //global 配置
 global.$store = store;
 global.$router = router;
