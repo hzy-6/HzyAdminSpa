@@ -115,8 +115,15 @@ var tools = {
     },
     guidEmpty: '00000000-0000-0000-0000-000000000000',
     //获取stringify 将json对象 转换为 key=value&key1=value1 格式数据
-    getStringify(data) {
+    stringify(data) {
         return qs.stringify(data);
+    },
+    //获取地址栏参数
+    getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURIComponent(r[2]);
+        return null;
     }
 
 };

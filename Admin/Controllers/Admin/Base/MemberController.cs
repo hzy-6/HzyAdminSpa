@@ -66,14 +66,9 @@ namespace Admin.Controllers.Admin.Base
         /// </summary>
         /// <param name="_IFormCollection"></param>
         /// <returns></returns>
-        [HttpPost(nameof(ExportExcel)), AppService.ApiCheckTokenFilter]
-        public async Task<IActionResult> ExportExcel(IFormCollection _IFormCollection)
-        {
-            _Logic._Account = this._Account;//将当前用户信息传入 Logic层
-            var _HashtableQuery = this.FormCollectionToHashtable(_IFormCollection);
-            var _DataViewModel = await this.DataSourceAsync(1, 999999, _HashtableQuery);
-            return File(AppBase.HandleExportExcel(_DataViewModel), Tools.GetFileContentType[".xls"].ToStr(), Guid.NewGuid().ToString() + ".xls");
-        }
+        [HttpGet(nameof(ExportExcel)), AppService.ApiCheckTokenFilter]
+        public async Task<IActionResult> ExportExcel(IFormCollection _IFormCollection) =>
+            File(AppBase.HandleExportExcel(await this.FindList(1, 999999, _IFormCollection)), Tools.GetFileContentType[".xls"].ToStr(), Guid.NewGuid().ToString() + ".xls");
 
         /// <summary>
         /// 保存

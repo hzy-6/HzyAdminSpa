@@ -76,7 +76,8 @@ export default {
             //发送请求给接口
             global
                 .post(`/Admin/${_state.controllerName}/FindList`, _vm, true)
-                .then(data => {
+                .then(res => {
+                    var data = res.data;
                     var item = data;
                     // _state.dataTable.loading = false;
                     _state.dataTable.rows = item.Rows;
@@ -90,7 +91,8 @@ export default {
             var _state = context.state;
             global
                 .post(`/Admin/${_state.controllerName}/LoadForm`, { Id: par }, true)
-                .then(data => {
+                .then(res => {
+                    var data = res.data;
                     var item = data.Form;
                     _state.form.vm = item;
                     if (item.Id == global.tools.guidEmpty) _state.form.vm.Id = null;
@@ -114,7 +116,8 @@ export default {
             global.tools.confirm('确定要删除吗？', function() {
                 global
                     .post(`/Admin/${_state.controllerName}/Delete`, { Id: _ukids }, true)
-                    .then(data => {
+                    .then(res => {
+                        var data = res.data;
                         //刷新列表
                         context.dispatch("findList");
                         context.dispatch("getTree");
@@ -134,7 +137,8 @@ export default {
             //发送请求给接口
             global
                 .post(`/Admin/${_state.controllerName}/Save`, _vm, true)
-                .then(data => {
+                .then(res => {
+                    var data = res.data;
                     //刷新列表
                     context.dispatch("findList");
                     context.dispatch("getTree");
@@ -148,9 +152,21 @@ export default {
             //发送请求给接口
             global
                 .post(`/Admin/${_state.controllerName}/Tree`, {}, false)
-                .then(data => {
+                .then(res => {
+                    var data = res.data;
                     _state.tree = data;
                 });
+        },
+        //导出Excel
+        exportExcel(context, par) {
+            var _state = context.state;
+            var _vm = _state.formSearch.vm;
+            var _parameter = {};
+            for (var item in _vm) {
+                if (item === 'Page' || item === 'Rows') continue;
+                _parameter[item] = _vm[item];
+            }
+            global.download(`/Admin/${_state.controllerName}/ExportExcel`, _parameter);
         },
     },
     getters: {}

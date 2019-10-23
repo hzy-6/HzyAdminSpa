@@ -116,35 +116,37 @@ namespace Logic.Class
         /// <returns></returns>
         public static byte[] HandleExportExcel(TableViewModel _TableViewModel)
         {
-            var dt = _TableViewModel.DataTable;
-            var list = _TableViewModel.Cols;
+            //保存
+            var DataList = _TableViewModel.DataList;
+            var _Cols = _TableViewModel.Cols;
             HSSFWorkbook workbook = new HSSFWorkbook();
             ISheet sheet = workbook.CreateSheet();
 
             //填充表头
             IRow dataRow = sheet.CreateRow(0);
-            foreach (DataColumn column in dt.Columns)
+            if (DataList.Count > 0)
             {
-                if (column.ColumnName.Equals("_ukid"))
-                    continue;
-
-                var col = list.Find(w => w.ColName == column.ColumnName);
-                dataRow.CreateCell(column.Ordinal).SetCellValue(col.Title);
-            }
-
-            //填充内容
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                dataRow = sheet.CreateRow(i + 1);
-                for (int j = 0; j < dt.Columns.Count; j++)
+                var _Keys = DataList[0].Keys.ToList();
+                foreach (var Key in _Keys)
                 {
-                    if (dt.Columns[j].ColumnName.Equals("_ukid"))
-                        continue;
-                    dataRow.CreateCell(j).SetCellValue(dt.Rows[i][j].ToString());
+                    if (Key == "_ukid") continue;
+                    var _Col = _Cols.Find(w => w.ColName == Key);
+                    dataRow.CreateCell(_Keys.IndexOf(Key)).SetCellValue(_Col.Title);
+                }
+                //填充内容
+                for (int i = 0; i < DataList.Count; i++)
+                {
+                    dataRow = sheet.CreateRow(i + 1);
+                    var item = DataList[i];
+                    foreach (var Key in _Keys)
+                    {
+                        if (Key == "_ukid") continue;
+                        var _Value = item[Key];
+                        dataRow.CreateCell(_Keys.IndexOf(Key)).SetCellValue(_Value == null ? "" : _Value.ToString());
+                    }
                 }
             }
 
-            //保存
             using (MemoryStream ms = new MemoryStream())
             {
                 workbook.Write(ms);

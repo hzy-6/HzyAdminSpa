@@ -14,19 +14,17 @@ Vue.use(ElementUI, { size: 'small', zIndex: 1000 });
 //font
 import './assets/font/iconfont.css'
 //http request
-import {get, post, postUpload } from './js/request'
+import {get, post, upload, download } from './js/request'
 //tools 工具
 import tools from './js/tools'
-//编辑器
-// import CKEditor from "@ckeditor/ckeditor5-build-decoupled-document";
-// Vue.use(CKEditor);
 //global 配置
 global.$store = store;
 global.$router = router;
 global.tools = tools;
 global.get = get;
 global.post = post;
-global.postUpload = postUpload;
+global.upload = upload;
+global.download = download;
 //菜单
 global.$menu = [];
 //权限

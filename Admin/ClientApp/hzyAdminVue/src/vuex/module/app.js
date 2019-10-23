@@ -20,8 +20,8 @@ const app = {
                 active: true,
             }]),
         },
-        menuList: [],
         routerConfig: [],
+        userName: null,
     },
     mutations: {
         addOrCheckedTab(state, par) {
@@ -116,14 +116,11 @@ const app = {
             }
             window.localStorage.setItem("menuSkinColor", JSON.stringify(state.menuSkin));
         },
-        setMenus(state, par) {
-            if (state.menuList.length == 0) state.menuList = global.$menu;
-        },
-        getMenus(state, par) {
-            return state.menuList;
-        },
         setRouterConfig(state, par) {
             state.routerConfig = par;
+        },
+        setUserName(state, par) {
+            state.userName = par;
         }
     },
     actions: {
@@ -131,7 +128,8 @@ const app = {
         getMenus(context, callBack) {
             global
                 .post('/Admin/Menus/SysTree', {}, true)
-                .then(data => {
+                .then(res => {
+                    var data = res.data;
                     var _allList = data.allList;
                     var _list = data.list;
                     var _powerAll = data.powerState;

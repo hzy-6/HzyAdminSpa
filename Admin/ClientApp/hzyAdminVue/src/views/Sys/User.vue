@@ -40,7 +40,6 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" class="pb-20 text-right">
             <el-button icon="el-icon-document" @click="exportExcel">导 出 Excel</el-button>
-            <el-button icon="el-icon-printer">打 印</el-button>
           </el-col>
         </el-row>
       </template>
@@ -185,7 +184,7 @@ export default {
       //这里是解决页面切换 导致 按钮状态无法变更
       // var _table = this.$refs.refCRUDCom.$refs.table;
       // this.$nextTick(() => {});
-    }
+    },
   }
 };
 </script>

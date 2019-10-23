@@ -40,10 +40,16 @@ namespace Admin.Controllers.Admin
             var _Hashtable = new Hashtable();
             if (_IFormCollection != null)
             {
-                _IFormCollection.Keys.ToList().ForEach(item =>
+                foreach (var item in _IFormCollection.Keys)
                 {
                     _Hashtable.Add(item, System.Net.WebUtility.UrlDecode(_IFormCollection[item]));
-                });
+                }
+                //检查地址栏是否有参数
+                var _Query = Request.Query;
+                foreach (var item in _Query.Keys)
+                {
+                    _Hashtable.Add(item, _Query[item]);
+                }
             }
             return _Hashtable;
         }

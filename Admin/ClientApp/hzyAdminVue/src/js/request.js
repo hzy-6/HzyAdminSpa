@@ -1,41 +1,41 @@
-//import Vue from 'vue';
 import axios from 'axios';
 import qs from 'qs';
 import { Loading } from 'element-ui';
 import tools from './tools';
 //
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = 100 * 1000;
 axios.defaults.baseURL = '';
 let loading;
 let isloading = true;
 //http request 拦截器
-axios.interceptors.request.use(
-    config => {
+axios.interceptors.request.use(config => {
         if (isloading) {
             loading = Loading.service({
                 lock: true,
                 background: 'rgba(0, 0, 0, 0.1)'
             });
         }
-        config.headers = {
-            'Content-Type': (config.data.isUpload ? 'multipart/form-data' : 'application/x-www-form-urlencoded; charset=UTF-8'),
-            'x-requested-width': 'XMLHttpRequest',
-            'Authorization': tools.getCookie('Authorization')
-        };
-        //如果是上传类型 则 将数据重新组装
-        if (!config.data.isUpload) {
-            config.data = qs.stringify(config.data);
-        }
+
+        config.headers['x-requested-width'] = 'XMLHttpRequest';
+        config.headers['Authorization'] = tools.getCookie('Authorization');
+        config.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
+        if (!config.data) return config;
+
+        if (config.data.isUpload)
+            config.headers['Content-Type'] = 'multipart/form-data';
+        else
+            config.data = qs.stringify(config.data); //如果是非上传类型 则 将数据重新组装
+
         return config;
     },
     error => {
+        console.log(error);
         return Promise.reject(error);
-    }
-);
+    });
 
 //http response 拦截器
-axios.interceptors.response.use(
-    response => {
+axios.interceptors.response.use(response => {
         if (loading) {
             loading.close();
         }
@@ -68,29 +68,33 @@ axios.interceptors.response.use(
         return response;
     },
     error => {
+        console.log(error);
         if (error.response.status === 401) {
+            if (loading) {
+                loading.close();
+            }
             global.tools.notice("无权访问!", "错误");
             return global.$router.push('/Login');
-        } else
+        } else {
             return Promise.reject(error)
-    }
-)
+        }
+    });
 
 /**
  * 封装get方法
  * @param url
  * @param data
  * @param loading 是否有加载效果
+ * @param headers 头部信息
  * @returns {Promise}
  */
-export function get(url, data = {}, loading = true) {
+export function get(url, data = {}, loading = true, config = {}) {
     isloading = loading;
+    url = `${url}?${qs.stringify(data)}`;
     return new Promise((resolve, reject) => {
-        axios.get(url, {
-                data: data
-            })
+        axios.get(url, config)
             .then(response => {
-                resolve(response.data);
+                resolve(response);
             })
             .catch(err => {
                 reject(err)
@@ -103,15 +107,16 @@ export function get(url, data = {}, loading = true) {
  * @param url
  * @param data
  * @param loading 是否有加载效果
+ * @param config config信息
  * @returns {Promise}
  */
-export function post(url, data = {}, loading = true) {
+export function post(url, data = {}, loading = true, config = {}) {
     isloading = loading;
     return new Promise((resolve, reject) => {
-        axios.post(url, data)
+        axios.post(url, data, config)
             .then(response => {
                 if (response != undefined) {
-                    resolve(response.data);
+                    resolve(response);
                 }
             }, err => {
                 reject(err)
@@ -120,26 +125,62 @@ export function post(url, data = {}, loading = true) {
 }
 
 /**
- * 封装post请求 用于上传文件
+ * 封装 post 请求 用于上传文件 
  * @param url
  * @param data
  * @param loading 是否有加载效果
+ * @param config config信息
  * @returns {Promise}
  */
-export function postUpload(url, data = {}, loading = true) {
+export function upload(url, data = {}, loading = true, config = {}) {
     isloading = loading;
     if (!data) data = {};
     data.isUpload = true;
     return new Promise((resolve, reject) => {
-        axios.post(url, data)
+        axios.post(url, data, config)
             .then(response => {
                 if (response != undefined) {
-                    resolve(response.data);
+                    resolve(response);
                 }
             }, err => {
                 reject(err)
             })
     })
+}
+
+/**
+ * 封装 get请求 用于下载文件
+ * @param url
+ * @param data
+ * @param loading 是否有加载效果
+ * @returns {Promise}
+ */
+export function download(url, data = {}, loading = true) {
+    this.get(url, data, loading, {
+        // responseType: 'stream',
+        responseType: 'blob',
+        // responseType: 'arraybuffer',
+    }).then(res => {
+        var data = res.data;
+        var headers = res.headers;
+        //"attachment; filename=6a9c13bc-e214-44e4-8456-dbca9fcd2367.xls;filename*=UTF-8''6a9c13bc-e214-44e4-8456-dbca9fcd2367.xls"
+        var contentDisposition = headers['content-disposition'];
+        var contentType = headers['content-type'];
+        var attachmentInfoArrary = contentDisposition.split(';');
+        var filename = '';
+        if (attachmentInfoArrary.length > 1) {
+            filename = attachmentInfoArrary[1].split('=')[1];
+        }
+        var blob = new Blob([data], { type: contentType });
+
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) { // IE
+            window.navigator.msSaveOrOpenBlob(blob, fileName);
+        } else {
+            let url = (window.URL || window.webkitURL).createObjectURL(blob);
+            window.open(url, "_blank"); //下载
+            window.URL.revokeObjectURL(url) // 只要映射存在，Blob就不能进行垃圾回收，因此一旦不再需要引用，就必须小心撤销URL，释放掉blob对象。
+        }
+    });
 }
 
 /**
@@ -147,14 +188,15 @@ export function postUpload(url, data = {}, loading = true) {
  * @param url
  * @param data
  * @param loading 是否有加载效果
+ * @param config config信息
  * @returns {Promise}
  */
-export function patch(url, data = {}, loading = true) {
+export function patch(url, data = {}, loading = true, config = {}) {
     isloading = loading;
     return new Promise((resolve, reject) => {
-        axios.patch(url, data)
+        axios.patch(url, data, config)
             .then(response => {
-                resolve(response.data);
+                resolve(response);
             }, err => {
                 reject(err)
             })
@@ -166,14 +208,15 @@ export function patch(url, data = {}, loading = true) {
  * @param url
  * @param data
  * @param loading 是否有加载效果
+ * @param config config信息
  * @returns {Promise}
  */
-export function put(url, data = {}, loading = true) {
+export function put(url, data = {}, loading = true, config = {}) {
     isloading = loading;
     return new Promise((resolve, reject) => {
-        axios.put(url, data)
+        axios.put(url, data, config)
             .then(response => {
-                resolve(response.data);
+                resolve(response);
             }, err => {
                 reject(err)
             })

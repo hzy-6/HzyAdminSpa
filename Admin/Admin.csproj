@@ -15,11 +15,15 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="%2a%2a\**" />
+    <Compile Remove="wwwroot\Content\UploadFiles\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="%2a%2a\**" />
+    <Content Remove="wwwroot\Content\UploadFiles\**" />
     <EmbeddedResource Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="wwwroot\Content\UploadFiles\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="%2a%2a\**" />
+    <None Remove="wwwroot\Content\UploadFiles\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -153,6 +157,10 @@
     <ProjectReference Include="..\Entitys\Entitys.csproj" />
     <ProjectReference Include="..\Logic\Logic.csproj" />
     <ProjectReference Include="..\Toolkit\Toolkit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Content\" />
   </ItemGroup>
 
 

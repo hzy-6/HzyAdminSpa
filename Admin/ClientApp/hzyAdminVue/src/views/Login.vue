@@ -35,6 +35,8 @@ export default {
   mounted() {
     //console.log(this.$route.params);
     // admin.alert();
+    global.tools.setCookie("Authorization", null);
+    global.$menu = [];
   },
   methods: {
     check() {
@@ -44,8 +46,8 @@ export default {
           UserPassword: this.UserPassword,
           LoginCode: this.LoginCode
         })
-        .then(data => {
-          global.tools.setCookie("Authorization", data.token);
+        .then(res => {
+          global.tools.setCookie("Authorization", res.data.token);
           this.$router.push("/");
         });
     }

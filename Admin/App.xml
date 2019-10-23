@@ -131,6 +131,14 @@
             <param name="Search"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Controllers.Admin.Sys.AppLogController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection,System.Collections.Generic.List{System.DateTime})">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="_IFormCollection"></param>
+            <param name="AppLog_CreateTime"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Controllers.Admin.Sys.AppLogController.FindList(System.Int32,System.Int32,Microsoft.AspNetCore.Http.IFormCollection,System.Collections.Generic.List{System.DateTime})">
             <summary>
             查询列表
@@ -139,13 +147,6 @@
             <param name="Rows">每页显示多少条</param>
             <param name="_IFormCollection">参数</param>
             <param name="AppLog_CreateTime">创建时间</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Controllers.Admin.Sys.AppLogController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
-            <summary>
-            导出Excel
-            </summary>
-            <param name="_IFormCollection"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Controllers.Admin.Sys.AppLogController.Delete(System.Collections.Generic.List{System.Guid})">
@@ -176,6 +177,13 @@
             <param name="Search"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Controllers.Admin.Sys.FunctionController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="_IFormCollection"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Controllers.Admin.Sys.FunctionController.FindList(System.Int32,System.Int32,Microsoft.AspNetCore.Http.IFormCollection)">
             <summary>
             查询列表
@@ -183,13 +191,6 @@
             <param name="Page">页码</param>
             <param name="Rows">每页显示多少条</param>
             <param name="_IFormCollection">参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Controllers.Admin.Sys.FunctionController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
-            <summary>
-            导出Excel
-            </summary>
-            <param name="_IFormCollection"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Controllers.Admin.Sys.FunctionController.Save(Entitys.SysClass.Sys_Function)">
@@ -227,6 +228,13 @@
             <param name="Search"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Controllers.Admin.Sys.MenusController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="_IFormCollection"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Controllers.Admin.Sys.MenusController.FindList(System.Int32,System.Int32,Microsoft.AspNetCore.Http.IFormCollection)">
             <summary>
             查询列表
@@ -234,13 +242,6 @@
             <param name="Page">页码</param>
             <param name="Rows">每页显示多少条</param>
             <param name="_IFormCollection">参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Controllers.Admin.Sys.MenusController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
-            <summary>
-            导出Excel
-            </summary>
-            <param name="_IFormCollection"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Controllers.Admin.Sys.MenusController.Save(Entitys.SysClass.Sys_Menu,System.Collections.Generic.List{System.Guid})">
@@ -291,6 +292,13 @@
             <param name="Search"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Controllers.Admin.Sys.RoleController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="_IFormCollection"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Controllers.Admin.Sys.RoleController.FindList(System.Int32,System.Int32,Microsoft.AspNetCore.Http.IFormCollection)">
             <summary>
             查询列表
@@ -298,13 +306,6 @@
             <param name="Page">页码</param>
             <param name="Rows">每页显示多少条</param>
             <param name="_IFormCollection">参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Controllers.Admin.Sys.RoleController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
-            <summary>
-            导出Excel
-            </summary>
-            <param name="_IFormCollection"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Controllers.Admin.Sys.RoleController.Save(Entitys.SysClass.Sys_Role)">
@@ -337,6 +338,13 @@
             <param name="Search"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Controllers.Admin.Sys.RoleFunctionController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="_IFormCollection"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Controllers.Admin.Sys.RoleFunctionController.FindList(System.Int32,System.Int32,Microsoft.AspNetCore.Http.IFormCollection)">
             <summary>
             查询列表
@@ -344,13 +352,6 @@
             <param name="Page">页码</param>
             <param name="Rows">每页显示多少条</param>
             <param name="_IFormCollection">参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Controllers.Admin.Sys.RoleFunctionController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
-            <summary>
-            导出Excel
-            </summary>
-            <param name="_IFormCollection"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Controllers.Admin.Sys.RoleFunctionController.Save(System.Guid,System.Guid,System.Collections.Generic.List{System.Guid})">
@@ -382,6 +383,13 @@
             <param name="Search"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Controllers.Admin.Sys.UserController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="_IFormCollection"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Controllers.Admin.Sys.UserController.FindList(System.Int32,System.Int32,Microsoft.AspNetCore.Http.IFormCollection)">
             <summary>
             查询列表
@@ -389,13 +397,6 @@
             <param name="Page">页码</param>
             <param name="Rows">每页显示多少条</param>
             <param name="_IFormCollection">参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Controllers.Admin.Sys.UserController.ExportExcel(Microsoft.AspNetCore.Http.IFormCollection)">
-            <summary>
-            导出Excel
-            </summary>
-            <param name="_IFormCollection"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Controllers.Admin.Sys.UserController.Save(Entitys.SysClass.Sys_User,System.Collections.Generic.List{System.Guid})">

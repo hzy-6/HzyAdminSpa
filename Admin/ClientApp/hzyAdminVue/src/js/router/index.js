@@ -54,7 +54,7 @@ var checkRouter = function(to, next) {
 const vueRouter = new VueRouter({
     mode: 'history',
     routes: [
-        { path: '/Login', name: '/Login', component: Login }
+        { path: '/Login', name: '/Login', component: Login },
     ]
 });
 
@@ -107,20 +107,13 @@ vueRouter.beforeEach((to, from, next) => {
             vueRouter.addRoutes(_router);
             // console.log('vueRouter.options.routes', vueRouter.options.routes);
             global.$store.commit('app/setRouterConfig', vueRouter.options.routes);
-            //
-            if (to.meta.hasOwnProperty('title')) {
-                return checkRouter(to, next);
-            }
-
+            global.$store.commit('app/setUserName', data.userName);
             //刚 add 完路由 需要手动告诉 next 跳转哪里 所以需要 将 to 传递过去不然容易出现bug
             return next(to);
         });
         return;
     }
-    //
-    if (to.meta.hasOwnProperty('title'))
-        return checkRouter(to, next);
-    return next();
+    return checkRouter(to, next);
 });
 vueRouter.afterEach(() => {
     if (_loading) _loading.close();

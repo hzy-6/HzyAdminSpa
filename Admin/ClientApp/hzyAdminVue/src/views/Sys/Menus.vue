@@ -59,8 +59,7 @@
                 <el-button type="danger" plain @click="remove()" v-if="power.Delete">批量删除</el-button>
               </el-col>
               <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" class="pb-20 text-right">
-                <el-button icon="el-icon-document">导 出 Excel</el-button>
-                <el-button icon="el-icon-printer">打 印</el-button>
+                <el-button icon="el-icon-document" @click="exportExcel">导 出 Excel</el-button>
               </el-col>
             </el-row>
           </template>
@@ -211,6 +210,8 @@ export default {
       save: "save",
       //移除数据
       remove: "remove",
+      //导出excel
+      exportExcel:"exportExcel",
       //
       getTree: "getTree"
     }),

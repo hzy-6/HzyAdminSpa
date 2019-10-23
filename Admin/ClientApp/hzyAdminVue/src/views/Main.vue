@@ -26,8 +26,10 @@
                   <el-dropdown @command="logout">
                     <span class="el-dropdown-link">
                       <i class="el-icon-s-custom el-icon--left"></i>
-                      管理员
-                      <i class="el-icon-arrow-down el-icon--right"></i>
+                      {{userName}}
+                      <i
+                        class="el-icon-arrow-down el-icon--right"
+                      ></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="logout" class="text-danger">
@@ -108,7 +110,7 @@
             :background-color="menuSkin.backgroundColor"
             :text-color="menuSkin.textColor"
             :active-text-color="menuSkin.activeTextColor"
-            :dataMenu="menuList"
+            :dataMenu="getMenus"
           />
         </el-aside>
 
@@ -217,7 +219,7 @@ export default {
       tabList: state => state.tabs.list,
       headerSkinColor: state => state.headerSkinColor,
       menuSkin: state => state.menuSkin,
-      menuList: state => state.menuList
+      userName: state => state.userName //用户名称
     }),
     tabNameList() {
       let arr = [];
@@ -226,13 +228,15 @@ export default {
       }
       console.log(arr);
       return arr;
+    },
+    getMenus() {
+      return global.$menu;
     }
   },
   components: {
     Menu
   },
   mounted() {
-    this.setMenus();
     adminTabs.start();
     //
     if (this.$store.state.app.isMobile && !this.siderCollapsed) {
@@ -255,8 +259,6 @@ export default {
       setHeaderSkinColor: "setHeaderSkinColor",
       //设置菜单皮肤颜色
       setMenuSkinColor: "setMenuSkinColor",
-      //设置菜单
-      setMenus: "setMenus"
     }),
     logout() {
       //退出登录
