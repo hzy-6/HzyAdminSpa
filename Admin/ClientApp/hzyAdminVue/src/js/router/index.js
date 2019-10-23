@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 var checkRouter = function(to, next) {
     //判断权限
     var _menuId = to['meta']['menuId'];
-    var _powerState = global.$powerAll.find(w => w.MenuID == _menuId);
+    var _powerState = global.$store.state.app.powerAll.find(w => w.MenuID == _menuId);
     if (!_powerState || !_powerState.Have) {
         global.tools.msg('权限不足!', '错误');
         return next({ path: "/Login" });
@@ -74,11 +74,10 @@ vueRouter.beforeEach((to, from, next) => {
     });
 
     //获取后台菜单数据 然后动态添加路由
-    if (global.$menu.length == 0) {
+    if (global.$store.state.app.menus.length == 0) {
         global.$store.dispatch('app/getMenus', (data) => {
             var _allList = data.allList;
             // var _list = data.list;
-            // var _powerAll = data.powerState;
             //路由组装
             var _children = [];
             for (var i = 0; i < _allList.length; i++) {
@@ -107,7 +106,6 @@ vueRouter.beforeEach((to, from, next) => {
             vueRouter.addRoutes(_router);
             // console.log('vueRouter.options.routes', vueRouter.options.routes);
             global.$store.commit('app/setRouterConfig', vueRouter.options.routes);
-            global.$store.commit('app/setUserName', data.userName);
             //刚 add 完路由 需要手动告诉 next 跳转哪里 所以需要 将 to 传递过去不然容易出现bug
             return next(to);
         });

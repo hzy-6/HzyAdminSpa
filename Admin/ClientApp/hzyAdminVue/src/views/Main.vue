@@ -110,7 +110,7 @@
             :background-color="menuSkin.backgroundColor"
             :text-color="menuSkin.textColor"
             :active-text-color="menuSkin.activeTextColor"
-            :dataMenu="getMenus"
+            :dataMenu="menus"
           />
         </el-aside>
 
@@ -219,6 +219,7 @@ export default {
       tabList: state => state.tabs.list,
       headerSkinColor: state => state.headerSkinColor,
       menuSkin: state => state.menuSkin,
+      menus: state => state.menus,
       userName: state => state.userName //用户名称
     }),
     tabNameList() {
@@ -229,9 +230,6 @@ export default {
       console.log(arr);
       return arr;
     },
-    getMenus() {
-      return global.$menu;
-    }
   },
   components: {
     Menu
@@ -258,7 +256,7 @@ export default {
       //设置头部皮肤颜色
       setHeaderSkinColor: "setHeaderSkinColor",
       //设置菜单皮肤颜色
-      setMenuSkinColor: "setMenuSkinColor",
+      setMenuSkinColor: "setMenuSkinColor"
     }),
     logout() {
       //退出登录

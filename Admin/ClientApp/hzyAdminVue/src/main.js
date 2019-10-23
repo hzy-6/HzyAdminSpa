@@ -25,10 +25,7 @@ global.get = get;
 global.post = post;
 global.upload = upload;
 global.download = download;
-//菜单
-global.$menu = [];
-//权限
-global.$powerAll = [];
+//记录打开的子页面 权限对象
 global.$power = {};
 //
 Vue.config.productionTip = false;

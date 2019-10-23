@@ -36,7 +36,7 @@ export default {
     //console.log(this.$route.params);
     // admin.alert();
     global.tools.setCookie("Authorization", null);
-    global.$menu = [];
+    this.$store.commit("app/setMenus", []);
   },
   methods: {
     check() {

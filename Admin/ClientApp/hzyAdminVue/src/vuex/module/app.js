@@ -20,8 +20,10 @@ const app = {
                 active: true,
             }]),
         },
+        menus: [],
         routerConfig: [],
         userName: null,
+        powerAll: []
     },
     mutations: {
         addOrCheckedTab(state, par) {
@@ -69,6 +71,7 @@ const app = {
                     list.splice(i, 1);
                 }
             }
+            adminTabs.setUlWidth(state.tabs.list.length);
             localStorage.setItem('tabsList', JSON.stringify(state.tabs.list));
         },
         closeAllTab(state) {
@@ -78,6 +81,7 @@ const app = {
             var _hash = window.location.hash;
             if (_hash === "#" + state.tabs.list[0].name) return; //判断路由不能重复加载
             global.$router.push({ name: state.tabs.list[0].name });
+            adminTabs.setUlWidth(state.tabs.list.length);
             localStorage.setItem('tabsList', JSON.stringify(state.tabs.list));
         },
         //菜单切换事件
@@ -87,6 +91,9 @@ const app = {
             } else {
                 state.siderCollapsed = !state.siderCollapsed;
             }
+            setTimeout(() => {
+                adminTabs.init();
+            }, 300);
             window.localStorage.setItem("siderCollapsed", state.siderCollapsed ? 1 : 0);
         },
         //设置头部颜色
@@ -121,6 +128,12 @@ const app = {
         },
         setUserName(state, par) {
             state.userName = par;
+        },
+        setMenus(state, par) {
+            state.menus = par;
+        },
+        setPowerAll(state, par) {
+            state.powerAll = par;
         }
     },
     actions: {
@@ -131,10 +144,10 @@ const app = {
                 .then(res => {
                     var data = res.data;
                     var _allList = data.allList;
-                    var _list = data.list;
                     var _powerAll = data.powerState;
-                    global.$menu = _list;
-                    global.$powerAll = _powerAll;
+                    context.commit('setMenus', data.list);
+                    context.commit('setUserName', data.userName);
+                    context.commit('setPowerAll', data.powerState);
                     if (callBack) callBack(data);
                 });
         },
