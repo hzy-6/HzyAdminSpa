@@ -5,11 +5,15 @@ import { Loading } from 'element-ui';
 //
 import Main from '../../views/Main';
 import Login from '../../views/Login';
+import CCT from '../../views/CCT/Index';
 
 //
 Vue.use(VueRouter);
 //检查权限
 var checkRouter = function(to, next) {
+    //判断是否需要权限判断
+    var _title = to['meta']['title'];
+    if (!_title) return next();
     //判断权限
     var _menuId = to['meta']['menuId'];
     var _powerState = global.$store.state.app.powerAll.find(w => w.MenuID == _menuId);
@@ -55,6 +59,7 @@ const vueRouter = new VueRouter({
     mode: 'history',
     routes: [
         { path: '/Login', name: '/Login', component: Login },
+        { path: '/CCT', name: 'CCT', component: CCT },
     ]
 });
 

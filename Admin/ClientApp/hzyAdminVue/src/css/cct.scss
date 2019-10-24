@@ -1,0 +1,119 @@
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background-color: #3a5169;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background-color: #b4c7d0;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 5px;
+}
+
+ ::-webkit-scrollbar-track-piece {
+    background: 0 0;
+}
+
+.cct-container {
+    background: #344a5f;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    color: #ffffff;
+    .left {
+        flex: .2;
+        background: #1d2935;
+    }
+    .center {
+        flex: .2;
+        background: #2c3e50;
+    }
+    .left,
+    .center {
+        height: 100vh;
+        overflow: hidden;
+        overflow-y: auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            width: 100%;
+            li {
+                padding: 20px;
+                cursor: pointer;
+            }
+            li:hover {
+                background: #4e6e8e;
+            }
+        }
+    }
+    .right {
+        flex: 1;
+        .top {
+            background: #344a5f;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                display: flex;
+                li {
+                    padding: 20px;
+                    flex: 1;
+                    text-align: center;
+                    cursor: pointer;
+                }
+                li:hover {
+                    background: #4e6e8e;
+                }
+            }
+        }
+        .content {
+            padding: 20px;
+            .el-card {
+                background: #1d2935;
+                color: #ffffff;
+                border: 0;
+            }
+            textarea {
+                height: calc(100vh - 6rem);
+                background: #1d2935;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+                border: 0;
+                color: #ffffff;
+            }
+        }
+        .bottom {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                display: flex;
+                li {
+                    padding: 20px;
+                    flex: 1;
+                    text-align: center;
+                    cursor: pointer;
+                    background-color: rgba(29, 41, 53, 0.8);
+                }
+                li:hover {
+                    background: #4e6e8e;
+                }
+            }
+        }
+    }
+    .active {
+        background: #4e6e8e;
+    }
+}
