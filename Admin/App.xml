@@ -163,6 +163,57 @@
             <param name="Id">主表Id</param>
             <returns></returns>
         </member>
+        <member name="T:Admin.Controllers.Admin.Sys.CCTController">
+            <summary>
+            代码创建 工具
+            </summary>
+        </member>
+        <member name="M:Admin.Controllers.Admin.Sys.CCTController.GetTableNameAndFields">
+            <summary>
+            获取所有的 表名 及对应的 字段
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Controllers.Admin.Sys.CCTController.GetModelCode(System.String)">
+            <summary>
+            获取 Model 代码
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Controllers.Admin.Sys.CCTController.GetDbSetCode">
+            <summary>
+            获取 注册 数据库 表 代码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Controllers.Admin.Sys.CCTController.GetLogicCode(System.String)">
+            <summary>
+            获取 Logic 代码
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Controllers.Admin.Sys.CCTController.GetControllersCode(System.String)">
+            <summary>
+            获取 Logic 代码
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Controllers.Admin.Sys.CCTController.Download(System.String,System.String,System.String)">
+            <summary>
+            下载当前代码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Controllers.Admin.Sys.CCTController.DownloadAll(System.String)">
+            <summary>
+            下载所有 代码
+            </summary>
+            <param name="CodeType">代码类型</param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Controllers.Admin.Sys.FunctionController">
             <summary>
             功能管理

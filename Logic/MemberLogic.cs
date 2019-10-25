@@ -48,7 +48,7 @@ namespace Logic
                 _ukid = w.t1.Member_ID
             });
 
-            IQuery.TakePage(Page, Rows, out int TotalCount);
+            IQuery.TakePage(Page, Rows, out int TotalCount)
             //.ToSql(out DbFrame.BaseClass.SQL sql)
             ;
 

@@ -38,189 +38,63 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 }
 
 // ======================================================padding
-.p-0 {
-    padding: 0;
+@for $i from 0 to 100 {
+    .p-#{$i} {
+        padding: #{$i}px;
+    }
 }
 
-.p-5 {
-    padding: 5px;
+@for $i from 0 to 100 {
+    .pt-#{$i} {
+        padding-top: #{$i}px;
+    }
 }
 
-.p-10 {
-    padding: 10px;
+@for $i from 0 to 100 {
+    .pb-#{$i} {
+        padding-bottom: #{$i}px;
+    }
 }
 
-.p-15 {
-    padding: 15px;
+@for $i from 0 to 100 {
+    .pl-#{$i} {
+        padding-left: #{$i}px;
+    }
 }
 
-.p-20 {
-    padding: 20px;
-}
-
-.p-25 {
-    padding: 25px;
-}
-
-.p-30 {
-    padding: 30px;
-}
-
-.p-40 {
-    padding: 40px;
-}
-
-.p-50 {
-    padding: 50px;
-}
-
-// padding-top
-.pt-0 {
-    padding-top: 0;
-}
-
-.pt-5 {
-    padding-top: 5px;
-}
-
-.pt-10 {
-    padding-top: 10px;
-}
-
-.pt-20 {
-    padding-top: 20px;
-}
-
-// padding-bottom
-.pt-0 {
-    padding-bottom: 0;
-}
-
-.pb-5 {
-    padding-bottom: 5px;
-}
-
-.pb-10 {
-    padding-bottom: 10px;
-}
-
-.pb-20 {
-    padding-bottom: 20px;
+@for $i from 0 to 100 {
+    .pr-#{$i} {
+        padding-right: #{$i}px;
+    }
 }
 
 // ======================================================margin
-.m-0 {
-    margin: 0;
+@for $i from 0 to 100 {
+    .m-#{$i} {
+        margin: #{$i}px;
+    }
 }
 
-.m-5 {
-    margin: 5px;
+@for $i from 0 to 100 {
+    .mt-#{$i} {
+        margin-top: #{$i}px;
+    }
 }
 
-.m-10 {
-    margin: 10px;
+@for $i from 0 to 100 {
+    .mb-#{$i} {
+        margin-bottom: #{$i}px;
+    }
 }
 
-.m-20 {
-    margin: 20px;
+@for $i from 0 to 100 {
+    .ml-#{$i} {
+        margin-left: #{$i}px;
+    }
 }
 
-// margin-left
-.ml-0 {
-    margin-left: 0;
-}
-
-.ml-5 {
-    margin-left: 5px;
-}
-
-.ml-10 {
-    margin-left: 10px;
-}
-
-.ml-20 {
-    margin-left: 20px;
-}
-
-.ml-25 {
-    margin-left: 25px;
-}
-
-.ml-30 {
-    margin-left: 30px;
-}
-
-// margin-right
-.mr-0 {
-    margin-right: 0;
-}
-
-.mr-5 {
-    margin-right: 5px;
-}
-
-.mr-10 {
-    margin-right: 10px;
-}
-
-.mr-20 {
-    margin-right: 20px;
-}
-
-.mr-25 {
-    margin-right: 25px;
-}
-
-.mr-30 {
-    margin-right: 30px;
-}
-
-// margin-top
-.mt-0 {
-    margin-top: 0;
-}
-
-.mt-5 {
-    margin-top: 5px;
-}
-
-.mt-10 {
-    margin-top: 10px;
-}
-
-.mt-20 {
-    margin-top: 20px;
-}
-
-.mt-25 {
-    margin-top: 25px;
-}
-
-.mt-30 {
-    margin-top: 30px;
-}
-
-// margin-bottom
-.mb-0 {
-    margin-bottom: 0;
-}
-
-.mb-5 {
-    margin-bottom: 5px;
-}
-
-.mb-10 {
-    margin-bottom: 10px;
-}
-
-.mb-20 {
-    margin-bottom: 20px;
-}
-
-.mb-25 {
-    margin-bottom: 25px;
-}
-
-.mb-30 {
-    margin-bottom: 30px;
+@for $i from 0 to 100 {
+    .mr-#{$i} {
+        margin-right: #{$i}px;
+    }
 }
