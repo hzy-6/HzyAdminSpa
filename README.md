@@ -8,7 +8,6 @@
 
  脚本地址：HzyAdminSpa / AppService / HzyAdminDb.sql
 
-
 #### 软件架构
 
 前后端分离框架
@@ -25,8 +24,16 @@
 4. /swagger 地址栏键入此地址可以进入 前端接口文档页面
 
 
-![输入图片说明](https://images.gitee.com/uploads/images/2019/1005/134510_e5786880_1242080.png "屏幕截图.png")
 
+ **代码创建/下载：** 
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1025/172649_55fb79d9_1242080.png "屏幕截图.png")
+
+ **Swagger文档：** 
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1025/192706_27cde59b_1242080.png "屏幕截图.png")
+
+ **系统内部页面：** 
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/1005/133918_a31389bb_1242080.jpeg "1570253835777777777777.jpg")
 
@@ -50,7 +57,7 @@
 
 2、web.config里面有个false 改为 true，iis重启项目后运行网站后，跟目录下面 有个文件夹 log 里面有错误日志文件
 
-3、一定注意 项目 bin/netcoreapp2.2/debug/app.xml 放入部署项目的跟目录中 
+3、一定注意 项目 bin/netcoreapp3.0/debug/app.xml 放入部署项目的跟目录中 
 
 #### 参与贡献
 
