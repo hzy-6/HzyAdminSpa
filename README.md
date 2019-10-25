@@ -27,7 +27,7 @@
 
  **代码创建/下载：** 
 
-![输入图片说明](https://images.gitee.com/uploads/images/2019/1025/193519_ad4f7293_1242080.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1025/203019_8502826d_1242080.png "屏幕截图.png")
 
  **Swagger文档：** 
 
