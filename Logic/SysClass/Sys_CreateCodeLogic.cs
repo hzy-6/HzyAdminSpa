@@ -120,7 +120,7 @@ namespace Logic.SysClass
             var _QueryCode = new StringBuilder().Append(@$"
 
                 var IQuery = db
-                    .Query<Sys_Function>()
+                    .Query<{TableName}>()
                     .WhereIF(!string.IsNullOrEmpty(Search[""{_Name}""].ToStr()), w => w.t1.{_Name}.Contains(Search[""{_Name}""].ToStr()));
 
                 if (string.IsNullOrEmpty(Search[""sortName""].ToStr()))

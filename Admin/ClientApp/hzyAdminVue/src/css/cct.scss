@@ -92,7 +92,7 @@
                 border: 0;
             }
             textarea {
-                height: calc(100vh - 5rem);
+                min-height: calc(100vh - 5rem) !important;
                 background: #1d2935;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
                 border: 0;
@@ -115,7 +115,8 @@
                     flex: 1;
                     text-align: center;
                     cursor: pointer;
-                    background-color: rgba(29, 41, 53, 0.5);
+                    // background-color: rgba(29, 41, 53, 0.5);
+                    background-color: rgba(103, 194, 58, .5);
                 }
                 li:hover {
                     background: #4e6e8e;
