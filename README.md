@@ -24,6 +24,7 @@
 3. 然后使用 Vs 2019 ctrl+f5 运行即可
 4. /swagger 地址栏键入此地址可以进入 前端接口文档页面
 
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1025/172649_55fb79d9_1242080.png "屏幕截图.png")
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/1005/134510_e5786880_1242080.png "屏幕截图.png")
 
