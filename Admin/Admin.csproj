@@ -96,9 +96,8 @@
     <None Include="ClientApp\hzyAdminVue\src\assets\logo.png" />
     <None Include="ClientApp\hzyAdminVue\src\components\Charts.vue" />
     <None Include="ClientApp\hzyAdminVue\src\components\Charts1.vue" />
-    <None Include="ClientApp\hzyAdminVue\src\components\CkEditor.vue" />
     <None Include="ClientApp\hzyAdminVue\src\components\CRUD.vue" />
-    <None Include="ClientApp\hzyAdminVue\src\components\HelloWorld.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\components\Editor.vue" />
     <None Include="ClientApp\hzyAdminVue\src\components\layout\Menu.vue" />
     <None Include="ClientApp\hzyAdminVue\src\components\layout\MenuItem.vue" />
     <None Include="ClientApp\hzyAdminVue\src\components\upload\File.vue" />
