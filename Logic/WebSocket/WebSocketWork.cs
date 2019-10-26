@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Logic.WebSocket
+namespace Logic.SysClass.WebSocket
 {
 
     using HzySocket.WebSocket;
@@ -10,14 +11,29 @@ namespace Logic.WebSocket
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;
-    using Entitys.SysClass;
-    using System.Threading.Tasks;
-    using System.Linq;
 
     public class WebSocketWork : SocketService<WebSocketMsgModel>
     {
+        public WebSocketWork(RequestDelegate _Next) : base(_Next)
+        {
 
-        public WebSocketWork(RequestDelegate _Next) : base(_Next) { }
+            //监听非活跃用户 清除回调
+            InactiveCloseCallBack = (_WebSocketMsgModel) =>
+            {
+
+            };
+            //连接关闭回调事件
+            ConnectCloseCallBack = (_WebSocketMsgModel) =>
+            {
+
+            };
+
+            //发送异常
+            SendExceptionCall = (ex) =>
+            {
+
+            };
+        }
 
         public static void Register(IApplicationBuilder _IApplicationBuilder)
         {
@@ -32,14 +48,28 @@ namespace Logic.WebSocket
 
         public override async Task ExecuteCommand(WebSocketMsgModel appSession, string Content)
         {
-            WebSocketMsgModel msg = JsonConvert.DeserializeObject<WebSocketMsgModel>(Content);
-
-            if (msg.Action == WebSocketActionEnum.Register)
+            try
             {
-                //appSession.UserID = msg.Account.UserID.ToString();
-                //appSession.Account = msg.Account;
+                WebSocketMsgModel msg = JsonConvert.DeserializeObject<WebSocketMsgModel>(Content);
 
-                await appSession.SendAsync(JsonConvert.SerializeObject(new { status = 1, msg = "WebSocket注册成功!" }));
+                if (msg.Action == WebSocketActionEnum.Register)
+                {
+                    appSession.UserID = msg.UserID;
+
+                    await appSession.SendAsync(new { status = 1, msg = $"{msg.UserID},恭喜您已经注册上线!" });
+                }
+                else if (msg.Action == WebSocketActionEnum.SendToUser)//给别人发消息
+                {
+                    if (msg.ToUserID == null)
+                        await SendAllAsync(msg.Message);
+                    else
+                        await SendAsync(w => w.UserID == msg.ToUserID, msg.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                //接收到 非 json 字符串
+                await appSession.SendAsync(new { status = 1, msg = $"程序异常:{ex.Message}，接收到您的字符串:{Content} 请尽量使用 Json 字符串 与服务器交互!" });
             }
         }
 
@@ -50,7 +80,7 @@ namespace Logic.WebSocket
         /// <returns></returns>
         public static IEnumerable<WebSocketMsgModel> GetAppSessions(Func<WebSocketMsgModel, bool> predicate)
         {
-            return WebSocketSend<WebSocketMsgModel>.AppSessions.Where(predicate);
+            return WebSocketSend<WebSocketMsgModel>.GetAppSessions(predicate);
         }
 
         /// <summary>
@@ -59,7 +89,7 @@ namespace Logic.WebSocket
         /// <returns></returns>
         public static IEnumerable<WebSocketMsgModel> GetAllAppSessions()
         {
-            return WebSocketSend<WebSocketMsgModel>.AppSessions;
+            return WebSocketSend<WebSocketMsgModel>.GetAllAppSessions();
         }
 
         /// <summary>
@@ -68,7 +98,7 @@ namespace Logic.WebSocket
         /// <param name="appSession"></param>
         public static void AddAppSession(WebSocketMsgModel appSession)
         {
-            WebSocketSend<WebSocketMsgModel>.AppSessions.Enqueue(appSession);
+            WebSocketSend<WebSocketMsgModel>.AddAppSession(appSession);
         }
 
         /// <summary>
@@ -77,14 +107,7 @@ namespace Logic.WebSocket
         /// <param name="predicate"></param>
         public static void RemoveSession(Func<WebSocketMsgModel, bool> predicate)
         {
-            var _AppSessions = GetAppSessions(predicate);
-            if (_AppSessions == null) return;
-
-            foreach (var item in _AppSessions)
-            {
-                var _AppSession = item;
-                WebSocketSend<WebSocketMsgModel>.AppSessions.TryDequeue(out _AppSession);
-            }
+            WebSocketSend<WebSocketMsgModel>.RemoveSession(predicate);
         }
 
         /// <summary>
@@ -93,7 +116,16 @@ namespace Logic.WebSocket
         /// <returns></returns>
         public static int GetAppSessionCount()
         {
-            return WebSocketSend<WebSocketMsgModel>.AppSessions.Count;
+            return WebSocketSend<WebSocketMsgModel>.GetAppSessionCount();
+        }
+
+        /// <summary>
+        /// 检查 session 是否存在
+        /// </summary>
+        /// <returns></returns>
+        public static bool Any(Func<WebSocketMsgModel, bool> predicate)
+        {
+            return WebSocketSend<WebSocketMsgModel>.Any(predicate);
         }
 
         /// <summary>
@@ -117,9 +149,8 @@ namespace Logic.WebSocket
             await WebSocketSend<WebSocketMsgModel>.SendAllAsync(Data);
         }
 
-
-
     }
+
 
     /// <summary>
     /// WebSocket 消息 模型
@@ -139,8 +170,7 @@ namespace Logic.WebSocket
     public enum WebSocketActionEnum
     {
         Register,
-        SendToUser,
-        Notice
+        SendToUser
     }
 
 

@@ -11,7 +11,7 @@
       </ul>
     </div>
     <div class="center">
-      <ul>
+      <ul class="mb-10">
         <li
           v-for="(item,index) in tableFields"
           :key="index"
@@ -23,8 +23,22 @@
             {{item.DATA_TYPE}}
             <el-tag type="success" v-if="item.COLUMN_KEY=='YES'" class="ml-10">主键</el-tag>
           </div>
+          <div class="col-3">
+            <el-divider direction="vertical"></el-divider>
+            {{item.Alias}}
+          </div>
         </li>
       </ul>
+      <template v-for="tag in selectedField">
+        <el-tag
+          :key="tag"
+          closable
+          effect="dark"
+          @close="eventCloseSelectedField(tag)"
+          type="success"
+          class="mr-20 mb-20"
+        >{{tag}}</el-tag>
+      </template>
     </div>
     <div class="right">
       <div class="top">
@@ -52,14 +66,23 @@
         </ul>
       </div>
       <div class="content">
-        <el-input type="textarea" placeholder="code" v-model="codeArea"></el-input>
-        <!-- <el-card class="box-card">
+        <!-- <el-card class="box-card mb-10" v-show="selectedCodeType=='Form'">
           <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+            <span>已选择 表 和 字段</span>
+            <el-button style="float: right;" type="success" @click="getFormCode">运行</el-button>
           </div>
-          <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+          <template v-for="tag in selectedField">
+            <el-tag
+              :key="tag"
+              closable
+              effect="dark"
+              @close="eventCloseSelectedField(tag)"
+              type="success"
+              class="mr-20 mb-20"
+            >{{tag}}</el-tag>
+          </template>
         </el-card>-->
+        <el-input type="textarea" placeholder="code" v-model="codeArea"></el-input>
       </div>
       <div class="bottom" v-show="selectedCodeType!='RegisterModel'">
         <ul>
@@ -109,6 +132,9 @@ export default {
       if (this.selectedCodeType == "Controller") {
         this.getControllersCode();
       }
+      if (this.selectedCodeType == "Form") {
+        this.getFormCode();
+      }
     },
     //选中字段
     eventSelectedField(text) {
@@ -116,6 +142,11 @@ export default {
       var any = this.selectedField.find(w => w == item);
       if (any) return;
       this.selectedField.push(item);
+    },
+    //关闭选中字段
+    eventCloseSelectedField(text) {
+      var index = this.selectedField.indexOf(text);
+      this.selectedField.splice(index, 1);
     },
     //选择代码类型
     eventSelectedCodeType(text) {
@@ -131,6 +162,9 @@ export default {
       }
       if (this.selectedCodeType == "Controller") {
         this.getControllersCode();
+      }
+      if (this.selectedCodeType == "Form") {
+        this.getFormCode();
       }
     },
     //获取所有的 表名 及对应的 字段
@@ -184,6 +218,19 @@ export default {
         .post(
           "/Admin/CCT/GetControllersCode",
           { TableName: this.selectedTableName },
+          true
+        )
+        .then(res => {
+          var data = res.data;
+          this.codeArea = data.data;
+        });
+    },
+    //获取 Form 代码
+    getFormCode() {
+      global
+        .post(
+          "/Admin/CCT/GetFormCode",
+          { TableName: this.selectedTableName, Fields: this.selectedField },
           true
         )
         .then(res => {

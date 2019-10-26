@@ -23,12 +23,10 @@ namespace Admin.Controllers.Admin.Base
     /// </summary>
     public class MemberController : AdminBaseController
     {
-        private IWebHostEnvironment _IWebHostEnvironment = null;
         private string _WebRootPath = string.Empty;
         public MemberController(IWebHostEnvironment IWebHostEnvironment)
         {
-            this._IWebHostEnvironment = IWebHostEnvironment;
-            _WebRootPath = this._IWebHostEnvironment.WebRootPath;
+            _WebRootPath = IWebHostEnvironment.WebRootPath;
         }
 
         protected MemberLogic _Logic = new MemberLogic();
@@ -122,14 +120,7 @@ namespace Admin.Controllers.Admin.Base
         /// <param name="Id">主表Id</param>
         /// <returns></returns>
         [HttpPost(nameof(LoadForm)), AppService.ApiCheckTokenFilter]
-        public IActionResult LoadForm(Guid? Id)
-        {
-            return Json(new
-            {
-                status = 1,
-                Form = _Logic.LoadForm(Id)
-            });
-        }
+        public IActionResult LoadForm(Guid? Id) => Json(new { status = 1, Form = _Logic.LoadForm(Id) });
 
         #endregion
 

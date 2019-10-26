@@ -201,6 +201,14 @@
             <param name="TableName"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Controllers.Admin.Sys.CCTController.GetFormCode(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            获取 Form 代码
+            </summary>
+            <param name="TableName"></param>
+            <param name="Fields"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Controllers.Admin.Sys.CCTController.Download(System.String,System.String,System.String)">
             <summary>
             下载当前代码

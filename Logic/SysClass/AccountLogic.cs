@@ -88,7 +88,7 @@ namespace Logic.SysClass
             var _IP = _HttpContext.Connection.RemoteIpAddress.ToString();
             var _FormJson = string.Empty;
 
-            //if (_IP == "::1") return;
+            if (_IP == "::1") return;
 
             try
             {

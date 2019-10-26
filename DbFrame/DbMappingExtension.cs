@@ -241,12 +241,45 @@ namespace DbFrame
                 foreach (var newM in newList)
                 {
                     if (oldM.Name != newM.Name) continue;
-
-                    newM.SetValue(Model, oldM.GetValue(Entity));
+                    if (oldM.PropertyType == typeof(bool) & (newM.PropertyType == typeof(int) | newM.PropertyType == typeof(int?)))
+                    {
+                        var _Value = (bool)oldM.GetValue(Entity);
+                        newM.SetValue(Model, _Value ? 1 : 0);
+                    }
+                    else if (newM.PropertyType == typeof(bool) & (oldM.PropertyType == typeof(int) | oldM.PropertyType == typeof(int?)))
+                    {
+                        var _Value = (int?)oldM.GetValue(Entity);
+                        newM.SetValue(Model, _Value == null ? false : (_Value == 1 ? true : false));
+                    }
+                    else
+                    {
+                        newM.SetValue(Model, oldM.GetValue(Entity));
+                    }
                 }
             }
 
             return Model;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="M"></typeparam>
+        /// <param name="EntityList"></param>
+        /// <param name="ModelList"></param>
+        /// <returns></returns>
+        public static List<M> ToNewList<T, M>(this List<T> EntityList, List<M> ModelList)
+            where M : class, new()
+            where T : class, new()
+        {
+            foreach (var item in EntityList)
+            {
+                var _M = new M();
+                item.ToNewEntity(_M);
+                ModelList.Add(_M);
+            }
+            return ModelList;
         }
 
         /************sql****************/

@@ -11,6 +11,7 @@ namespace Logic.SysClass
     using DbFrame;
     using Entitys.Class;
     using Entitys.SysClass;
+    using DbFrame.BaseClass;
 
     public class Sys_CreateCodeLogic : BaseLogic
     {
@@ -23,11 +24,20 @@ namespace Logic.SysClass
             var _TableNames = (await this.GetAllTable()).ToList();
 
             var dic = new Dictionary<string, List<TABLES_COLUMNS>>();
+            var _TableAll = DbTable.GetAll();
 
             for (int i = 0; i < _TableNames.Count; i++)
             {
                 var item = _TableNames[i];
                 var _Cols = (await this.GetColsByTableName(item));
+                List<FieldDescribe> _FieldDescribeList = new List<FieldDescribe>();
+                if (_TableAll.ContainsKey(item)) _FieldDescribeList = _TableAll[item];
+
+                foreach (var _Col in _Cols)
+                {
+                    var _FieldDescribe = _FieldDescribeList?.Find(w => w.Name == _Col.COLUMN_NAME);
+                    if (_FieldDescribe != null) _Col.Alias = _FieldDescribe.Alias;
+                }
                 dic[item] = _Cols;
             }
 
@@ -187,6 +197,35 @@ namespace Logic.SysClass
                 _StringBuilder.Append($"tabs.Register(typeof({item}));\r\n");
             }
             return _StringBuilder.ToString();
+        }
+
+        /// <summary>
+        /// 创建 Form 代码
+        /// </summary>
+        /// <param name="Fields"></param>
+        /// <param name="Temp"></param>
+        /// <returns></returns>
+        public async Task<string> CreateFormCode(List<string> Fields, string Temp)
+        {
+            StringBuilder _Codes = new StringBuilder();
+            await Task.Run(() =>
+            {
+                var _TableAll = DbTable.GetAll();
+                foreach (var item in Fields)
+                {
+                    var _TableName = item.Split('/')[0];
+                    var _FieldName = item.Split('/')[1];
+                    if (!_TableAll.ContainsKey(_TableName)) continue;
+                    List<FieldDescribe> _FieldDescribeList = _TableAll[_TableName];
+                    var _FieldDescribe = _FieldDescribeList.Find(w => w.Name == _FieldName);
+                    if (_FieldDescribe == null) continue;
+                    var _Code = Temp;
+                    _Code = _Code.Replace("<#FieldAlias#>", _FieldDescribe.Alias);
+                    _Code = _Code.Replace("<#Field#>", _FieldDescribe.Name);
+                    _Codes.Append(_Code + "\r\n");
+                }
+            });
+            return _Codes.ToString();
         }
 
         /// <summary>

@@ -18,6 +18,11 @@ namespace Entitys.SysClass
         public string COLUMN_NAME { get; set; }
 
         /// <summary>
+        /// 别名
+        /// </summary>
+        public string Alias { get; set; }
+
+        /// <summary>
         /// 主键
         /// </summary>
         public string COLUMN_KEY { get; set; }

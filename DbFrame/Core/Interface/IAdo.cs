@@ -10,6 +10,7 @@ namespace DbFrame.Core.Interface
     public interface IAdo
     {
         bool Commit(Action _Action);
+        bool CommitTransaction(Action<IDbTransaction> _Action);
         bool Commit(Action<List<SQL>> _Action);
         int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
         object ExecuteScalar(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
@@ -22,6 +23,7 @@ namespace DbFrame.Core.Interface
 
         #region Async
         Task<bool> CommitAsync(Action _Action);
+        Task<bool> CommitTransactionAsync(Action<IDbTransaction> _Action);
         Task<bool> CommitAsync(Action<List<SQL>> _Action);
         Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
         Task<object> ExecuteScalarAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);

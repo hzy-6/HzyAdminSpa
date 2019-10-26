@@ -27,10 +27,7 @@ namespace Admin.Controllers
         /// </summary>
         /// <returns>{status:1}</returns>
         [NonAction]
-        public IActionResult Json()
-        {
-            return this.Json(new { status = 1 });
-        }
+        public IActionResult Json() => this.Json(new { status = 1 });
 
         /// <summary>
         /// 返回成功
@@ -38,10 +35,7 @@ namespace Admin.Controllers
         /// <param name="Data"></param>
         /// <returns>Data</returns>
         [NonAction]
-        public IActionResult Json(object Data)
-        {
-            return new JsonResult(Data);
-        }
+        public IActionResult Json(object Data) => new JsonResult(Data);
 
 
         /// <summary>
@@ -80,7 +74,7 @@ namespace Admin.Controllers
             return filePath;
         }
 
-        
+
 
 
     }

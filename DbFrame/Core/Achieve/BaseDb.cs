@@ -57,11 +57,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override object Insert<T>(T Entity)
-        {
-            var _Insert = this.InsertObject(Entity);
-            return _Insert.Execute();
-        }
+        public override object Insert<T>(T Entity) => this.InsertObject(Entity).Execute();
 
         /// <summary>
         /// Insert
@@ -69,11 +65,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override object Insert<T>(Expression<Func<T>> Entity)
-        {
-            var _Insert = this.InsertObject(Entity);
-            return _Insert.Execute();
-        }
+        public override object Insert<T>(Expression<Func<T>> Entity) => this.InsertObject(Entity).Execute();
 
         /// <summary>
         /// Insert 批量添加
@@ -94,11 +86,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override async Task<object> InsertAsync<T>(T Entity)
-        {
-            var _Insert = this.InsertObject(Entity);
-            return await _Insert.ExecuteAsync();
-        }
+        public override Task<object> InsertAsync<T>(T Entity) => this.InsertObject(Entity).ExecuteAsync();
 
         /// <summary>
         /// Insert
@@ -106,11 +94,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override async Task<object> InsertAsync<T>(Expression<Func<T>> Entity)
-        {
-            var _Insert = this.InsertObject(Entity);
-            return await _Insert.ExecuteAsync();
-        }
+        public override Task<object> InsertAsync<T>(Expression<Func<T>> Entity) => this.InsertObject(Entity).ExecuteAsync();
 
         /// <summary>
         /// Insert 对象 可设置忽略 字段
@@ -118,11 +102,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override IInsert<T> InsertObject<T>(T Entity)
-        {
-            var _Insert = new InsertAchieve<T>(Parser.ModelToMemberInitExpression(Entity), this.Ado, this.analysis, this.LastInsertId);
-            return _Insert;
-        }
+        public override IInsert<T> InsertObject<T>(T Entity) => new InsertAchieve<T>(Parser.ModelToMemberInitExpression(Entity), this.Ado, this.analysis, this.LastInsertId);
 
         /// <summary>
         /// Insert 对象 可设置忽略 字段
@@ -130,11 +110,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override IInsert<T> InsertObject<T>(Expression<Func<T>> Entity)
-        {
-            var _Insert = new InsertAchieve<T>((Entity.Body as MemberInitExpression), this.Ado, this.analysis, this.LastInsertId);
-            return _Insert;
-        }
+        public override IInsert<T> InsertObject<T>(Expression<Func<T>> Entity) => new InsertAchieve<T>((Entity.Body as MemberInitExpression), this.Ado, this.analysis, this.LastInsertId);
 
         #endregion
 
@@ -147,11 +123,7 @@ namespace DbFrame.Core.Achieve
         /// <param name="Entity"></param>
         /// <param name="Where"></param>
         /// <returns></returns>
-        public override int Update<T>(T Entity, Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            var _IUpdate = this.UpdateObject(Entity).Where(Where);
-            return _IUpdate.Execute();
-        }
+        public override int Update<T>(T Entity, Expression<Func<HzyTuple<T>, bool>> Where) => this.UpdateObject(Entity).Where(Where).Execute();
 
         /// <summary>
         /// Update
@@ -160,11 +132,7 @@ namespace DbFrame.Core.Achieve
         /// <param name="Entity"></param>
         /// <param name="Where"></param>
         /// <returns></returns>
-        public override int Update<T>(Expression<Func<T>> Entity, Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            var _IUpdate = this.UpdateObject(Entity).Where(Where);
-            return _IUpdate.Execute();
-        }
+        public override int Update<T>(Expression<Func<T>> Entity, Expression<Func<HzyTuple<T>, bool>> Where) => this.UpdateObject(Entity).Where(Where).Execute();
 
         /// <summary>
         /// Update
@@ -173,11 +141,7 @@ namespace DbFrame.Core.Achieve
         /// <param name="Entity"></param>
         /// <param name="Where"></param>
         /// <returns></returns>
-        public override int Update<T>(Expression<Func<T, T>> Entity, Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            var _IUpdate = this.UpdateObject(Entity).Where(Where);
-            return _IUpdate.Execute();
-        }
+        public override int Update<T>(Expression<Func<T, T>> Entity, Expression<Func<HzyTuple<T>, bool>> Where) => this.UpdateObject(Entity).Where(Where).Execute();
 
         /// <summary>
         /// UpdateById
@@ -185,11 +149,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override int UpdateById<T>(T Entity)
-        {
-            var _IUpdate = this.UpdateObjectById(Entity);
-            return _IUpdate.Execute();
-        }
+        public override int UpdateById<T>(T Entity) => this.UpdateObjectById(Entity).Execute();
 
         /// <summary>
         /// Update
@@ -198,11 +158,7 @@ namespace DbFrame.Core.Achieve
         /// <param name="Entity"></param>
         /// <param name="Where"></param>
         /// <returns></returns>
-        public override async Task<int> UpdateAsync<T>(T Entity, Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            var _IUpdate = this.UpdateObject(Entity).Where(Where);
-            return (await _IUpdate.ExecuteAsync());
-        }
+        public override Task<int> UpdateAsync<T>(T Entity, Expression<Func<HzyTuple<T>, bool>> Where) => this.UpdateObject(Entity).Where(Where).ExecuteAsync();
 
         /// <summary>
         /// Update
@@ -211,11 +167,7 @@ namespace DbFrame.Core.Achieve
         /// <param name="Entity"></param>
         /// <param name="Where"></param>
         /// <returns></returns>
-        public override async Task<int> UpdateAsync<T>(Expression<Func<T>> Entity, Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            var _IUpdate = this.UpdateObject(Entity).Where(Where);
-            return (await _IUpdate.ExecuteAsync());
-        }
+        public override Task<int> UpdateAsync<T>(Expression<Func<T>> Entity, Expression<Func<HzyTuple<T>, bool>> Where) => this.UpdateObject(Entity).Where(Where).ExecuteAsync();
 
         /// <summary>
         /// Update
@@ -224,11 +176,7 @@ namespace DbFrame.Core.Achieve
         /// <param name="Entity"></param>
         /// <param name="Where"></param>
         /// <returns></returns>
-        public override async Task<int> UpdateAsync<T>(Expression<Func<T, T>> Entity, Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            var _IUpdate = this.UpdateObject(Entity).Where(Where);
-            return (await _IUpdate.ExecuteAsync());
-        }
+        public override Task<int> UpdateAsync<T>(Expression<Func<T, T>> Entity, Expression<Func<HzyTuple<T>, bool>> Where) => this.UpdateObject(Entity).Where(Where).ExecuteAsync();
 
         /// <summary>
         /// UpdateById
@@ -236,11 +184,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override async Task<int> UpdateByIdAsync<T>(T Entity)
-        {
-            var _IUpdate = this.UpdateObjectById(Entity);
-            return (await _IUpdate.ExecuteAsync());
-        }
+        public override Task<int> UpdateByIdAsync<T>(T Entity) => this.UpdateObjectById(Entity).ExecuteAsync();
 
         /// <summary>
         /// Update 对象 可设置忽略 字段
@@ -248,11 +192,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override IUpdate<T> UpdateObject<T>(T Entity)
-        {
-            var _IUpdate = new UpdateAchieve<T>(Parser.ModelToMemberInitExpression(Entity), this.Ado, this.analysis);
-            return _IUpdate;
-        }
+        public override IUpdate<T> UpdateObject<T>(T Entity) => new UpdateAchieve<T>(Parser.ModelToMemberInitExpression(Entity), this.Ado, this.analysis);
 
         /// <summary>
         /// Update 对象 可设置忽略 字段
@@ -260,11 +200,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override IUpdate<T> UpdateObject<T>(Expression<Func<T>> Entity)
-        {
-            var _IUpdate = new UpdateAchieve<T>((Entity.Body as MemberInitExpression), this.Ado, this.analysis);
-            return _IUpdate;
-        }
+        public override IUpdate<T> UpdateObject<T>(Expression<Func<T>> Entity) => new UpdateAchieve<T>((Entity.Body as MemberInitExpression), this.Ado, this.analysis);
 
         /// <summary>
         /// Update 对象 可设置忽略 字段
@@ -272,11 +208,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Entity"></param>
         /// <returns></returns>
-        public override IUpdate<T> UpdateObject<T>(Expression<Func<T, T>> Entity)
-        {
-            var _IUpdate = new UpdateAchieve<T>((Entity.Body as MemberInitExpression), this.Ado, this.analysis);
-            return _IUpdate;
-        }
+        public override IUpdate<T> UpdateObject<T>(Expression<Func<T, T>> Entity) => new UpdateAchieve<T>((Entity.Body as MemberInitExpression), this.Ado, this.analysis);
 
         /// <summary>
         /// Update 对象 可设置忽略 字段 根据 实体ID 做为条件
@@ -293,10 +225,7 @@ namespace DbFrame.Core.Achieve
             if (_KeyInfo == null) throw new DbFrameException("检测到该模型没有主键!");
             var Where = Parser.WhereById<T>(_KeyInfo.Name, _KeyInfo.Value, _TableName);
 
-            var _IUpdate = new UpdateAchieve<T>(Parser.ModelToMemberInitExpression(Entity), this.Ado, this.analysis)
-                .Where(Where);
-
-            return _IUpdate;
+            return new UpdateAchieve<T>(Parser.ModelToMemberInitExpression(Entity), this.Ado, this.analysis).Where(Where);
         }
 
 
@@ -310,11 +239,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Where"></param>
         /// <returns></returns>
-        public override int Delete<T>(Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            var _Delete = this.DeleteObject<T>().Where(Where);
-            return _Delete.Execute();
-        }
+        public override int Delete<T>(Expression<Func<HzyTuple<T>, bool>> Where) => this.DeleteObject<T>().Where(Where).Execute();
 
         /// <summary>
         /// DeleteById
@@ -322,11 +247,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public override int DeleteById<T>(object Id)
-        {
-            var _Delete = this.DeleteByIdObject<T>(Id);
-            return _Delete.Execute();
-        }
+        public override int DeleteById<T>(object Id) => this.DeleteByIdObject<T>(Id).Execute();
 
         /// <summary>
         /// Delete
@@ -334,11 +255,7 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Where"></param>
         /// <returns></returns>
-        public override async Task<int> DeleteAsync<T>(Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            var _Delete = this.DeleteObject<T>().Where(Where);
-            return (await _Delete.ExecuteAsync());
-        }
+        public override Task<int> DeleteAsync<T>(Expression<Func<HzyTuple<T>, bool>> Where) => this.DeleteObject<T>().Where(Where).ExecuteAsync();
 
         /// <summary>
         /// DeleteById
@@ -346,21 +263,14 @@ namespace DbFrame.Core.Achieve
         /// <typeparam name="T"></typeparam>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public override async Task<int> DeleteByIdAsync<T>(object Id)
-        {
-            var _Delete = this.DeleteByIdObject<T>(Id);
-            return (await _Delete.ExecuteAsync());
-        }
+        public override Task<int> DeleteByIdAsync<T>(object Id) => this.DeleteByIdObject<T>(Id).ExecuteAsync();
 
         /// <summary>
         /// Delete 对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public override IDelete<T> DeleteObject<T>()
-        {
-            return new DeleteAchieve<T>(this.Ado, this.analysis);
-        }
+        public override IDelete<T> DeleteObject<T>() => new DeleteAchieve<T>(this.Ado, this.analysis);
 
         /// <summary>
         /// Delete 对象 根据 实体ID 做为条件
@@ -376,31 +286,16 @@ namespace DbFrame.Core.Achieve
             if (_KeyInfo == null) throw new DbFrameException("检测到该模型没有主键!");
             var Where = Parser.WhereById<T>(_KeyInfo.Name, Id, _TableName);
 
-            var _Delete = new DeleteAchieve<T>(this.Ado, this.analysis)
-                .Where(Where);
-
-            return _Delete;
+            return new DeleteAchieve<T>(this.Ado, this.analysis).Where(Where);
         }
 
         #endregion
 
         #region Find Or Query Or Async
 
-        public override IQuery<T> Query<T>()
-        {
-            var _Sql = new SQL();
-            return new QueryAchieve<T>(_Sql, this.Ado, this.analysis);
-        }
-        public override IQuery<T> Query<T>(Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            return this.Query<T>().Where(Where);
-        }
-
-        public override T Find<T>(Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            return this.Query<T>(Where).First<T>();
-        }
-
+        public override IQuery<T> Query<T>() => new QueryAchieve<T>(new SQL(), this.Ado, this.analysis);
+        public override IQuery<T> Query<T>(Expression<Func<HzyTuple<T>, bool>> Where) => this.Query<T>().Where(Where);
+        public override T Find<T>(Expression<Func<HzyTuple<T>, bool>> Where) => this.Query<T>(Where).First<T>();
         public override T FindById<T>(object Id)
         {
             var _TableInfo = DbTable.GetTable(typeof(T));
@@ -414,21 +309,14 @@ namespace DbFrame.Core.Achieve
             return this.Query<T>(Parser.WhereById<T>(_KeyName, Id, _ParName)).First<T>();
         }
 
-        public override List<T> FindList<T>(Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            return this.Query<T>(Where).ToList<T>();
-        }
+        public override List<T> FindList<T>(Expression<Func<HzyTuple<T>, bool>> Where) => this.Query<T>(Where).ToList<T>();
 
         #endregion
 
         #region FindAsync
 
-        public override async Task<T> FindAsync<T>(Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            return await this.Query<T>(Where).FirstAsync<T>();
-        }
-
-        public override async Task<T> FindByIdAsync<T>(object Id)
+        public override Task<T> FindAsync<T>(Expression<Func<HzyTuple<T>, bool>> Where) => this.Query<T>(Where).FirstAsync<T>();
+        public override Task<T> FindByIdAsync<T>(object Id)
         {
             var _TableInfo = DbTable.GetTable(typeof(T));
             var _Table = _TableInfo.Item2;
@@ -438,13 +326,10 @@ namespace DbFrame.Core.Achieve
             var _ParName = typeof(T).Name.ToLower();
             var _KeyName = _KeyInfo.Name;
 
-            return await this.Query<T>(Parser.WhereById<T>(_KeyName, Id, _ParName)).FirstAsync<T>();
+            return this.Query<T>(Parser.WhereById<T>(_KeyName, Id, _ParName)).FirstAsync<T>();
         }
 
-        public override async Task<List<T>> FindListAsync<T>(Expression<Func<HzyTuple<T>, bool>> Where)
-        {
-            return await this.Query<T>(Where).ToListAsync<T>();
-        }
+        public override Task<List<T>> FindListAsync<T>(Expression<Func<HzyTuple<T>, bool>> Where) => this.Query<T>(Where).ToListAsync<T>();
 
         #endregion
 
@@ -455,20 +340,22 @@ namespace DbFrame.Core.Achieve
         /// </summary>
         /// <param name="_Action"></param>
         /// <returns></returns>
-        public override bool Commit(Action _Action)
-        {
-            return this.Ado.Commit(_Action);
-        }
+        public override bool Commit(Action _Action) => this.Ado.Commit(_Action);
+
+        /// <summary>
+        /// 提交事务 可暴露 IDbTransaction
+        /// </summary>
+        /// <param name="_Action"></param>
+        /// <returns></returns>
+        public override bool CommitTransaction(Action<IDbTransaction> _Action) => this.Ado.CommitTransaction(_Action);
 
         /// <summary>
         /// 提交事务
         /// </summary>
         /// <param name="_Action"></param>
         /// <returns></returns>
-        public override bool Commit(Action<List<SQL>> _Action)
-        {
-            return this.Ado.Commit(_Action);
-        }
+        public override bool Commit(Action<List<SQL>> _Action) => this.Ado.Commit(_Action);
+
         public override int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return this.Ado.Execute(sql, param, transaction, commandTimeout, commandType);
@@ -511,51 +398,52 @@ namespace DbFrame.Core.Achieve
         /// </summary>
         /// <param name="_Action"></param>
         /// <returns></returns>
-        public override async Task<bool> CommitAsync(Action _Action)
-        {
-            return await this.Ado.CommitAsync(_Action);
-        }
+        public override Task<bool> CommitAsync(Action _Action) => this.Ado.CommitAsync(_Action);
+
+        /// <summary>
+        /// 提交事务 可暴露 IDbTransaction
+        /// </summary>
+        /// <param name="_Action"></param>
+        /// <returns></returns>
+        public override Task<bool> CommitTransactionAsync(Action<IDbTransaction> _Action) => this.Ado.CommitTransactionAsync(_Action);
 
         /// <summary>
         /// 提交事务
         /// </summary>
         /// <param name="_Action"></param>
         /// <returns></returns>
-        public override async Task<bool> CommitAsync(Action<List<SQL>> _Action)
+        public override Task<bool> CommitAsync(Action<List<SQL>> _Action) => this.Ado.CommitAsync(_Action);
+        public override Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await this.Ado.CommitAsync(_Action);
+            return this.Ado.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
         }
-        public override async Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public override Task<object> ExecuteScalarAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await this.Ado.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
+            return this.Ado.ExecuteScalarAsync(sql, param, transaction, commandTimeout, commandType);
         }
-        public override async Task<object> ExecuteScalarAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public override Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await this.Ado.ExecuteScalarAsync(sql, param, transaction, commandTimeout, commandType);
+            return this.Ado.ExecuteScalarAsync<T>(sql, param, transaction, commandTimeout, commandType);
         }
-        public override async Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public override Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await this.Ado.ExecuteScalarAsync<T>(sql, param, transaction, commandTimeout, commandType);
+            return this.Ado.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
         }
-        public override async Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public override Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null, Action<IDataReader> Success = null)
         {
-            return await this.Ado.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
+            return this.Ado.ExecuteReaderAsync(sql, param, transaction, commandTimeout, commandType, Success);
         }
-        public override async Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null, Action<IDataReader> Success = null)
+        public override Task<DataTable> QueryDataTableAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await this.Ado.ExecuteReaderAsync(sql, param, transaction, commandTimeout, commandType, Success);
+            return this.Ado.QueryDataTableAsync(sql, param, transaction, commandTimeout, commandType);
         }
-        public override async Task<DataTable> QueryDataTableAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public override Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await this.Ado.QueryDataTableAsync(sql, param, transaction, commandTimeout, commandType);
+            return this.Ado.QuerySingleOrDefaultAsync<T>(sql, param, transaction, commandTimeout, commandType);
         }
-        public override async Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public override Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await this.Ado.QuerySingleOrDefaultAsync<T>(sql, param, transaction, commandTimeout, commandType);
-        }
-        public override async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return await this.Ado.QueryFirstOrDefaultAsync<T>(sql, param, transaction, commandTimeout, commandType);
+            return this.Ado.QueryFirstOrDefaultAsync<T>(sql, param, transaction, commandTimeout, commandType);
         }
 
         #endregion

@@ -30,7 +30,9 @@ namespace DbFrame.Core.Achieve
 
         #region Ado
 
-        public override bool Commit(Action _Action)
+        public override bool Commit(Action _Action) => this.CommitTransaction(_IDbTransaction => { _Action?.Invoke(); });
+
+        public override bool CommitTransaction(Action<IDbTransaction> _Action)
         {
             using (this._DbConnection = this.GetDbConnection())
             {
@@ -41,17 +43,17 @@ namespace DbFrame.Core.Achieve
                     {
                         //事务 状态设置 开
                         this.CommitState = true;
-                        _Action?.Invoke();
+                        _Action?.Invoke(this._DbTransaction);
                         if (this._DbTransaction != null) this._DbTransaction.Commit();
                         return true;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         if (this._DbTransaction != null) this._DbTransaction.Rollback();
                         this._DbConnection.Close();
                         //事务 状态设置 关
                         this.CommitState = false;
-                        throw ex;
+                        throw;
                     }
                     finally
                     {
@@ -80,11 +82,11 @@ namespace DbFrame.Core.Achieve
                         _dbTransaction.Commit();
                         return true;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         _dbTransaction.Rollback();
                         dbConnection.Close();
-                        throw ex;
+                        throw;
                     }
                     finally
                     {
@@ -155,29 +157,25 @@ namespace DbFrame.Core.Achieve
 
         #region Async
 
-        public override Task<bool> CommitAsync(Action _Action)
+        public override Task<bool> CommitAsync(Action _Action) => Task.FromResult(this.Commit(_Action));
+
+        public override Task<bool> CommitTransactionAsync(Action<IDbTransaction> _Action) => Task.FromResult(this.CommitTransaction(_Action));
+
+        public override Task<bool> CommitAsync(Action<List<SQL>> _Action) => Task.FromResult(this.Commit(_Action));
+
+        public override Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return Task.FromResult(this.Commit(_Action));
+            using (var conn = this.GetDbConnection()) return conn.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
         }
 
-        public override Task<bool> CommitAsync(Action<List<SQL>> _Action)
+        public override Task<object> ExecuteScalarAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return Task.FromResult(this.Commit(_Action));
+            using (var conn = this.GetDbConnection()) return conn.ExecuteScalarAsync(sql, param, transaction, commandTimeout, commandType);
         }
 
-        public override async Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public override Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = this.GetDbConnection()) return await conn.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
-        }
-
-        public override async Task<object> ExecuteScalarAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            using (var conn = this.GetDbConnection()) return await conn.ExecuteScalarAsync(sql, param, transaction, commandTimeout, commandType);
-        }
-
-        public override async Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            using (var conn = this.GetDbConnection()) return await conn.ExecuteScalarAsync<T>(sql, param, transaction, commandTimeout, commandType);
+            using (var conn = this.GetDbConnection()) return conn.ExecuteScalarAsync<T>(sql, param, transaction, commandTimeout, commandType);
         }
 
         public override async Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)

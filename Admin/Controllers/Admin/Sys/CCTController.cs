@@ -25,13 +25,10 @@ namespace Admin.Controllers.Admin.Sys
     [Route("Admin/[controller]")]
     public class CCTController : ApiBaseController
     {
-
-        private IWebHostEnvironment _IWebHostEnvironment = null;
         private string _WebRootPath = string.Empty;
         public CCTController(IWebHostEnvironment IWebHostEnvironment)
         {
-            this._IWebHostEnvironment = IWebHostEnvironment;
-            _WebRootPath = this._IWebHostEnvironment.WebRootPath;
+            _WebRootPath = IWebHostEnvironment.WebRootPath;
         }
 
         Sys_CreateCodeLogic _Logic = new Sys_CreateCodeLogic();
@@ -99,6 +96,33 @@ namespace Admin.Controllers.Admin.Sys
         }
 
         /// <summary>
+        /// 获取 Form 代码
+        /// </summary>
+        /// <param name="TableName"></param>
+        /// <param name="Fields"></param>
+        /// <returns></returns>
+        [HttpPost(nameof(GetFormCode))]
+        public async Task<IActionResult> GetFormCode(string TableName, List<string> Fields)
+        {
+            var TempUrl = _WebRootPath + "/Content/CodeTemp/Form.txt";
+
+            if (!System.IO.File.Exists(TempUrl))
+                throw new MessageBox("模板文件不存在");
+
+            if (Fields?.Count == 0)
+            {
+                Fields = new List<string>();
+                var _Cols = await _Logic.GetColsByTableName(TableName);
+                foreach (var _Col in _Cols)
+                {
+                    Fields.Add($"{TableName}/{_Col.COLUMN_NAME}");
+                }
+            }
+
+            return Json(new { status = 1, data = await _Logic.CreateFormCode(Fields, await System.IO.File.ReadAllTextAsync(TempUrl, Encoding.UTF8)) });
+        }
+
+        /// <summary>
         /// 下载当前代码
         /// </summary>
         /// <returns></returns>
@@ -106,6 +130,7 @@ namespace Admin.Controllers.Admin.Sys
         public IActionResult Download(string TableName, string CodeType, string Content)
         {
             var Suffix = string.Empty;
+            var FileType = ".cs";
 
             if (CodeType == "Model") Suffix = ".cs";
 
@@ -113,7 +138,13 @@ namespace Admin.Controllers.Admin.Sys
 
             if (CodeType == "Controller") Suffix = "Controller.cs";
 
-            var _Bytes = System.Text.Encoding.UTF8.GetBytes(Content);
+            if (CodeType == "Form")
+            {
+                Suffix = ".vue";
+                FileType = ".vue";
+            }
+
+            var _Bytes = Encoding.UTF8.GetBytes(Content);
             return File(_Bytes, Tools.GetFileContentType[".cs"], $"{TableName}{Suffix}");
         }
 
@@ -147,9 +178,15 @@ namespace Admin.Controllers.Admin.Sys
                 TempUrl = _WebRootPath + "/Content/CodeTemp/Controllers.txt";
             }
 
+            if (CodeType == "Form")
+            {
+                Suffix = ".vue";
+                TempUrl = _WebRootPath + "/Content/CodeTemp/Form.txt";
+            }
+
             Temp = await System.IO.File.ReadAllTextAsync(TempUrl, Encoding.UTF8);
 
-            List<StringBuilder> _Codes = new List<StringBuilder>();
+            //List<StringBuilder> _Codes = new List<StringBuilder>();
             Dictionary<string, Stream> _DicStream = new Dictionary<string, Stream>();
 
             var _TableNames = await _Logic.GetAllTable();
@@ -172,7 +209,19 @@ namespace Admin.Controllers.Admin.Sys
                     _StringBuilder.Append(await _Logic.CreateControllersCode(item, Temp));
                 }
 
-                _Codes.Add(_StringBuilder);
+                if (CodeType == "Form")
+                {
+                    //获取表下面的所有 字段
+                    var _Cols = await _Logic.GetColsByTableName(item);
+                    var list = new List<string>();
+                    foreach (var _Col in _Cols)
+                    {
+                        list.Add($"{item}/{_Col}");
+                    }
+                    _StringBuilder.Append(await _Logic.CreateFormCode(list, Temp));
+                }
+
+                //_Codes.Add(_StringBuilder);
                 _DicStream[$"{item}{Suffix}"] = new MemoryStream(Encoding.UTF8.GetBytes(_StringBuilder.ToString()));
             }
 

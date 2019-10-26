@@ -13,18 +13,8 @@ namespace DbFrame.BaseClass
     /// </summary>
     public class DbTable
     {
-        private static ConcurrentDictionary<string, List<FieldDescribe>> Tables = null;
+        private static ConcurrentDictionary<string, List<FieldDescribe>> Tables { get; set; } = new ConcurrentDictionary<string, List<FieldDescribe>>();
         private static string Error = "请在程序启动时注册你的Models";
-
-        public DbTable()
-        {
-            if (Tables == null) Tables = new ConcurrentDictionary<string, List<FieldDescribe>>();
-        }
-
-        static DbTable()
-        {
-            if (Tables == null) Tables = new ConcurrentDictionary<string, List<FieldDescribe>>();
-        }
 
         /// <summary>
         /// 注册表

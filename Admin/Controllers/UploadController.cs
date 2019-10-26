@@ -20,14 +20,10 @@ namespace Admin.Controllers
     [Route("[controller]")]
     public class UploadController : ApiBaseController
     {
-
-
-        private IWebHostEnvironment _IWebHostEnvironment = null;
         private string _WebRootPath = string.Empty;
         public UploadController(IWebHostEnvironment IWebHostEnvironment)
         {
-            this._IWebHostEnvironment = IWebHostEnvironment;
-            _WebRootPath = this._IWebHostEnvironment.WebRootPath;
+            _WebRootPath = IWebHostEnvironment.WebRootPath;
         }
 
         public class FilesModel

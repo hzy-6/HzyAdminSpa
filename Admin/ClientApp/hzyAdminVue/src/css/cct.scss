@@ -28,11 +28,11 @@
     display: flex;
     color: #ffffff;
     .left {
-        flex: .18;
+        flex: .15;
         background: #1d2935;
     }
     .center {
-        flex: .32;
+        flex: .35;
         background: #2c3e50;
     }
     .left,
@@ -54,6 +54,10 @@
                     flex: 1;
                 }
                 .col-2 {
+                    flex: 1;
+                    text-align: left;
+                }
+                .col-3 {
                     flex: 1;
                     text-align: left;
                 }

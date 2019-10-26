@@ -17,10 +17,7 @@ namespace Admin.Controllers
     public class HomeController : ApiBaseController
     {
         [HttpGet(nameof(Index))]
-        public IActionResult Index()
-        {
-            return Content("程序已启动！");
-        }
+        public IActionResult Index() => Content("程序已启动！");
 
     }
 }

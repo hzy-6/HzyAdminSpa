@@ -88,6 +88,7 @@ namespace DbFrame.Core.Abstract
         #region Ado
 
         public abstract bool Commit(Action _Action);
+        public abstract bool CommitTransaction(Action<IDbTransaction> _Action);
         public abstract bool Commit(Action<List<SQL>> _Action);
         public abstract int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
         public abstract object ExecuteScalar(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
@@ -103,6 +104,7 @@ namespace DbFrame.Core.Abstract
         #region Ado Async
 
         public abstract Task<bool> CommitAsync(Action _Action);
+        public abstract Task<bool> CommitTransactionAsync(Action<IDbTransaction> _Action);
         public abstract Task<bool> CommitAsync(Action<List<SQL>> _Action);
         public abstract Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
         public abstract Task<object> ExecuteScalarAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);

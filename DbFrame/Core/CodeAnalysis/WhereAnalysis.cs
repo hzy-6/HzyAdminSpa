@@ -24,18 +24,21 @@ namespace DbFrame.Core.CodeAnalysis
         protected override Expression VisitBinary(BinaryExpression node)
         {
             //检查括号
-            //左边
-            this.CheckBrackets(node.Left.ToString(), (_AddBrackets_Left) =>
+            this.CheckBrackets(node.ToString(), (_AddBrackets) =>
             {
-                this.Visit(node.Left);
-            });
+                //左边
+                this.CheckBrackets(node.Left.ToString(), (_AddBrackets_Left) =>
+                {
+                    this.Visit(node.Left);
+                });
 
-            sql.Code_Where.Append(this.GetOperatorStr(node.NodeType));
+                sql.Code_Where.Append(this.GetOperatorStr(node.NodeType));
 
-            //右边
-            this.CheckBrackets(node.Right.ToString(), (_AddBrackets_Right) =>
-            {
-                this.Visit(node.Right);
+                //右边
+                this.CheckBrackets(node.Right.ToString(), (_AddBrackets_Right) =>
+                {
+                    this.Visit(node.Right);
+                });
             });
 
             return node;
@@ -180,7 +183,7 @@ namespace DbFrame.Core.CodeAnalysis
         private void CheckBrackets(string _Str, Action<bool> _Action)
         {
             //检查是否有括号
-            var _AddBrackets = !string.IsNullOrEmpty(_Str) && _Str.Length > 5 && _Str.StartsWith("(") && _Str.EndsWith(")");
+            var _AddBrackets = !string.IsNullOrEmpty(_Str) && _Str.Length > 5 && _Str.StartsWith("((") && _Str.EndsWith("))");
 
             if (_AddBrackets) sql.Code_Where.Append(" (");
 

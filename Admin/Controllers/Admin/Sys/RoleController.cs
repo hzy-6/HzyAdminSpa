@@ -89,14 +89,7 @@ namespace Admin.Controllers.Admin.Sys
         /// <param name="Id">主表Id</param>
         /// <returns></returns>
         [HttpPost(nameof(LoadForm)), AppService.ApiCheckTokenFilter]
-        public IActionResult LoadForm(Guid? Id)
-        {
-            return Json(new
-            {
-                status = 1,
-                Form = _Logic.LoadForm(Id)
-            });
-        }
+        public IActionResult LoadForm(Guid? Id) => Json(new { status = 1, Form = _Logic.LoadForm(Id) });
 
         #endregion
 
