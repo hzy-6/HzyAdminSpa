@@ -27,7 +27,8 @@
 
  **代码创建/下载（登录系统后，输入地址 /cct 即可进入代码创建页面）：** 
 
-![输入图片说明](https://images.gitee.com/uploads/images/2019/1025/203019_8502826d_1242080.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1026/142626_778c5ce5_1242080.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1026/142717_66e4c7a0_1242080.png "屏幕截图.png")
 
  **Swagger文档（输入地址 /swagger 即可进入接口文档页面）：** 
 
