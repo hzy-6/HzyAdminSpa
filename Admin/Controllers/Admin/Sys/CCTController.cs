@@ -216,7 +216,7 @@ namespace Admin.Controllers.Admin.Sys
                     var list = new List<string>();
                     foreach (var _Col in _Cols)
                     {
-                        list.Add($"{item}/{_Col}");
+                        list.Add($"{item}/{_Col.COLUMN_NAME}");
                     }
                     _StringBuilder.Append(await _Logic.CreateFormCode(list, Temp));
                 }
