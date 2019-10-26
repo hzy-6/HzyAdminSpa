@@ -1,0 +1,5 @@
+﻿<el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+	<el-form-item label="<#FieldAlias#>">
+		<el-input v-model="form.vm.<#Field#>"></el-input>
+	</el-form-item>
+</el-col>
