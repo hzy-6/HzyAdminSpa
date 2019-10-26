@@ -104,6 +104,7 @@
     <None Include="ClientApp\hzyAdminVue\src\components\upload\Files.vue" />
     <None Include="ClientApp\hzyAdminVue\src\components\upload\Image.vue" />
     <None Include="ClientApp\hzyAdminVue\src\components\upload\Images.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\css\cct.scss" />
     <None Include="ClientApp\hzyAdminVue\src\css\element-variables.scss" />
     <None Include="ClientApp\hzyAdminVue\src\css\main.scss" />
     <None Include="ClientApp\hzyAdminVue\src\js\ckeditor.js" />
@@ -113,6 +114,7 @@
     <None Include="ClientApp\hzyAdminVue\src\js\tools.js" />
     <None Include="ClientApp\hzyAdminVue\src\main.js" />
     <None Include="ClientApp\hzyAdminVue\src\views\Base\Member.vue" />
+    <None Include="ClientApp\hzyAdminVue\src\views\CCT\Index.vue" />
     <None Include="ClientApp\hzyAdminVue\src\views\Home.vue" />
     <None Include="ClientApp\hzyAdminVue\src\views\Login.vue" />
     <None Include="ClientApp\hzyAdminVue\src\views\Main.vue" />
