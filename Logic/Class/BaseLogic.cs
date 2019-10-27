@@ -137,7 +137,7 @@ namespace Logic.Class
                 if (_FieldDescribe == null)
                     _TableViewCol.Title = dc.ColumnName == "_ukid" ? "ID" : dc.ColumnName;
                 else
-                    _TableViewCol.Title = string.IsNullOrWhiteSpace(_FieldDescribe.Alias) ? _TableViewCol.Title : _FieldDescribe.Alias;
+                    _TableViewCol.Title = string.IsNullOrWhiteSpace(_FieldDescribe.DisplayName) ? _TableViewCol.Title : _FieldDescribe.DisplayName;
 
                 _TableViewCol.ColName = dc.ColumnName;
                 _TableViewCol.Show = dc.ColumnName != "_ukid";

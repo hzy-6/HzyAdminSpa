@@ -13,14 +13,14 @@ namespace DbFrame.BaseClass
     /// </summary>
     public class DbTable
     {
-        private static ConcurrentDictionary<string, List<FieldDescribe>> Tables { get; set; } = new ConcurrentDictionary<string, List<FieldDescribe>>();
+        private static ConcurrentDictionary<string, List<FieldDescribe>> Tables { get; } = new ConcurrentDictionary<string, List<FieldDescribe>>();
         private static string Error = "请在程序启动时注册你的Models";
 
         /// <summary>
         /// 注册表
         /// </summary>
         /// <param name="TableType"></param>
-        public void Register(Type TableType)
+        public void Register(Type TableType, Action<PropertyInfo, FieldDescribe, Type> Call = null)
         {
             var _TableName = TableType.Name;
             var _TableAttribute = TableType.GetCustomAttribute<TableAttribute>() as TableAttribute;
@@ -38,14 +38,16 @@ namespace DbFrame.BaseClass
 
                 if (_FieldAttribute != null)
                 {
-                    _FieldDescribe.Alias = _FieldAttribute.Alias;
                     _FieldDescribe.IsKey = _FieldAttribute.IsKey;
                     _FieldDescribe.IsIdentity = _FieldAttribute.IsIdentity;
                     _FieldDescribe.IsIgnore = _FieldAttribute.IsIgnore;
                     _FieldDescribe.IsColumn = _FieldAttribute.IsColumn;
                 }
+                _FieldDescribe.TableFieldName = string.IsNullOrWhiteSpace(_FieldAttribute?.TableFieldName) ? item.Name : _FieldAttribute?.TableFieldName;
                 _FieldDescribe.Name = item.Name;
                 _FieldDescribe.Type = item.PropertyType;
+
+                Call?.Invoke(item, _FieldDescribe, TableType);
 
                 list.Add(_FieldDescribe);
             }
@@ -61,14 +63,7 @@ namespace DbFrame.BaseClass
         /// </summary>
         /// <param name="TableType"></param>
         /// <returns></returns>
-        public static Tuple<string, List<FieldDescribe>> GetTable(Type TableType)
-        {
-            var _TableName = GetTableName(TableType);
-
-            if (!Tables.ContainsKey(_TableName)) throw new DbFrameException($"表 {_TableName} 没有注册!{Error}");
-
-            return new Tuple<string, List<FieldDescribe>>(_TableName, Tables[GetTableName(TableType)]);
-        }
+        public static Tuple<string, List<FieldDescribe>> GetTable(Type TableType) => GetTable(GetTableName(TableType));
 
         /// <summary>
         /// 获取表信息
@@ -123,10 +118,7 @@ namespace DbFrame.BaseClass
         /// 获取所有的表信息
         /// </summary>
         /// <returns></returns>
-        public static ConcurrentDictionary<string, List<FieldDescribe>> GetAll()
-        {
-            return Tables;
-        }
+        public static ConcurrentDictionary<string, List<FieldDescribe>> GetAll() => Tables;
 
     }
 
@@ -135,33 +127,32 @@ namespace DbFrame.BaseClass
     /// </summary>
     public class FieldDescribe
     {
-        public FieldDescribe()
-        {
-            this.Name = string.Empty;
-            this.Alias = string.Empty;
-            this.IsKey = false;
-            this.IsIdentity = false;
-            this.IsIgnore = false;
-            this.IsColumn = true;
-            this.Type = null;
-            this.Value = null;
-        }
+        /// <summary>
+        /// 实体属性名称
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
 
-        public string Name { get; set; }
+        /// <summary>
+        /// 字段在数据库中的名称 如果设置了 以设置为准
+        /// </summary>
+        public string TableFieldName { get; set; } = string.Empty;
 
-        public string Alias { get; set; }
+        /// <summary>
+        /// 显示名称 一般用于设置中文 ，该字段在 程序 注册时 自动 通过xml 配置
+        /// </summary>
+        public string DisplayName { get; set; } = string.Empty;
 
-        public bool IsKey { get; set; }
+        public bool IsKey { get; set; } = false;
 
-        public bool IsIdentity { get; set; }
+        public bool IsIdentity { get; set; } = false;
 
-        public bool IsIgnore { get; set; }
+        public bool IsIgnore { get; set; } = false;
 
-        public bool IsColumn { get; set; }
+        public bool IsColumn { get; set; } = true;
 
-        public Type Type { get; set; }
+        public Type Type { get; set; } = null;
 
-        public object Value { get; set; }
+        public object Value { get; set; } = null;
 
     }
 

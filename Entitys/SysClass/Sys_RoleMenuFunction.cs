@@ -13,19 +13,28 @@ namespace Entitys.SysClass
     public class Sys_RoleMenuFunction : Class.BaseClass
     {
 
-        [Field("ID", IsKey = true)]
+        [Field(IsKey = true)]
         public Guid? RoleMenuFunction_ID { get; set; }
 
-        [Field("角色ID")]
+        /// <summary>
+        /// 角色ID
+        /// </summary>
         public Guid? RoleMenuFunction_RoleID { get; set; }
 
-        [Field("功能ID")]
+        /// <summary>
+        /// 功能ID
+        /// </summary>
         public Guid? RoleMenuFunction_FunctionID { get; set; }
 
-        [Field("菜单ID")]
+        /// <summary>
+        /// 菜单ID
+        /// </summary>
         public Guid? RoleMenuFunction_MenuID { get; set; }
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? RoleMenuFunction_CreateTime { get; set; }
 
     }

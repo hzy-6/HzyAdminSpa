@@ -5,31 +5,27 @@ namespace DbFrame.BaseClass
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class FieldAttribute : Attribute
     {
-        public FieldAttribute(string alias)
+        public FieldAttribute(string TableFieldName = null)
         {
-            this.Alias = alias;
-            this.Name = string.Empty;
-            //this.Alias = string.Empty;
-            this.IsKey = false;
-            this.IsIdentity = false;
-            this.IsIgnore = false;
-            this.IsColumn = true;
-            this.Type = null;
+            this.TableFieldName = TableFieldName;
         }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public string Alias { get; set; }
+        /// <summary>
+        /// 字段在数据库中的名称 如果设置了 以设置为准
+        /// </summary>
+        public string TableFieldName { get; set; } = string.Empty;
 
-        public bool IsKey { get; set; }
+        public bool IsKey { get; set; } = false;
 
-        public bool IsIdentity { get; set; }
+        public bool IsIdentity { get; set; } = false;
 
-        public bool IsIgnore { get; set; }
+        public bool IsIgnore { get; set; } = false;
 
-        public bool IsColumn { get; set; }
+        public bool IsColumn { get; set; } = true;
 
-        public Type Type { get; set; }
+        public Type Type { get; set; } = null;
 
 
     }

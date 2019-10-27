@@ -31,7 +31,8 @@ namespace Logic.Class
 
         private bool Start(PropertyInfo item, T _Model)
         {
-            var DisplayName = Parser.GetAttribute<FieldAttribute>(_Model.GetType(), item.Name).Alias;
+            var _FieldDescribeList = DbTable.GetTable(_Model.GetType()).Item2;
+            var DisplayName = _FieldDescribeList?.Find(w => w.Name == item.Name)?.DisplayName;
             var Value = item.GetValue(_Model);
             if (!CRequired(item, _Model, DisplayName, Value))
                 return false;

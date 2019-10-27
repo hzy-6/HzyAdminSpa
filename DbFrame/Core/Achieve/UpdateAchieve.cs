@@ -88,12 +88,16 @@ namespace DbFrame.Core.Achieve
 
             foreach (MemberAssignment item in memberInitExpression.Bindings)
             {
+                var _MemberName = item.Member.Name;
                 var _Name = item.Member.Name;
 
                 //检测有无忽略字段
                 if (IgnoreColumns.Any(w => w == _Name)) continue;
                 //如果主键自增
                 if (_KeyInfo.Name == _Name && _KeyInfo.IsIdentity) continue;
+
+                var _FieldInfo = _Table.Find(w => w.Name == _MemberName);
+                if (_FieldInfo != null) _Name = _FieldInfo.TableFieldName;
 
                 if (item.Expression is BinaryExpression)
                 {

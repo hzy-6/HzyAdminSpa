@@ -12,30 +12,40 @@ namespace Entitys.SysClass
     public class Sys_User : Class.BaseClass
     {
 
-        [Field("ID", IsKey = true)]
+        [Field( IsKey = true)]
         public Guid User_ID { get; set; }
 
+        /// <summary>
+        /// 用户名称
+        /// </summary>
         [CRequired(ErrorMessage = "{name}不能为空")]
-        [Field("用户名称")]
         public string User_Name { get; set; }
 
+        /// <summary>
+        /// 登陆名
+        /// </summary>
         [CRepeat(ErrorMessage = "{name}不能重复")]
-        [Field("登陆名")]
         public string User_LoginName { get; set; }
 
-        [Field("登陆密码")]
+        /// <summary>
+        /// 登陆密码
+        /// </summary>
         public string User_Pwd { get; set; }
 
-        [Field("邮件")]
+        /// <summary>
+        /// 邮件
+        /// </summary>
         public string User_Email { get; set; }
 
         /// <summary>
-        /// 1：是 2：否
+        /// 是否可删除=> 1：是 2：否
         /// </summary>
-        [Field("是否可删除")]
         public int? User_IsDelete { get; set; }
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? User_CreateTime { get; set; }
 
 

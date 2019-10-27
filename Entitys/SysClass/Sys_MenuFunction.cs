@@ -13,16 +13,23 @@ namespace Entitys.SysClass
     public class Sys_MenuFunction : Class.BaseClass
     {
 
-        [Field("ID", IsKey = true)]
+        [Field(IsKey = true)]
         public Guid? MenuFunction_ID { get; set; }
 
-        [Field("菜单ID")]
+        /// <summary>
+        /// 菜单ID
+        /// </summary>
         public Guid? MenuFunction_MenuID { get; set; }
 
-        [Field("功能ID")]
+        /// <summary>
+        /// 功能ID
+        /// </summary>
         public Guid? MenuFunction_FunctionID { get; set; }
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? MenuFunction_CreateTime { get; set; }
 
 

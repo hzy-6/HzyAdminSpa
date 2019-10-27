@@ -36,7 +36,7 @@ namespace Logic.SysClass
                 foreach (var _Col in _Cols)
                 {
                     var _FieldDescribe = _FieldDescribeList?.Find(w => w.Name == _Col.COLUMN_NAME);
-                    if (_FieldDescribe != null) _Col.Alias = _FieldDescribe.Alias;
+                    if (_FieldDescribe != null) _Col.Alias = _FieldDescribe.DisplayName;
                 }
                 dic[item] = _Cols;
             }
@@ -89,16 +89,30 @@ namespace Logic.SysClass
 
                 if (!string.IsNullOrEmpty(_Key))
                 {
-                    _Fields.Append("\t[Field(\"ID\", IsKey = true)]\r\n");
+                    _Fields.Append($"\t[Field(IsKey = true)]\r\n");
                 }
                 else
                 {
                     if (item.COLUMN_NAME.Contains("_CreateTime") && _Type == "DateTime?")
-                        _Fields.Append("\t[Field(\"创建时间\", IsIgnore = true)]\r\n");
+                    {
+                        _Fields.Append(@$"
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+");
+                        _Fields.Append("\t[Field(IsIgnore = true)]\r\n");
+                    }
                     else
-                        _Fields.Append("\t[Field(\"" + item.COLUMN_NAME + "\")]\r\n");
+                    {
+                        _Fields.Append(@$"
+        /// <summary>
+        /// 请设置 {item.COLUMN_NAME} 的显示名称 => {item.COLUMN_NAME}
+        /// </summary>
+");
+                    }
                 }
-                _Fields.Append("\tpublic " + _Type + " " + item.COLUMN_NAME + " { get; set; }\r\n\r\n");
+
+                _Fields.Append($"\tpublic {_Type} {item.COLUMN_NAME} {{ get; set; }}\r\n\r\n");
             }
 
             _Code = _Code.Replace("<#ClassName#>", _ClassName);
@@ -182,19 +196,20 @@ namespace Logic.SysClass
         /// <returns></returns>
         public async Task<string> CreateDbSetCode()
         {
-            //tabs.Register(typeof(Entitys.SysClass.Sys_Function));
-            //tabs.Register(typeof(Entitys.SysClass.Sys_Menu));
-            //tabs.Register(typeof(Entitys.SysClass.Sys_MenuFunction));
-            //tabs.Register(typeof(Entitys.SysClass.Sys_Role));
-            //tabs.Register(typeof(Entitys.SysClass.Sys_RoleMenuFunction));
-            //tabs.Register(typeof(Entitys.SysClass.Sys_User));
-            //tabs.Register(typeof(Entitys.SysClass.Sys_UserRole));
+            //tabs.Register(typeof(Sys_AppLog), (propertyinfo, fielddescribe, tableType) =>
+            //{
+            //    fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim();
+            //});
 
             StringBuilder _StringBuilder = new StringBuilder();
             var _TableNames = await this.GetAllTable();
             foreach (var item in _TableNames)
             {
-                _StringBuilder.Append($"tabs.Register(typeof({item}));\r\n");
+                _StringBuilder.Append(@$"
+tabs.Register(typeof({item}), (propertyinfo, fielddescribe, tableType) =>
+{{
+    fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split(""=>"")?[0];
+}});");
             }
             return _StringBuilder.ToString();
         }
@@ -220,7 +235,7 @@ namespace Logic.SysClass
                     var _FieldDescribe = _FieldDescribeList.Find(w => w.Name == _FieldName);
                     if (_FieldDescribe == null) continue;
                     var _Code = Temp;
-                    _Code = _Code.Replace("<#FieldAlias#>", _FieldDescribe.Alias);
+                    _Code = _Code.Replace("<#FieldAlias#>", _FieldDescribe.DisplayName);
                     _Code = _Code.Replace("<#Field#>", _FieldDescribe.Name);
                     _Codes.Append(_Code + "\r\n");
                 }

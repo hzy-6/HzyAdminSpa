@@ -95,13 +95,15 @@ namespace DbFrame.Core.Achieve
 
             foreach (MemberAssignment item in memberInitExpression.Bindings)
             {
+                var _MemberName = item.Member.Name;
                 var _Name = item.Member.Name;
-
                 //检测有无忽略字段
-                if (IgnoreColumns.Any(w => w == _Name)) continue;
+                if (IgnoreColumns.Any(w => w == _MemberName)) continue;
+                var _FieldInfo = _Table.Find(w => w.Name == _MemberName);
+                if (_FieldInfo != null) _Name = _FieldInfo.TableFieldName;
 
                 var _Val = Parser.Eval(item.Expression);
-                if (_KeyInfo != null && _KeyInfo?.Name == _Name)
+                if (_KeyInfo != null && _KeyInfo?.Name == _MemberName)
                 {
                     //如果主键自增
                     if (_KeyInfo.IsIdentity)
@@ -141,7 +143,7 @@ namespace DbFrame.Core.Achieve
                     if (this._Analysis._DbContextType == DbContextType.Oracle)
                         _Val = "MY_SEQ.NEXTVAL";//MY_SEQ.NEXTVAL
                     else if (this._Analysis._DbContextType == DbContextType.PostgreSQL)
-                        LastInsertId = LastInsertId.Replace("#ID#", _KeyInfo.Name);
+                        LastInsertId = LastInsertId.Replace("#ID#", _KeyInfo.TableFieldName);
                     else
                         _IsContinue = true;
                 }
@@ -154,11 +156,11 @@ namespace DbFrame.Core.Achieve
                 if (!_IsContinue)
                 {
                     var _Count = Sql.Parameter.Count;
-                    _Cols.Add(_KeyInfo.Name);
-                    _Values.Add("@" + _KeyInfo.Name + "_" + _Count);
+                    _Cols.Add(_KeyInfo.TableFieldName);
+                    _Values.Add("@" + _KeyInfo.TableFieldName + "_" + _Count);
                     Sql.Parameter.Add(new DbParam()
                     {
-                        ParameterName = "@" + _KeyInfo.Name + "_" + _Count,
+                        ParameterName = "@" + _KeyInfo.TableFieldName + "_" + _Count,
                         Value = _Val
                     });
                 }

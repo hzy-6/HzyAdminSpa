@@ -13,25 +13,33 @@ namespace Entitys.SysClass
     public class Sys_Role : Class.BaseClass
     {
 
-        [Field("ID", IsKey = true)]
+        [Field(IsKey = true)]
         public Guid Role_ID { get; set; }
 
-        [Field("编号")]
+        /// <summary>
+        /// 编号
+        /// </summary>
         public string Role_Num { get; set; }
 
-        [Field("角色名")]
+        /// <summary>
+        /// 角色名
+        /// </summary>
         public string Role_Name { get; set; }
 
-        [Field("备注")]
+        /// <summary>
+        /// 备注
+        /// </summary>
         public string Role_Remark { get; set; }
 
         /// <summary>
-        /// 1：是 2：否
+        /// 是否可删除=> 1：是 2：否
         /// </summary>
-        [Field("是否可删除")]
         public int? Role_IsDelete { get; set; } = 1;
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? Role_CreateTime { get; set; }
 
     }

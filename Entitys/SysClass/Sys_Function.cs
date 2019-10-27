@@ -13,23 +13,32 @@ namespace Entitys.SysClass
     public class Sys_Function : Class.BaseClass
     {
 
-        [Field("ID", IsKey = true)]
+        [Field(IsKey = true)]
         public Guid Function_ID { get; set; }
 
-        [Field("编号")]
+        /// <summary>
+        /// 编号
+        /// </summary>
         public string Function_Num { get; set; }
 
+        /// <summary>
+        /// 功能名称
+        /// </summary>
         [CRequired(ErrorMessage = "{name}不能为空")]
         [CRepeat(ErrorMessage = "{name}已存在")]
-        [Field("功能名称")]
         public string Function_Name { get; set; }
 
+        /// <summary>
+        /// 功能英文名
+        /// </summary>
         [CRequired(ErrorMessage = "{name}不能为空")]
         [CRepeat(ErrorMessage = "{name}已存在")]
-        [Field("功能英文名")]
         public string Function_ByName { get; set; }
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? Function_CreateTime { get; set; }
 
 

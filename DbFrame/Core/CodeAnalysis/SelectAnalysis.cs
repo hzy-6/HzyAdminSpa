@@ -174,9 +174,9 @@ namespace DbFrame.Core.CodeAnalysis
                     continue;
 
                 if (_Sql.IsAlias)
-                    _Column.Add(_TabName.Key + "." + DbSettings.KeywordHandle(item.Name));
+                    _Column.Add(_TabName.Key + "." + DbSettings.KeywordHandle(item.TableFieldName));
                 else
-                    _Column.Add(DbSettings.KeywordHandle(item.Name));
+                    _Column.Add(DbSettings.KeywordHandle(item.TableFieldName));
             }
 
         }

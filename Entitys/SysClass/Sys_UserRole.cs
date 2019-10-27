@@ -11,16 +11,23 @@ namespace Entitys.SysClass
     [Table("Sys_UserRole")]
     public class Sys_UserRole : Class.BaseClass
     {
-        [Field("ID", IsKey = true)]
+        [Field(IsKey = true)]
         public Guid? UserRole_ID { get; set; }
 
-        [Field("用户ID")]
+        /// <summary>
+        /// 用户ID
+        /// </summary>
         public Guid? UserRole_UserID { get; set; }
 
-        [Field("角色ID")]
+        /// <summary>
+        /// 角色ID
+        /// </summary>
         public Guid? UserRole_RoleID { get; set; }
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? UserRole_CreateTime { get; set; }
 
 

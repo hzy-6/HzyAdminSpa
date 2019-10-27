@@ -12,31 +12,43 @@ namespace Entitys.SysClass
     public class Sys_Menu : Class.BaseClass
     {
 
-        [Field("ID", IsKey = true)]
+        [Field( IsKey = true)]
         public Guid Menu_ID { get; set; }
 
-        [Field("编号")]
+        /// <summary>
+        /// 编号
+        /// </summary>
         public string Menu_Num { get; set; }
 
-        [Field("菜单名称")]
+        /// <summary>
+        /// 菜单名称
+        /// </summary>
         public string Menu_Name { get; set; }
 
-        [Field("地址")]
+        /// <summary>
+        /// 地址
+        /// </summary>
         public string Menu_Url { get; set; }
 
-        [Field("菜单图标")]
+        /// <summary>
+        /// 菜单图标
+        /// </summary>
         public string Menu_Icon { get; set; }
 
-        [Field("父级ID")]
+        /// <summary>
+        /// 父级ID
+        /// </summary>
         public Guid? Menu_ParentID { get; set; }
 
         /// <summary>
-        /// 是否显示 1:是 2：否
+        /// 是否显示=> 1:是 2：否
         /// </summary>
-        [Field("是否显示")]
         public int? Menu_IsShow { get; set; } = 1;
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? Menu_CreateTime { get; set; }
 
     }

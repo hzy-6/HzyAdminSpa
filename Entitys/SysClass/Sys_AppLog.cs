@@ -14,22 +14,33 @@ namespace Entitys.SysClass
     public class Sys_AppLog : Class.BaseClass
     {
 
-        [Field("ID", IsKey = true)]
+        [Field(IsKey = true)]
         public Guid AppLog_ID { get; set; }
 
-        [Field("Api")]
+        /// <summary>
+        /// #Api#
+        /// </summary>
         public string AppLog_Api { get; set; }
 
-        [Field("IP")]
+        /// <summary>
+        /// #IP#
+        /// </summary>
         public string AppLog_IP { get; set; }
 
-        [Field("操作人")]
+        /// <summary>
+        /// #操作人#
+        /// </summary>
         public Guid? AppLog_UserID { get; set; }
 
-        [Field("参数")]
+        /// <summary>
+        /// #参数#
+        /// </summary>
         public string AppLog_Parameter { get; set; }
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// #创建时间#
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? AppLog_CreateTime { get; set; }
 
     }

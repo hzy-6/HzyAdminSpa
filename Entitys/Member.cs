@@ -14,37 +14,58 @@ namespace Entitys
     {
 
 
-        [Field("ID", IsKey = true)]
+        [Field(IsKey = true)]
         public Guid Member_ID { get; set; }
 
-        [Field("编号")]
+        /// <summary>
+        /// 编号
+        /// </summary>
         public string Member_Num { get; set; }
 
-        [Field("会员名称")]
+        /// <summary>
+        /// 会员名称
+        /// </summary>
         public string Member_Name { get; set; }
 
-        [Field("联系电话")]
+        /// <summary>
+        /// 联系电话
+        /// </summary>
         public string Member_Phone { get; set; }
 
-        [Field("性别")]
+        /// <summary>
+        /// 性别
+        /// </summary>
         public string Member_Sex { get; set; } = "男";
 
-        [Field("生日")]
+        /// <summary>
+        /// 生日
+        /// </summary>
         public DateTime? Member_Birthday { get; set; }
 
-        [Field("头像")]
+        /// <summary>
+        /// 头像
+        /// </summary>
         public string Member_Photo { get; set; }
 
-        [Field("帐户ID")]
+        /// <summary>
+        /// 帐户ID
+        /// </summary>
         public Guid? Member_UserID { get; set; }
 
-        [Field("介绍")]
+        /// <summary>
+        /// 介绍
+        /// </summary>
         public string Member_Introduce { get; set; }
 
-        [Field("文件地址")]
+        /// <summary>
+        /// 文件地址
+        /// </summary>
         public string Member_FilePath { get; set; }
 
-        [Field("创建时间", IsIgnore = true)]
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Field(IsIgnore = true)]
         public DateTime? Member_CreateTime { get; set; }
 
 
