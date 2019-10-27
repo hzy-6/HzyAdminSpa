@@ -46,7 +46,21 @@ export default {
       this.$emit("update:imageUrl", JSON.stringify(_fileList));
     },
     handlePreview(file) {
-      //   console.log(file);
+      console.log(file);
+      if (file.status === "success") {
+        var url = file.url;
+        let a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.setAttribute("download", url);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a); // 下载完成移除元素
+        // window.location.href = url
+        window.URL.revokeObjectURL(url); // 只要映射存在，Blob就不能进行垃圾回收，因此一旦不再需要引用，就必须小心撤销URL，释放掉blob对象。
+
+        // window.open(url, "_blank");
+      }
     },
     onChange(file, fileList) {
       //console.log(fileList);
