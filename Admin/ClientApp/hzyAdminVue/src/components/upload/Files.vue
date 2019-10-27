@@ -56,10 +56,6 @@ export default {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a); // 下载完成移除元素
-        // window.location.href = url
-        window.URL.revokeObjectURL(url); // 只要映射存在，Blob就不能进行垃圾回收，因此一旦不再需要引用，就必须小心撤销URL，释放掉blob对象。
-
-        // window.open(url, "_blank");
       }
     },
     onChange(file, fileList) {
