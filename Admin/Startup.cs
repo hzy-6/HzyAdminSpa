@@ -43,8 +43,12 @@ namespace Admin
             });
             #endregion
 
+            #region 使用 单页面
+            services.AddSpaStaticFiles(opt => opt.RootPath = "ClientApp/hzyAdminVue/dist");
+            #endregion
+
             services
-                .AddControllersWithViews(options =>
+                .AddControllers(options =>
                 {
                     options.Filters.Add(new AppService.AppExceptionFilter());
                 })
@@ -57,25 +61,15 @@ namespace Admin
             services.AdminConfigureServices(Configuration);
             #endregion
 
-            #region 使用 单页面
-            services.AddSpaStaticFiles(opt => opt.RootPath = "ClientApp/hzyAdminVue/dist");
-            #endregion
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Error");
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -95,75 +89,40 @@ namespace Admin
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-
-                //endpoints.MapControllers();
+                endpoints.MapControllers();
 
                 #region 使用 单页面
                 // Note: only use vuecliproxy in development. 
                 // Production should use "UseSpaStaticFiles()" and the webpack dist
                 if (env.IsDevelopment())
                 {
-                    //endpoints.MapToVueCliProxy(
-                    //                    "{*path}",
-                    //                    new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" },
-                    //                    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    //                    npmScript: "serve",
-                    //                    port: 6666
-                    //                    );
-#if DEBUG
-                    //if (System.Diagnostics.Debugger.IsAttached)
-                    //    endpoints.MapToVueCliProxy("{*path}", new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" }, "dev", port: 6666, regex: "编译成功!");
-
-
-
-                    //if (System.Diagnostics.Debugger.IsAttached)
-                    //endpoints.MapToVueCliProxy(
-                    //                    "{*path}",
-                    //                    new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" },
-                    //                    //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    //                    npmScript: "serve",
-                    //                    port: 6666
-                    //                    );
-
-
-                    //else
-#endif
-                    // note: output of vue cli or quasar cli should be wwwroot
-                    //endpoints.MapFallbackToFile("ClientApp/hzyAdminVue/public/index.html");
-
+                    // Note: only use vuecliproxy in development. 
+                    // Production should use "UseSpaStaticFiles()" and the webpack dist
+                    endpoints.MapToVueCliProxy(
+                        "{*path}",
+                        new SpaOptions { SourcePath = "ClientApp/hzyAdminVue/" },
+                        npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                        port: 6666,
+                        regex: "Compiled successfully"
+                        );
                 }
-
-                //#if DEBUG
-                //                if (System.Diagnostics.Debugger.IsAttached)
-                //                    //endpoints.MapToVueCliProxy("{*path}", new SpaOptions { SourcePath = "ClientApp" }, "dev", regex: "Compiled successfully");
-                //                    endpoints.MapToVueCliProxy("{*path}", new SpaOptions { SourcePath = "ClientApp/hzyAdminVue" }, "dev", port: 6666, regex: "编译成功!");
-                //                else
-                //#endif
-                //                    // note: output of vue cli or quasar cli should be wwwroot
-                //                    endpoints.MapFallbackToFile("index.html");
 
                 #endregion
 
-
             });
-
-
 
             #region 使用 单页面 .net core 2.2 
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp/hzyAdminVue/";
-                if (env.IsDevelopment())
-                {
-                    //vue-cli-service serve
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");//使用这个需要自己启动 vue 项目
-                    spa.UseVueCli(npmScript: "serve", port: 6666); //自动启动服务
-                }
-            });
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "ClientApp/hzyAdminVue/";
+            //    if (env.IsDevelopment())
+            //    {
+            //        //vue-cli-service serve
+            //        //spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");//使用这个需要自己启动 vue 项目
+            //        spa.UseVueCli(npmScript: "serve", port: 6666); //自动启动服务
+            //    }
+            //});
 
             #endregion
 

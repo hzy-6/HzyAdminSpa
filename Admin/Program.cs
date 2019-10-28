@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Admin
 {
+    using Microsoft.Extensions.Hosting;
     using NLog.Web;
     using Toolkit.LogService;
 
@@ -16,14 +17,13 @@ namespace Admin
     {
         public static void Main(string[] args)
         {
-            //CreateWebHostBuilder(args).Build().Run();
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("NLog/nlog.config").GetCurrentClassLogger();
             try
             {
                 //ÉèÖÃNLog
                 LogHelper.Set(logger);
                 logger.Debug("³õÊ¼»¯ Main !");
-                CreateWebHostBuilder(args).Build().Run();
+                CreateHostBuilder(args).Build().Run();
             }
             catch (Exception exception)
             {
@@ -38,14 +38,17 @@ namespace Admin
             }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .ConfigureLogging(logging =>
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    logging.ClearProviders();
-                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                })
-                .UseNLog();  // NLog: Setup NLog for Dependency injection;
+                    webBuilder.UseStartup<Startup>()
+                    .ConfigureLogging(logging =>
+                    {
+                        logging.ClearProviders();
+                        logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                    })
+                    .UseNLog();  // NLog: Setup NLog for Dependency injection;;
+                });
     }
 }
