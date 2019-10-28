@@ -29,7 +29,6 @@ namespace Admin
             {
                 //NLog: catch setup errors
                 logger.Error(exception, "由于异常而停止程序!");
-                throw;
             }
             finally
             {

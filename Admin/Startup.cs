@@ -92,8 +92,6 @@ namespace Admin
                 endpoints.MapControllers();
 
                 #region 使用 单页面
-                // Note: only use vuecliproxy in development. 
-                // Production should use "UseSpaStaticFiles()" and the webpack dist
                 if (env.IsDevelopment())
                 {
                     // Note: only use vuecliproxy in development. 
