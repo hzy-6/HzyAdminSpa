@@ -112,7 +112,7 @@ namespace Logic.SysClass
                     }
                 }
 
-                _Fields.Append($"\tpublic {_Type} {item.COLUMN_NAME} {{ get; set; }}\r\n\r\n");
+                _Fields.Append($"\tpublic {_Type} {item.COLUMN_NAME} {{ get; set; }}\r\n");
             }
 
             _Code = _Code.Replace("<#ClassName#>", _ClassName);
