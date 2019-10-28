@@ -63,10 +63,11 @@ namespace Admin.Controllers
 
             if (!Directory.Exists(_WebRootPath + _Directory)) Directory.CreateDirectory(_WebRootPath + _Directory);
             string filePath = $"{_Directory}{Guid.NewGuid()}_{_IFormFile.FileName}";
+
             // 创建新文件
             using (FileStream fs = System.IO.File.Create(_WebRootPath + filePath))
             {
-                await _IFormFile.CopyToAsync(fs);
+                _IFormFile.CopyTo(fs);
                 // 清空缓冲区数据
                 await fs.FlushAsync();
             }
