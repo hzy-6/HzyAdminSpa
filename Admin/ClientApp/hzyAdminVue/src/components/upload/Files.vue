@@ -3,6 +3,7 @@
     <el-upload
       class="upload-demo"
       action="/Upload/Multiple"
+      ref="upload"
       :on-preview="handlePreview"
       :on-remove="handleRemove"
       :file-list="fileList"
@@ -29,14 +30,13 @@ export default {
   },
   watch: {
     imageUrl(newV) {
-      // console.log(newV);
       this.fileList = newV ? JSON.parse(newV) : [];
     }
   },
   //计算属性
   computed: {},
   mounted() {
-    // console.log(this.imageUrl);
+    this.upfile = [];
   },
   methods: {
     submitUpload() {
@@ -46,7 +46,6 @@ export default {
       this.$emit("update:imageUrl", JSON.stringify(_fileList));
     },
     handlePreview(file) {
-      console.log(file);
       if (file.status === "success") {
         var url = file.url;
         let a = document.createElement("a");
@@ -59,10 +58,12 @@ export default {
       }
     },
     onChange(file, fileList) {
-      //console.log(fileList);
+      // console.log("conchange", fileList);
       //this.fileUrl = URL.createObjectURL(file.raw);
       this.upfile = fileList;
-      //   this.fileList = fileList;
+    },
+    clearUpFile() {
+      this.upfile = [];
     }
   }
 };

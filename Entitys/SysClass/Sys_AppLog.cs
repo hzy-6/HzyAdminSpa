@@ -18,27 +18,27 @@ namespace Entitys.SysClass
         public Guid AppLog_ID { get; set; }
 
         /// <summary>
-        /// #Api#
+        /// Api
         /// </summary>
         public string AppLog_Api { get; set; }
 
         /// <summary>
-        /// #IP#
+        /// IP
         /// </summary>
         public string AppLog_IP { get; set; }
 
         /// <summary>
-        /// #操作人#
+        /// 操作人
         /// </summary>
         public Guid? AppLog_UserID { get; set; }
 
         /// <summary>
-        /// #参数#
+        /// 参数
         /// </summary>
         public string AppLog_Parameter { get; set; }
 
         /// <summary>
-        /// #创建时间#
+        /// 创建时间
         /// </summary>
         [Field(IsIgnore = true)]
         public DateTime? AppLog_CreateTime { get; set; }

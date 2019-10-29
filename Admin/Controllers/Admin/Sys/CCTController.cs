@@ -25,11 +25,8 @@ namespace Admin.Controllers.Admin.Sys
     [Route("Admin/[controller]")]
     public class CCTController : ApiBaseController
     {
-        private string _WebRootPath = string.Empty;
-        public CCTController(IWebHostEnvironment IWebHostEnvironment)
-        {
-            _WebRootPath = IWebHostEnvironment.WebRootPath;
-        }
+        private string _WebRootPath { get; } = string.Empty;
+        public CCTController(IWebHostEnvironment IWebHostEnvironment) => _WebRootPath = IWebHostEnvironment.WebRootPath;
 
         Sys_CreateCodeLogic _Logic = new Sys_CreateCodeLogic();
 

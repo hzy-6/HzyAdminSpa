@@ -15,7 +15,7 @@ namespace Entitys
 
 
         [Field(IsKey = true)]
-        public Guid Member_ID { get; set; }
+        public Guid Member_ID { get; set; } = Guid.Empty;
 
         /// <summary>
         /// 编号

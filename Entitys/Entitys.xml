@@ -177,27 +177,27 @@
         </member>
         <member name="P:Entitys.SysClass.Sys_AppLog.AppLog_Api">
             <summary>
-            #Api#
+            Api
             </summary>
         </member>
         <member name="P:Entitys.SysClass.Sys_AppLog.AppLog_IP">
             <summary>
-            #IP#
+            IP
             </summary>
         </member>
         <member name="P:Entitys.SysClass.Sys_AppLog.AppLog_UserID">
             <summary>
-            #操作人#
+            操作人
             </summary>
         </member>
         <member name="P:Entitys.SysClass.Sys_AppLog.AppLog_Parameter">
             <summary>
-            #参数#
+            参数
             </summary>
         </member>
         <member name="P:Entitys.SysClass.Sys_AppLog.AppLog_CreateTime">
             <summary>
-            #创建时间#
+            创建时间
             </summary>
         </member>
         <member name="T:Entitys.SysClass.Sys_Function">

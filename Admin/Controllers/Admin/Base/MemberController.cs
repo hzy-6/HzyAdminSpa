@@ -23,11 +23,8 @@ namespace Admin.Controllers.Admin.Base
     /// </summary>
     public class MemberController : AdminBaseController
     {
-        private string _WebRootPath = string.Empty;
-        public MemberController(IWebHostEnvironment IWebHostEnvironment)
-        {
-            _WebRootPath = IWebHostEnvironment.WebRootPath;
-        }
+        private string _WebRootPath { get; } = string.Empty;
+        public MemberController(IWebHostEnvironment IWebHostEnvironment) => _WebRootPath = IWebHostEnvironment.WebRootPath;
 
         protected MemberLogic _Logic = new MemberLogic();
 
@@ -78,26 +75,34 @@ namespace Admin.Controllers.Admin.Base
         [HttpPost(nameof(Save)), AppService.ApiCheckTokenFilter]
         public async Task<IActionResult> Save(Member model, IFormFile Member_Photo_Files, List<IFormFile> Member_FilePath_Files)
         {
+            var _OldMember = await db.FindByIdAsync<Member>(model.Member_ID);
+
             this.FormKey = await _Logic.Save(model, async member =>
-              {
-                  if (Member_Photo_Files != null)
-                  {
-                      member.Member_Photo = await this.HandleUpFile(Member_Photo_Files, _WebRootPath);
-                  }
-                  if (Member_FilePath_Files.Count > 0)
-                  {
-                      var _Path = new List<object>();
-                      if (!string.IsNullOrWhiteSpace(model.Member_FilePath))
-                          _Path = JsonSerializer.Deserialize<List<object>>(model.Member_FilePath);
-                      if (_Path == null) _Path = new List<object>();
-                      foreach (var item in Member_FilePath_Files)
-                      {
-                          _Path.Add(new { name = item.FileName, url = await this.HandleUpFile(item, _WebRootPath) });
-                      }
-                      if (_Path.Count > 0) member.Member_FilePath = _Path.Serialize();
-                  }
-                  return member;
-              });
+            {
+                if (Member_Photo_Files != null)
+                {
+                    member.Member_Photo = await this.HandleUpFile(Member_Photo_Files, _WebRootPath);
+                }
+                var _Path = new List<Sys_FileInfo>();
+                if (!string.IsNullOrWhiteSpace(model.Member_FilePath)) _Path = JsonSerializer.Deserialize<List<Sys_FileInfo>>(model.Member_FilePath);
+                if (_Path == null) _Path = new List<Sys_FileInfo>();
+                if (Member_FilePath_Files.Count > 0)
+                {
+                    foreach (var item in Member_FilePath_Files) _Path.Add(new Sys_FileInfo(item.FileName, await this.HandleUpFile(item, _WebRootPath)));
+                    if (_Path.Count > 0) member.Member_FilePath = _Path.Serialize();
+                }
+                //判断如果是修改、并且删除已经被移除的文件
+                if (model.Member_ID != Guid.Empty)
+                {
+                    var _Sys_FileInfoList = JsonSerializer.Deserialize<List<Sys_FileInfo>>(_OldMember.Member_FilePath);
+                    foreach (var item in _Sys_FileInfoList)
+                    {
+                        var _RemoveUrl = _WebRootPath + item.url;
+                        if (!_Path.Any(w => w.url == item.url) & System.IO.File.Exists(_RemoveUrl)) System.IO.File.Delete(_RemoveUrl);
+                    }
+                }
+                return member;
+            });
 
             return Json();
         }

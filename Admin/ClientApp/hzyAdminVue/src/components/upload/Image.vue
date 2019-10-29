@@ -40,6 +40,9 @@ export default {
     onChange(file, fileList) {
       this.fileUrl = URL.createObjectURL(file.raw);
       this.upfile = file;
+    },
+    clearUpFile() {
+      this.upfile = null;
     }
   }
 };

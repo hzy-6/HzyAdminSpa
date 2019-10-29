@@ -221,18 +221,19 @@ export default {
     },
     _save() {
       //对文件处理
-      var file = this.$refs.ref_Member_Photo.upfile;
-      var files = this.$refs.ref_Member_FilePath.upfile;
-      // console.log(files,this.form.vm);
+      var file = this.$refs.ref_Member_Photo;
+      var files = this.$refs.ref_Member_FilePath;
       this.save(_FormData => {
-        if (file) _FormData.append("Member_Photo_Files", file.raw);
-        if (files.length > 0) {
-          for (var i = 0; i < files.length; i++) {
-            var item = files[i];
-            console.log(item);
+        if (file.upfile) _FormData.append("Member_Photo_Files", file.upfile.raw);
+        if (files.upfile.length > 0) {
+          for (var i = 0; i < files.upfile.length; i++) {
+            var item = files.upfile[i];
             _FormData.append("Member_FilePath_Files", item.raw);
           }
         }
+        //清除
+        file.clearUpFile();
+        files.clearUpFile();
       });
     }
   }
