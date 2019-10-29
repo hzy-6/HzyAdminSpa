@@ -20,7 +20,7 @@
 
 1. 找到目录 HzyAdminSpa/ Admin / ClientApp / hzyAdminVue 使用 VS Code 打开
 2. VS Code 执行 cnpm install 拉包 （node 环境 这些不懂得自行百度查询资料！）
-3. 然后使用 Vs 2019 f5 调试模式 运行即可
+3. 然后使用 Vs 2019 打开服务端代码 f5 调试模式 运行即可
 4. 地址栏键入 /swagger 进入前端接口文档页面
 5. 地址栏键入 /cct 进入代码创建页面
 
