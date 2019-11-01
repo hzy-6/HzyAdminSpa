@@ -145,7 +145,7 @@ namespace Logic.SysClass
 
                 var IQuery = db
                     .Query<{TableName}>()
-                    .WhereIF(!string.IsNullOrEmpty(Search[""{_Name}""].ToStr()), w => w.t1.{_Name}.Contains(Search[""{_Name}""].ToStr()));
+                    .WhereIF(!string.IsNullOrEmpty(Search[""{_Name}""].ToStr()), w => w.t1.{_Name}==(Search[""{_Name}""].ToStr()));
 
                 if (string.IsNullOrEmpty(Search[""sortName""].ToStr()))
                     IQuery.OrderBy(w => new {{ w.t1.{TableName}_CreateTime }});
@@ -154,7 +154,7 @@ namespace Logic.SysClass
 
                 IQuery.Select(w => new
                 {{
-                    {(_Select == null ? "" : "w.t1." + string.Join(",w.t1.", _Select.Select(w => w.COLUMN_NAME)))}
+                    {(_Select == null ? "" : "w.t1." + string.Join(",w.t1.", _Select.Select(w => w.COLUMN_NAME)))},
                     _ukid = w.t1.{_KeyName.COLUMN_NAME}
                 }});
 
@@ -196,20 +196,13 @@ namespace Logic.SysClass
         /// <returns></returns>
         public async Task<string> CreateDbSetCode()
         {
-            //tabs.Register(typeof(Sys_AppLog), (propertyinfo, fielddescribe, tableType) =>
-            //{
-            //    fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim();
-            //});
-
             StringBuilder _StringBuilder = new StringBuilder();
+            _StringBuilder.Append("var _types = new List<Type>();\r\n");
             var _TableNames = await this.GetAllTable();
             foreach (var item in _TableNames)
             {
-                _StringBuilder.Append(@$"
-tabs.Register(typeof({item}), (propertyinfo, fielddescribe, tableType) =>
-{{
-    fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split(""=>"")?[0];
-}});");
+                _StringBuilder.Append(@$"_types.Add(typeof({item}));
+");
             }
             return _StringBuilder.ToString();
         }

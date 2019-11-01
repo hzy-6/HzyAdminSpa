@@ -15,44 +15,28 @@ namespace Entitys.Class
 
         public static void Register(DbTable tabs)
         {
+            var _types = new List<Type>();
+            _types.Add(typeof(Sys_AppLog));
+            _types.Add(typeof(Sys_Function));
+            _types.Add(typeof(Sys_Menu));
+            _types.Add(typeof(Sys_MenuFunction));
+            _types.Add(typeof(Sys_Role));
+            _types.Add(typeof(Sys_RoleMenuFunction));
+            _types.Add(typeof(Sys_User));
+            _types.Add(typeof(Sys_UserRole));
+            _types.Add(typeof(Member));
 
-            tabs.Register(typeof(Sys_AppLog), (propertyinfo, fielddescribe, tableType) =>
-            {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
-            tabs.Register(typeof(Sys_Function), (propertyinfo, fielddescribe, tableType) =>
-            {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
-            tabs.Register(typeof(Sys_Menu), (propertyinfo, fielddescribe, tableType) =>
-            {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
-            tabs.Register(typeof(Sys_MenuFunction), (propertyinfo, fielddescribe, tableType) =>
-            {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
-            tabs.Register(typeof(Sys_Role), (propertyinfo, fielddescribe, tableType) =>
-            {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
-            tabs.Register(typeof(Sys_RoleMenuFunction), (propertyinfo, fielddescribe, tableType) =>
-            {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
-            tabs.Register(typeof(Sys_User), (propertyinfo, fielddescribe, tableType) =>
-            {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
-            tabs.Register(typeof(Sys_UserRole), (propertyinfo, fielddescribe, tableType) =>
-            {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
             //
-            tabs.Register(typeof(Member), (propertyinfo, fielddescribe, tableType) =>
+            //注册 Model 并解析 xml 注解
+            //
+            foreach (var item in _types)
             {
-                fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
-            });
+                tabs.Register(item, (propertyinfo, fielddescribe, tableType) =>
+                {
+                    fielddescribe.DisplayName = Toolkit.ReadXmlSummary.XMLForMember(propertyinfo)?.InnerText?.Trim()?.Split("=>")?[0];
+                });
+            }
+
         }
 
     }
