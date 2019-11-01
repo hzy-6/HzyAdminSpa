@@ -150,7 +150,7 @@ namespace Logic.SysClass
                 if (string.IsNullOrEmpty(Search[""sortName""].ToStr()))
                     IQuery.OrderBy(w => new {{ w.t1.{TableName}_CreateTime }});
                 else
-                    IQuery.OrderBy(w => Search[""sortName""].ToStr() + "" "" + Search[""sortOrder""].ToStr());//前端自动排序
+                    IQuery.OrderBy(w => $""{{Search[""sortName""].ToStr()}} {{ Search[""sortOrder""].ToStr()}}"");//前端自动排序
 
                 var _IQuery = IQuery.Select(w => new
                 {{

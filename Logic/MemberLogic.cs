@@ -34,7 +34,7 @@ namespace Logic
             if (string.IsNullOrEmpty(Search["sortName"].ToStr()))
                 _Query.OrderBy(w => new { desc = w.t1.Member_Num });//默认排序字段
             else
-                _Query.OrderBy(w => Search["sortName"].ToStr() + " " + Search["sortOrder"].ToStr());//前端自动排序
+                _Query.OrderBy(w => $"{Search["sortName"].ToStr()} {Search["sortOrder"].ToStr()}");//前端自动排序
 
             var IQuery = _Query.Select(w => new
             {
