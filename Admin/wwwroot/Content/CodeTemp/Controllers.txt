@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Admin.Controllers.Admin.请输入命名空间
+namespace Admin.Controllers.Admin.//请输入命名空间
 {
     using System.Collections;
     using Entitys.SysClass;
@@ -14,6 +14,7 @@ namespace Admin.Controllers.Admin.请输入命名空间
     using DbFrame;
     using Toolkit;
     using Logic.Class;
+	using Entitys;
 
     /// <summary>
     /// <#TableName#> 管理

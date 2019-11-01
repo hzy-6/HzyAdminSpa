@@ -92,18 +92,19 @@ namespace Admin
                 endpoints.MapControllers();
 
                 #region 使用 单页面
-                if (env.IsDevelopment())
-                {
-                    // Note: only use vuecliproxy in development. 
-                    // Production should use "UseSpaStaticFiles()" and the webpack dist
-                    endpoints.MapToVueCliProxy(
-                        "{*path}",
-                        new SpaOptions { SourcePath = "ClientApp/hzyAdminVue/" },
-                        npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                        port: 6666,
-                        regex: "Compiled successfully"
-                        );
-                }
+                //if (env.IsDevelopment())
+                //{
+                //    // 使用这种方式启动单页面 路由会与 swagger 冲突
+                //    // Note: only use vuecliproxy in development. 
+                //    // Production should use "UseSpaStaticFiles()" and the webpack dist
+                //    endpoints.MapToVueCliProxy(
+                //        "{*path}",
+                //        new SpaOptions { SourcePath = "ClientApp/hzyAdminVue/" },
+                //        npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                //        port: 6666,
+                //        regex: "Compiled successfully"
+                //        );
+                //}
 
                 #endregion
 
@@ -111,16 +112,16 @@ namespace Admin
 
             #region 使用 单页面 .net core 2.2 
 
-            //app.UseSpa(spa =>
-            //{
-            //    spa.Options.SourcePath = "ClientApp/hzyAdminVue/";
-            //    if (env.IsDevelopment())
-            //    {
-            //        //vue-cli-service serve
-            //        //spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");//使用这个需要自己启动 vue 项目
-            //        spa.UseVueCli(npmScript: "serve", port: 6666); //自动启动服务
-            //    }
-            //});
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp/hzyAdminVue/";
+                if (env.IsDevelopment())
+                {
+                    //vue-cli-service serve
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");//使用这个需要自己启动 vue 项目
+                    spa.UseVueCli(npmScript: "serve", port: 6666); //自动启动服务
+                }
+            });
 
             #endregion
 
