@@ -152,7 +152,7 @@ namespace Logic.SysClass
                 else
                     IQuery.OrderBy(w => Search[""sortName""].ToStr() + "" "" + Search[""sortOrder""].ToStr());//前端自动排序
 
-                IQuery.Select(w => new
+                var _IQuery = IQuery.Select(w => new
                 {{
                     {(_Select == null ? "" : "w.t1." + string.Join(",w.t1.", _Select.Select(w => w.COLUMN_NAME)))},
                     _ukid = w.t1.{_KeyName.COLUMN_NAME}

@@ -29,9 +29,9 @@ namespace Logic
         {
 	<#QueryCode#>
 
-            IQuery.TakePage(Page, Rows, out int TotalCount);
+            _IQuery.TakePage(Page, Rows, out int TotalCount);
 
-            return this.GetTableViewModel(IQuery, TotalCount, Rows);
+            return this.GetTableViewModel(_IQuery, TotalCount, Rows);
         }
 
         /// <summary>
