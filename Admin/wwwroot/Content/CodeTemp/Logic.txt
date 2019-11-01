@@ -14,7 +14,7 @@ namespace Logic
     using System.Threading.Tasks;
     using Entitys;
 
-    public class <#ClassName#>Logic : BaseLogic
+    public class <#ClassName#> : BaseLogic
     {
         #region  增、删、改、查
 
