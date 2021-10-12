@@ -1,0 +1,433 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HZY.Controllers.Admin</name>
+    </assembly>
+    <members>
+        <member name="T:HZY.Controllers.Admin.Base.MemberController">
+            <summary>
+            会员控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Base.MemberController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Member)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Base.MemberController.DeleteListAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据id数组删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Base.MemberController.FindFormAsync(System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Base.MemberController.SaveFormAsync(HZY.Models.Entities.Member)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Base.MemberController.ExportExcelAsync(HZY.Models.Entities.Member)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.PersonalCenterController">
+            <summary>
+            个人中心
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.PersonalCenterController.ChangePasswordAsync(HZY.Models.DTO.ChangePasswordFormDto)">
+            <summary>
+            更新密码
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.PersonalCenterController.SaveFormAsync(HZY.Models.Entities.Framework.SysUser)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysDictionaryController">
+            <summary>
+            数据字典控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysDictionaryController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Framework.SysDictionary)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysDictionaryController.DeleteListAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据id数组删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysDictionaryController.FindFormAsync(System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysDictionaryController.SaveFormAsync(HZY.Models.Entities.Framework.SysDictionary)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysDictionaryController.ExportExcelAsync(HZY.Models.Entities.Framework.SysDictionary)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysDictionaryController.GetDictionaryTreeAsync">
+            <summary>
+            获取字典树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysFunctionController">
+            <summary>
+            功能控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysFunctionController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Framework.SysFunction)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysFunctionController.DeleteListAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据id数组删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysFunctionController.FindFormAsync(System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysFunctionController.SaveFormAsync(HZY.Models.Entities.Framework.SysFunction)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysFunctionController.ExportExcelAsync(HZY.Models.Entities.Framework.SysFunction)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysMenuController">
+            <summary>
+            菜单控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysMenuController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Framework.SysMenu)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysMenuController.DeleteListAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据id数组删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysMenuController.FindFormAsync(System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysMenuController.SaveFormAsync(HZY.Models.DTO.SysMenuFormDto)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysMenuController.ExportExcelAsync(HZY.Models.Entities.Framework.SysMenu)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysMenuController.FindSysMenuTreeAsync">
+            <summary>
+            获取菜单列表 以及 页面按钮权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysMenuController.FindMenuFunctionTreeAsync">
+            <summary>
+            获取菜单功能树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysOperationLogController">
+            <summary>
+            操作日志控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysOperationLogController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Framework.SysOperationLog)">
+            <summary>
+            获取表单数据
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysOperationLogController.FindFormAsync(System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysOrganizationController">
+            <summary>
+            组织机构控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysOrganizationController.FindListAsync(HZY.Models.Entities.Framework.SysOrganization)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysOrganizationController.DeleteListAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据id数组删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysOrganizationController.FindFormAsync(System.Guid,System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysOrganizationController.SaveFormAsync(HZY.Models.Entities.Framework.SysOrganization)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysPostController">
+            <summary>
+            岗位控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysPostController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Framework.SysPost)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysPostController.DeleteListAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据id数组删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysPostController.FindFormAsync(System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysPostController.SaveFormAsync(HZY.Models.Entities.Framework.SysPost)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysPostController.ExportExcelAsync(HZY.Models.Entities.Framework.SysPost)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysRoleController">
+            <summary>
+            角色控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysRoleController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Framework.SysRole)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysRoleController.DeleteListAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据id数组删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysRoleController.FindFormAsync(System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysRoleController.SaveFormAsync(HZY.Models.Entities.Framework.SysRole)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysRoleController.ExportExcelAsync(HZY.Models.Entities.Framework.SysRole)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysRoleMenuFunctionController">
+            <summary>
+            角色菜单功能控制器
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysRoleMenuFunctionController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Framework.SysRole)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysRoleMenuFunctionController.SaveFormAsync(HZY.Models.DTO.SysRoleMenuFunctionFormDto)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysRoleMenuFunctionController.FindRoleMenuFunctionTreeAsync(System.Guid)">
+            <summary>
+            获取菜单功能树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.Controllers.Admin.Framework.SysUserController">
+            <summary>
+            系统账号管理
+            </summary>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysUserController.FindListAsync(System.Int32,System.Int32,HZY.Models.Entities.Framework.SysUser)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="size"></param>
+            <param name="page"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysUserController.DeleteListAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据id数组删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysUserController.FindFormAsync(System.Guid)">
+            <summary>
+            查询表单数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysUserController.SaveFormAsync(HZY.Models.DTO.SysUserFormDto)">
+            <summary>
+            保存
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysUserController.ExportExcelAsync(HZY.Models.Entities.Framework.SysUser)">
+            <summary>
+            导出Excel
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysUserController.GetUserInfoAsync">
+            <summary>
+            获取用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.Controllers.Admin.Framework.SysUserController.GetSysDepartmentTreeAsync">
+            <summary>
+            获取部门树
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

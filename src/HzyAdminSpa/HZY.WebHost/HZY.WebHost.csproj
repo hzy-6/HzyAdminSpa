@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>HZY.WebHost.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="HZY.WebHost.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.7.21378.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HZY.EFCore\HZY.EFCore.csproj" />
+    <ProjectReference Include="..\HZY.Controllers.Admin\HZY.Controllers.Admin.csproj" />
+    <ProjectReference Include="..\HZY.Controllers.App\HZY.Controllers.App.csproj" />
+    <ProjectReference Include="..\HZY.Controllers\HZY.Controllers.csproj" />
+    <ProjectReference Include="..\HZY.Infrastructure\HZY.Infrastructure.csproj" />
+    <ProjectReference Include="..\HZY.Models\HZY.Models.csproj" />
+    <ProjectReference Include="..\HZY.Repositories.Redis\HZY.Repositories.Redis.csproj" />
+    <ProjectReference Include="..\HZY.Repositories\HZY.Repositories.csproj" />
+    <ProjectReference Include="..\HZY.Services.Admin\HZY.Services.Admin.csproj" />
+    <ProjectReference Include="..\HZY.Services\HZY.Services.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

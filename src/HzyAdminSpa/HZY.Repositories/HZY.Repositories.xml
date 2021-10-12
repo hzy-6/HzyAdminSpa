@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HZY.Repositories</name>
+    </assembly>
+    <members>
+        <member name="T:HZY.Repositories.Framework.SysDictionaryRepository">
+            <summary>
+            数据字典仓储
+            </summary>
+        </member>
+        <member name="T:HZY.Repositories.Framework.SysOperationLogRepository">
+            <summary>
+            操作日志 仓储
+            </summary>
+        </member>
+    </members>
+</doc>
